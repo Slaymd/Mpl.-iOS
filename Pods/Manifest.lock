@@ -1,0 +1,33 @@
+PODS:
+  - Alamofire (4.6.0)
+  - Mapbox-iOS-SDK (3.7.3)
+  - MarqueeLabel/Swift (3.1.4)
+  - NotificationBannerSwift (1.6.1):
+    - MarqueeLabel/Swift
+    - SnapKit (~> 4.0)
+  - SnapKit (4.0.0)
+  - SQLite.swift (0.11.4):
+    - SQLite.swift/standard (= 0.11.4)
+  - SQLite.swift/standard (0.11.4)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.6)
+  - Mapbox-iOS-SDK (~> 3.7)
+  - MarqueeLabel/Swift
+  - NotificationBannerSwift
+  - SQLite.swift (~> 0.11.4)
+  - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
+  MarqueeLabel: bf768455fe88d427f71476ebb23f9092b660f40b
+  NotificationBannerSwift: 1fc2955381e6eb26d958ba32160fc41721b9b689
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SQLite.swift: 3e3bee21da701b5b9f87c4a672cb54f233505692
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: 12eac6472f1d2bd573cb51380cf002df8de18b06
+
+COCOAPODS: 1.4.0
