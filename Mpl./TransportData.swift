@@ -45,6 +45,24 @@ class TransportData {
         return stopzone[0]
     }
     
+    static func getStopById(stopCitywayId: Int) -> Stop? {
+        let stop = stops.filter({$0.citywayId == stopCitywayId})
+        
+        if stop.count != 1 { return nil }
+        return stop[0]
+    }
+    
+    static func getStopByIdAtStopZone(stopZone: StopZone, stopCitywayId: Int) -> Stop? {
+        var fstop: Stop?
+        
+        for stop in stopZone.stops {
+            for dir in stop.directions {
+                if (dir.arrival.citywayId == stopCitywayId) { fstop = dir.arrival }
+            }
+        }
+        return (fstop)
+    }
+    
     static func updateStopZoneDirections(stopZone: StopZone) {
         for stop in stopZone.stops {
             if stop.directions.count != 0 { continue }

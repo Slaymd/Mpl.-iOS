@@ -26,7 +26,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
     var refresher: Timer!
     
     var favStations: [StopZone] = []
-    var favStationsCards: [UIStationCard] = [UIStationCard]()
+    //var favStationsCards: [UIStationCard] = [UIStationCard]()
     
     let gradient = CAGradientLayer()
     
@@ -62,7 +62,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         super.viewWillAppear(animated)
         
         //Removing station cards for update
-        favStationsCards.removeAll()
+        //favStationsCards.removeAll()
         //deleting old display
         for view in favStationScrollView.subviews {
             view.removeFromSuperview()
@@ -96,7 +96,10 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 newFavStations[i].updateTimetable()
                 if newFavStations[i].needDisplayUpdate == 1 {
                     newFavStations[i].needDisplayUpdate = 0
-                    self.stationCollectionView.reloadItems(at: [IndexPath.init(item: i, section: 0)])
+                    let cell = self.stationCollectionView.cellForItem(at: IndexPath.init(item: i, section: 0)) as? HomeStationCollectionViewCell
+                    
+                    if (cell == nil) { continue }
+                    cell!.updateDisplayedArrivals()
                 }
             }
         }
@@ -179,7 +182,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
     
-    @objc func handleTap(sender: UITapGestureRecognizer) {
+    /*@objc func handleTap(sender: UITapGestureRecognizer) {
         let loc = sender.location(in: favStationScrollView)
         var station: StopZone!
         //Getting station from X, Y
@@ -227,7 +230,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 }
             }
         }
-    }
+    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

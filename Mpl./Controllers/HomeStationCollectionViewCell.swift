@@ -54,6 +54,8 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     
     func fill(_ station: StopZone) {
         if self.station != nil && self.station!.id == station.id { return }
+        //Updating station
+        station.updateTimetable()
         //Saving station object
         self.station = station
         //Station name
@@ -89,19 +91,20 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     
     func updateDisplayedArrivals() {
         if (self.station == nil) { return }
-        var nbArrivals = self.station!.timetable.schedules.count
+        var nbArrivals = self.station!.schedules.count
         
         hideAllScheduleElements()
         if nbArrivals > 0 {
             otherLabel.isHidden = true
             nbArrivals = nbArrivals > 2 ? 2 : nbArrivals
             for i in 0..<nbArrivals {
-                let schedule = self.station!.timetable.schedules[i]
+                let schedule = self.station!.schedules[i]
                 displaySchedule(displayId: i, schedule: schedule)
             }
         } else {
             otherLabel.isHidden = false
-            if self.station!.timetable.state == 1 {
+            print(self.station!.updateState)
+            if self.station!.updateState == 1 {
                 otherLabel.text = "..."
             } else {
                 otherLabel.text = "Service terminé."
@@ -121,27 +124,27 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         otherLabel.isHidden = true
     }
     
-    func displaySchedule(displayId: Int, schedule: (date: DayDate, lineId: Int, dest: Stop)) {
+    func displaySchedule(displayId: Int, schedule: Schedule) {
         let nearIcon = displayId == 0 ? nearIcon1 : nearIcon2
         let procheLabel = displayId == 0 ? procheLabel1 : procheLabel2
         let timeLabel = displayId == 0 ? timeLabel1 : timeLabel2
         let destinationLabel = displayId == 0 ? destinationLabel1 : destinationLabel2
         
         destinationLabel!.isHidden = false
-        if schedule.date.getSecondsFromNow() < 60 {
+        if schedule.waitingTime < 2 {
             nearIcon!.isHidden = false
             nearIcon!.startAnimating()
             procheLabel!.isHidden = false
             //timeLabel!.isHidden = true
             destinationLabel!.textColor = UIColor.darkGray
-            destinationLabel!.text = schedule.dest.directionName.uppercased()
-        } else if schedule.date.getMinsFromNow() < 180 {
+            destinationLabel!.text = schedule.destination.directionName.uppercased()
+        } else if schedule.waitingTime < 180 {
             //nearIcon!.isHidden = true
             //procheLabel!.isHidden = true
             timeLabel!.isHidden = false
-            timeLabel!.text = schedule.date.getMinsFromNow() < 60 ?  "\(schedule.date.getMinsFromNow()) mins" : "+1 heure"
+            timeLabel!.text = schedule.waitingTime < 60 ?  "\(schedule.waitingTime) mins" : "+1 heure"
             destinationLabel!.textColor = UIColor.lightGray
-            destinationLabel!.text = schedule.dest.directionName.uppercased()
+            destinationLabel!.text = schedule.destination.directionName.uppercased()
         }
     }
 

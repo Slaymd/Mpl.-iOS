@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Timetable : Equatable {
+class Timetable {
     
     var schedules: [(date: DayDate, lineId: Int, dest: Stop)]
     var state: Int = 1

@@ -24,9 +24,10 @@ class StopZone : CustomStringConvertible, Equatable {
     var lines: [Line] = []
     
     var needDisplayUpdate = 0
+    var updateState = 0
     
     var lastupdate: Double = 0.0
-    var timetable: Timetable = Timetable.init(schedules: [])
+    var schedules: [Schedule] = []
     
     var description: String {
         return "\(self.name) {\(self.stops.count)}"
@@ -39,6 +40,28 @@ class StopZone : CustomStringConvertible, Equatable {
         self.name = name
         self.cityName = cityName
         self.coords = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
+    }
+    
+    func getShedulesByDirection() -> [(line: Line, dest: Stop, times: [Int])] {
+        var sortedSchedules: [(line: Line, dest: Stop, times: [Int])] = []
+        
+        for schedule in self.schedules {
+            var _tmp = sortedSchedules.filter({$0.dest.id == schedule.destination.id && $0.line == schedule.line})
+            let _tmpIndex = sortedSchedules.index(where: {$0.dest.id == schedule.destination.id && $0.line == schedule.line})
+            
+            if (_tmp.count == 1) {
+                //Add schedule to direction
+                sortedSchedules.remove(at: _tmpIndex!)
+                _tmp[0].times.append(schedule.waitingTime)
+                sortedSchedules.insert(_tmp[0], at: _tmpIndex!)
+            } else {
+                //Create new direction
+                sortedSchedules.append((line: schedule.line, dest: schedule.destination, times: [schedule.waitingTime]))
+            }
+            
+            
+        }
+        return (sortedSchedules.sorted(by: {$0.times[0] < $1.times[0]}))
     }
     
     func getLine(byTamId id: Int) -> Line? {
@@ -64,12 +87,11 @@ class StopZone : CustomStringConvertible, Equatable {
     }
     
     func updateTimetable() {
-        if lastupdate == 0 || Date.timeIntervalSinceReferenceDate-lastupdate > 15.0 {
+        if lastupdate == 0 || Date.timeIntervalSinceReferenceDate-lastupdate > 20.0 {
             TransportData.updateStopZoneDirections(stopZone: self)
             lastupdate = Date.timeIntervalSinceReferenceDate
             os_log("Updating timetable...", type: .info)
-            self.timetable.state = 1
-            self.needDisplayUpdate = 1
+            self.updateState = 1
             //Building request
             var requestparams = ["stopList": []]
             for stop in stops {
@@ -79,8 +101,8 @@ class StopZone : CustomStringConvertible, Equatable {
             }
             Alamofire.request("https://apimobile.tam-voyages.com/api/v1/hours/next/stops", method: .post, parameters: requestparams, encoding: JSONEncoding.default).responseJSON { response in
                 if (response.data != nil) {
-                    self.timetable.state = 0
-                    self.timetable.schedules.removeAll()
+                    self.updateState = 0
+                    self.schedules.removeAll()
                     self.updateTimetable(fromJson: JSON(response.data!))
                 }
             }
@@ -89,29 +111,29 @@ class StopZone : CustomStringConvertible, Equatable {
         }
     }
     
-    func updateTimetable(fromJson json: JSON) {
+    private func updateTimetable(fromJson json: JSON) {
         for (_,subJson):(String, JSON) in json {
             let stopArrivalId = subJson["line_direction"].intValue
             let lineId = Int(subJson["tam_line_id"].stringValue)!
-            var arrivalStop: Stop?
             
-            for stop in stops {
-                for dir in stop.directions {
-                    if (dir.arrival.citywayId == stopArrivalId) { arrivalStop = dir.arrival }
-                }
-            }
-            
-            if arrivalStop == nil { continue }
-            print("Line", lineId, " - ", arrivalStop!)
             for (_,subArrivals):(String, JSON) in subJson["stop_next_time"] {
-                let arrivalDate = DayDate.init(minsFromNow: Int(subArrivals["waiting_time"].stringValue.replacingOccurrences(of: " min", with: ""))!)
-                print(subArrivals["waiting_time"])
-                print(arrivalDate)
-                self.timetable.addSchedule(date: arrivalDate, lineId: lineId, dest: arrivalStop!)
+                let waitingTime: Int? = Int(subArrivals["waiting_time"].stringValue.replacingOccurrences(of: " min", with: ""))
+                let passingHour: Int? = Int(subArrivals["passing_hour"].stringValue)
+                let passingMin: Int? = Int(subArrivals["passing_minute"].stringValue)
+                
+                if (waitingTime == nil || passingHour == nil || passingMin == nil) { continue }
+                let schedule = Schedule(waitingTime: waitingTime!, scheduledHour: passingHour!, scheduledMinute: passingMin!, destCitywayId: stopArrivalId, lineTamId: lineId, atStopZone: self)
+                
+                if (schedule == nil) { continue }
+                self.schedules.append(schedule!)
             }
-            self.timetable.sortSchedules()
+            self.sortSchedules()
             self.needDisplayUpdate = 1
         }
+    }
+    
+    private func sortSchedules() {
+        self.schedules.sort(by: {$0.waitingTime < $1.waitingTime})
     }
     
     static func == (lhs: StopZone, rhs: StopZone) -> Bool {

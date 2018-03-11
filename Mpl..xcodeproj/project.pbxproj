@@ -10,6 +10,7 @@
 		22894B2C4235CC2B475B63B9 /* Pods_Mpl_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68D4354A439A0E5922BB120A /* Pods_Mpl_.framework */; };
 		260023701FF704BE00FA0D81 /* TransportData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2600236F1FF704BE00FA0D81 /* TransportData.swift */; };
 		260023721FF70D6E00FA0D81 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260023711FF70D6E00FA0D81 /* UserData.swift */; };
+		2618DB232055972A00EC8E4B /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2618DB222055972A00EC8E4B /* Schedule.swift */; };
 		26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 26200517201A2F3400D684E8 /* mapLightStyle.json */; };
 		2632915C200371D2007C5156 /* Timetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632915B200371D2007C5156 /* Timetable.swift */; };
 		2632915E20037EDF007C5156 /* DayDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632915D20037EDF007C5156 /* DayDate.swift */; };
@@ -80,6 +81,7 @@
 /* Begin PBXFileReference section */
 		2600236F1FF704BE00FA0D81 /* TransportData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportData.swift; sourceTree = "<group>"; };
 		260023711FF70D6E00FA0D81 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		2618DB222055972A00EC8E4B /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		26200517201A2F3400D684E8 /* mapLightStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mapLightStyle.json; sourceTree = "<group>"; };
 		2632915B200371D2007C5156 /* Timetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timetable.swift; sourceTree = "<group>"; };
 		2632915D20037EDF007C5156 /* DayDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDate.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 				26D77A9A2042E2B300FA03B8 /* Stop.swift */,
 				26A5792C1FF3D36E0087ADD9 /* Line.swift */,
 				26D77A9C2043155800FA03B8 /* Direction.swift */,
+				2618DB222055972A00EC8E4B /* Schedule.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
 				2632915E20037EDF007C5156 /* DayDate.swift in Sources */,
+				2618DB232055972A00EC8E4B /* Schedule.swift in Sources */,
 				268F77FC201786D100F3366F /* HomeView.swift in Sources */,
 				26FE30051FF7F0950085F336 /* StationsTableViewCell.swift in Sources */,
 				26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */,

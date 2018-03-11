@@ -105,9 +105,9 @@ class StationViewController: UIViewController {
             view.removeFromSuperview()
         }
         self.station!.updateTimetable()
-        if (self.station!.timetable.schedules.count == 0) {
+        if (self.station!.schedules.count == 0) {
             let waitLabel = UILabel(frame: CGRect(x: 0, y: 15, width: self.directionsPanel.frame.width, height: 25))
-            waitLabel.text = self.station!.timetable.state == 1 ? "..." : "Service terminé."
+            waitLabel.text = self.station!.updateState == 1 ? "..." : "Service terminé."
             waitLabel.textAlignment = .center
             waitLabel.textColor = UIColor.gray
             waitLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(18))
@@ -118,42 +118,14 @@ class StationViewController: UIViewController {
         
     }
     
-    func getNextArrivalsByDirections() -> [(line: Line, dest: Stop, times: [Int])]? {
-        var nbArrivals: Int = 0
-        var nextArrivals: [(line: Line, dest: Stop, times: [Int])] = []
-        var arrival: (date: DayDate, lineId: Int, dest: Stop)
-
-        if (station == nil) { return nil }
-        self.station!.updateTimetable()
-        nbArrivals = station!.timetable.schedules.count
-        for i in 0..<120 {
-            if i >= nbArrivals { break }
-            arrival = station!.timetable.schedules[i]
-            if arrival.date.getSecondsFromNow() < 3600 {
-                var correspondingArrival = nextArrivals.filter({$0.line.tamId == arrival.lineId && $0.dest.id == arrival.dest.id})
-                let index = nextArrivals.index(where: {$0.line.tamId == arrival.lineId && $0.dest.id == arrival.dest.id})
-                
-                if correspondingArrival.count == 1 {
-                    //Exist : so, we add the time.
-                    nextArrivals.remove(at: index!)
-                    correspondingArrival[0].times.append(arrival.date.getSecondsFromNow())
-                    nextArrivals.insert(correspondingArrival[0], at: index!)
-                } else {
-                    //Doesn't exist : we create a new one.
-                    nextArrivals.append((line: TransportData.getLine(byTamId: arrival.lineId)!, dest: arrival.dest, times: [arrival.date.getSecondsFromNow()]))
-                }
-            }
-        }
-        return (nextArrivals.sorted(by: {$0.times[0] < $1.times[0]}))
-    }
-    
     func displayDirections() {
-        let nextArrivals: [(line: Line, dest: Stop, times: [Int])]? = getNextArrivalsByDirections()
+        let nextArrivals: [(line: Line, dest: Stop, times: [Int])]
         let arrCellWidth = self.stationPanel.frame.width/3
         var nbDirections = 0
 
-        if (station == nil || nextArrivals == nil) { return }
-        for arrival in nextArrivals! {
+        if (station == nil) { return }
+        nextArrivals = self.station!.getShedulesByDirection()
+        for arrival in nextArrivals {
             directionsPanel.addSubview((UILineLogo(line: arrival.line, rect: CGRect(x: 15, y: 100*nbDirections+15, width: 40, height: 28)).panel))
             let dirLabel = MarqueeLabel(frame: CGRect(x: 15+40+26, y: 100*nbDirections+13, width: Int(directionsPanel.frame.width-(30+40+25)), height: 28), duration: 6.0, fadeLength: 3.0)
             dirLabel.textColor = UIColor(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 1.0)

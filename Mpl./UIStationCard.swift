@@ -10,7 +10,7 @@ import UIKit
 import MarqueeLabel
 import NotificationBannerSwift
 
-class UIStationCard {
+/*class UIStationCard {
     
     var card: UIView
     var stationName: MarqueeLabel
@@ -150,4 +150,4 @@ class UIStationCard {
         }
     }
 
-}
+}*/
