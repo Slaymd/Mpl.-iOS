@@ -95,6 +95,7 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
             return
         }
         
+        if (station == nil) { return }
         isPressed = true
         UIView.animate(withDuration: 0.5,
                        delay: 0.0,
@@ -103,7 +104,7 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
                        options: .beginFromCurrentState,
                        animations: {
                         self.card.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
-        }, completion: { (value: Bool) in self.dispContextualMenu(viewController: self.homeView!) })
+        }, completion: { (value: Bool) in self.homeView?.dispContextualMenu(station: self.station!) })
     
     }
     
@@ -122,30 +123,6 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         }) { (finished) in
             self.isPressed = false
         }
-    }
-    
-    // CONTEXTUAL MENU
-    
-    func dispContextualMenu(viewController: HomeView) {
-        let haptic: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator()
-        
-        haptic.prepare()
-        haptic.impactOccurred()
-        let alert = UIAlertController(title: "Station : \(self.station!.name)", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
-            UserData.removeFavStation(station: self.station!)
-            viewController.update()
-        }))
-        alert.addAction(UIAlertAction(title: "Plus d'informations", style: .default, handler: { _ in
-            ViewMaker.createStationPopUpFromHome(view: viewController, station: self.station!)
-        }))
-        alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
-            let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
-            banner.haptic = .light
-            banner.show()
-        }))
-        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
-        viewController.present(alert, animated: true, completion: nil)
     }
     
     // UI INITIALIZATION FUNCTIONS
@@ -235,12 +212,9 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
             nearIcon!.isHidden = false
             nearIcon!.startAnimating()
             procheLabel!.isHidden = false
-            //timeLabel!.isHidden = true
             destinationLabel!.textColor = UIColor.darkGray
             destinationLabel!.text = schedule.destination.directionName.uppercased()
         } else if schedule.waitingTime < 180 {
-            //nearIcon!.isHidden = true
-            //procheLabel!.isHidden = true
             timeLabel!.isHidden = false
             timeLabel!.text = schedule.waitingTime < 60 ?  "\(schedule.waitingTime) mins" : "+1 heure"
             destinationLabel!.textColor = UIColor.lightGray

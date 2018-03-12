@@ -132,13 +132,11 @@ class StationViewController: UIViewController {
             dirLabel.text = arrival.dest.directionName.uppercased()
             dirLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(19))
             directionsPanel.addSubview(dirLabel)
+            var timeIndex = 0
             for time in arrival.times {
-                let timeIndex = arrival.times.index(of: time)
-                let timeInMins = Int(round(Double(time)/60.0))
-                if (timeIndex == nil) { continue }
-                if (time < 90) {
+                if (time < 2) {
                     //Proche panel
-                    let arrNearPanel = UIView(frame: CGRect(x: 15+arrCellWidth*CGFloat(timeIndex!), y: CGFloat(100*nbDirections+63), width: 80, height: 25))
+                    let arrNearPanel = UIView(frame: CGRect(x: 15+arrCellWidth*CGFloat(timeIndex), y: CGFloat(100*nbDirections+63), width: 80, height: 25))
                     arrNearPanel.backgroundColor = .white
                     arrNearPanel.roundCorners([.allCorners], radius: 15)
                     //Near icon
@@ -157,12 +155,13 @@ class StationViewController: UIViewController {
                     
                 } else {
                     //Normal display
-                    let arrTimeLabel = UILabel(frame: CGRect(x: 15+arrCellWidth*CGFloat(timeIndex!), y: CGFloat(100*nbDirections+63), width: arrCellWidth, height: 25))
-                    arrTimeLabel.text = "\(timeInMins) mins"
+                    let arrTimeLabel = UILabel(frame: CGRect(x: 15+arrCellWidth*CGFloat(timeIndex), y: CGFloat(100*nbDirections+63), width: arrCellWidth, height: 25))
+                    arrTimeLabel.text = "\(time) mins"
                     arrTimeLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(16))
                     arrTimeLabel.textColor = .darkGray
                     directionsPanel.addSubview(arrTimeLabel)
                 }
+                timeIndex += 1
             }
             nbDirections += 1
         }

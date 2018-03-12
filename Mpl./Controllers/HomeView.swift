@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import NotificationBannerSwift
 
 class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -52,6 +53,36 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         cell.updateDisplayedArrivals()
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let station = favStations[indexPath.item]
+        
+        ViewMaker.createStationPopUpFromHome(view: self, station: station)
+    }
+    
+    //CONTEXTUAL MENU
+    
+    func dispContextualMenu(station: StopZone) {
+        let haptic: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator()
+        
+        haptic.prepare()
+        haptic.impactOccurred()
+        let alert = UIAlertController(title: "Station : \(station.name)", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
+            UserData.removeFavStation(station: station)
+            self.update()
+        }))
+        alert.addAction(UIAlertAction(title: "Plus d'informations", style: .default, handler: { _ in
+            ViewMaker.createStationPopUpFromHome(view: self, station: station)
+        }))
+        alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
+            let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
+            banner.haptic = .light
+            banner.show()
+        }))
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     //Appear event
