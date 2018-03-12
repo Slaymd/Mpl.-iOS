@@ -20,7 +20,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeView" customModule="Mpl_" customModuleProvider="target">
             <connections>
                 <outlet property="favStationHeaderLabel" destination="fJF-Xl-oES" id="fpU-o0-k5k"/>
-                <outlet property="favStationScrollView" destination="AP9-Zx-uev" id="Jem-Gj-vja"/>
                 <outlet property="header" destination="M0W-60-7q6" id="kgn-QR-Te5"/>
                 <outlet property="headerLightNameLabel" destination="fkl-Xt-8fg" id="NxC-Y3-sSD"/>
                 <outlet property="headerShadowNameLabel" destination="MPF-X8-X3Y" id="VKs-3a-lbs"/>
@@ -76,10 +75,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AP9-Zx-uev">
-                    <rect key="frame" x="0.0" y="270" width="375" height="163"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                </scrollView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stations favorites" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJF-Xl-oES">
                     <rect key="frame" x="10" y="241" width="343" height="21"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -88,14 +83,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="scrollableAxes" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="F5q-bu-Kvh">
-                    <rect key="frame" x="0.0" y="481" width="375" height="161"/>
+                    <rect key="frame" x="0.0" y="270" width="375" height="161"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.9371530414" green="0.93731355670000005" blue="0.93714290860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="15" minimumInteritemSpacing="15" id="E3x-cj-6Om">
-                        <size key="itemSize" width="250" height="75"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="9" minimumInteritemSpacing="9" id="E3x-cj-6Om">
+                        <size key="itemSize" width="262" height="95"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                        <inset key="sectionInset" minX="11" minY="0.0" maxX="11" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>

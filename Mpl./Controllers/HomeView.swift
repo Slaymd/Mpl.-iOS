@@ -18,7 +18,6 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
     @IBOutlet weak var headerLightNameLabel: UILabel!
     @IBOutlet weak var headerShadowNameLabel: UILabel!
     @IBOutlet weak var favStationHeaderLabel: UILabel!
-    @IBOutlet weak var favStationScrollView: UIScrollView!
     
     @IBOutlet weak var stationCollectionView: UICollectionView!
     let cellIdentifier = "favstation"
@@ -48,25 +47,18 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
         //Fill cell
         if cell.station == nil || cell.station!.id != station.id {
-            cell.fill(station)
+            cell.fill(station, fromView: self)
         }
         cell.updateDisplayedArrivals()
         
         return cell
     }
     
-    
     //Appear event
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Removing station cards for update
-        //favStationsCards.removeAll()
-        //deleting old display
-        for view in favStationScrollView.subviews {
-            view.removeFromSuperview()
-        }
         self.refresher.invalidate()
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         update()
@@ -170,8 +162,8 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         //let gradientTopColor = UIColor.init(red: 51.0/255.0, green: 206.0/255, blue: 255.0/255.0, alpha: 1.0)
         //let gradientBotColor = UIColor.init(red: 11.0/255.0, green: 173.0/255, blue: 254.0/255.0, alpha: 1.0)
         //Favorite stations
-        favStationScrollView.frame = CGRect(x: 0, y: mainHeader.frame.maxY+40, width: favStationScrollView.frame.width, height: favStationScrollView.frame.height)
-        favStationHeaderLabel.frame = CGRect(x: 16, y: mainHeader.frame.maxY+50, width: favStationScrollView.frame.width, height: 20)
+        stationCollectionView.frame = CGRect(x: 0, y: mainHeader.frame.maxY+40, width: stationCollectionView.frame.width, height: stationCollectionView.frame.height)
+        favStationHeaderLabel.frame = CGRect(x: 16, y: mainHeader.frame.maxY+50, width: stationCollectionView.frame.width, height: 20)
         
         //Station Collection
         self.stationCollectionView.register(UINib(nibName:"HomeStationCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)

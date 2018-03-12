@@ -8,6 +8,8 @@
 
 import UIKit
 import MarqueeLabel
+import CoreMotion
+import NotificationBannerSwift
 
 class HomeStationCollectionViewCell: UICollectionViewCell {
     
@@ -23,6 +25,10 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var destinationLabel1: MarqueeLabel!
     @IBOutlet weak var destinationLabel2: MarqueeLabel!
     @IBOutlet weak var otherLabel: UILabel!
+    
+    let motionManager = CMMotionManager()
+    var isPressed: Bool = false
+    var homeView: HomeView? = nil
     
     var plusLabel: UILabel!
     var linesLogos = [UILineLogo]()
@@ -43,21 +49,115 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         self.plusLabel.textAlignment = .center
         self.plusLabel.textColor = UIColor(red: 178/255, green: 190/255, blue: 195/255, alpha: 1)
         self.card.addSubview(self.plusLabel)
+        self.card.addSubview(self.stationName)
         
         nearIcon1.animationImages = [#imageLiteral(resourceName: "near"), #imageLiteral(resourceName: "near15"), #imageLiteral(resourceName: "near2"), #imageLiteral(resourceName: "near25"), #imageLiteral(resourceName: "near3"), #imageLiteral(resourceName: "near35"), #imageLiteral(resourceName: "near4"), #imageLiteral(resourceName: "near45"), #imageLiteral(resourceName: "near5"), #imageLiteral(resourceName: "near55"), #imageLiteral(resourceName: "near6"), #imageLiteral(resourceName: "near55"), #imageLiteral(resourceName: "near5"), #imageLiteral(resourceName: "near45"), #imageLiteral(resourceName: "near4"), #imageLiteral(resourceName: "near35"), #imageLiteral(resourceName: "near3"), #imageLiteral(resourceName: "near25"), #imageLiteral(resourceName: "near2"), #imageLiteral(resourceName: "near15")]
         nearIcon1.animationDuration = 1.2
         nearIcon2.animationImages = [#imageLiteral(resourceName: "near"), #imageLiteral(resourceName: "near15"), #imageLiteral(resourceName: "near2"), #imageLiteral(resourceName: "near25"), #imageLiteral(resourceName: "near3"), #imageLiteral(resourceName: "near35"), #imageLiteral(resourceName: "near4"), #imageLiteral(resourceName: "near45"), #imageLiteral(resourceName: "near5"), #imageLiteral(resourceName: "near55"), #imageLiteral(resourceName: "near6"), #imageLiteral(resourceName: "near55"), #imageLiteral(resourceName: "near5"), #imageLiteral(resourceName: "near45"), #imageLiteral(resourceName: "near4"), #imageLiteral(resourceName: "near35"), #imageLiteral(resourceName: "near3"), #imageLiteral(resourceName: "near25"), #imageLiteral(resourceName: "near2"), #imageLiteral(resourceName: "near15")]
         nearIcon2.animationDuration = 1.2
+        
+        if motionManager.isDeviceMotionAvailable {
+            motionManager.deviceMotionUpdateInterval = 0.02
+            motionManager.startDeviceMotionUpdates(to: .main, withHandler: { (motion, error) in
+                if let motion = motion {
+                    var pitch = motion.attitude.pitch * 9 // x-axis
+                    let roll = motion.attitude.roll * 9 // y-axi
+                    
+                    pitch = pitch > 11 ? 11 : pitch < 0 ? 0 : pitch
+                    //if !self.isPressed {
+                        self.transform = CGAffineTransform(translationX: CGFloat(roll), y: CGFloat(pitch-8))
+                    //}
+                }
+            })
+        }
+        self.configureGestureRecognizer()
+    }
+    
+    // MARK: - Gesture Recognizer
+    
+    private func configureGestureRecognizer() {
+        // Long Press Gesture Recognizer
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
+        longPressGestureRecognizer.minimumPressDuration = 0.1
+        self.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    @objc internal func handleLongPressGesture(gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            handleLongPressBegan()
+        } else if gestureRecognizer.state == .ended || gestureRecognizer.state == .cancelled {
+            handleLongPressEnded()
+        }
+    }
+    
+    private func handleLongPressBegan() {
+        guard !isPressed else {
+            return
+        }
+        
+        isPressed = true
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.8,
+                       initialSpringVelocity: 0.2,
+                       options: .beginFromCurrentState,
+                       animations: {
+                        self.card.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+        }, completion: { (value: Bool) in self.dispContextualMenu(viewController: self.homeView!) })
+    
+    }
+    
+    private func handleLongPressEnded() {
+        guard isPressed else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.4,
+                       initialSpringVelocity: 0.2,
+                       options: .beginFromCurrentState,
+                       animations: {
+                        self.card.transform = CGAffineTransform.identity
+        }) { (finished) in
+            self.isPressed = false
+        }
+    }
+    
+    // CONTEXTUAL MENU
+    
+    func dispContextualMenu(viewController: HomeView) {
+        let haptic: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator()
+        
+        haptic.prepare()
+        haptic.impactOccurred()
+        let alert = UIAlertController(title: "Station : \(self.station!.name)", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Supprimer", style: .destructive, handler: { _ in
+            UserData.removeFavStation(station: self.station!)
+            viewController.update()
+        }))
+        alert.addAction(UIAlertAction(title: "Plus d'informations", style: .default, handler: { _ in
+            ViewMaker.createStationPopUpFromHome(view: viewController, station: self.station!)
+        }))
+        alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
+            let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
+            banner.haptic = .light
+            banner.show()
+        }))
+        alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
+        viewController.present(alert, animated: true, completion: nil)
     }
     
     // UI INITIALIZATION FUNCTIONS
     
-    func fill(_ station: StopZone) {
+    func fill(_ station: StopZone, fromView: HomeView) {
         if self.station != nil && self.station!.id == station.id { return }
         //Updating station
         station.updateTimetable()
         //Saving station object
         self.station = station
+        //Main view
+        self.homeView = fromView
         //Station name
         self.stationName.text = station.name.uppercased()
         //Station lines logos
@@ -79,9 +179,9 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
             }
             let lineLogo = UILineLogo(lineShortName: lines[i].shortName, bgColor: lines[i].bgColor, fontColor: lines[i].ftColor, type: lines[i].type, at: CGPoint(x: 0, y: 28*i))
             self.linesLogos.append(lineLogo)
-            self.addSubview(lineLogo.panel)
+            self.card.addSubview(lineLogo.panel)
             if linesLogos.count == 1 {
-                self.roundCorners([.bottomRight, .topRight, .bottomLeft], radius: 15)
+                self.card.roundCorners([.bottomRight, .topRight, .bottomLeft], radius: 15)
                 self.card.layer.cornerRadius = 15
             }
         }
