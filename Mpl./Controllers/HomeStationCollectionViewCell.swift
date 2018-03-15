@@ -80,6 +80,10 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
         longPressGestureRecognizer.minimumPressDuration = 0.1
         self.addGestureRecognizer(longPressGestureRecognizer)
+        
+        // Simple click
+        let click = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        self.addGestureRecognizer(click)
     }
     
     @objc internal func handleLongPressGesture(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -88,6 +92,11 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         } else if gestureRecognizer.state == .ended || gestureRecognizer.state == .cancelled {
             handleLongPressEnded()
         }
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        if (self.homeView == nil || self.station == nil) { return }
+        ViewMaker.createStationPopUpFromHome(view: self.homeView!, station: self.station!)
     }
     
     private func handleLongPressBegan() {
