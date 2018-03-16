@@ -41,6 +41,14 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
         super.viewWillDisappear(animated)
     }
     
+    //Station researcher click
+    
+    @IBAction func stationResearcherClick(_ sender: Any) {
+        let researchView: ResearcherViewController = ResearcherViewController(nibName: "ResearcherViewController", bundle: nil)
+        self.present(researchView, animated: true, completion: nil)
+    }
+    
+    
     //View did load
 
     override func viewDidLoad() {

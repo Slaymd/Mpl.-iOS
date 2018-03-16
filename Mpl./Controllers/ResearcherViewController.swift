@@ -10,25 +10,49 @@ import UIKit
 
 class ResearcherViewController: UIViewController {
 
-    @IBOutlet weak var panel1: UIView!
-    var logo: UILineLogo? = nil
+    var lineCards: [UILineCard] = []
     var animState = 0
+
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerShadowLabel: UILabel!
+    @IBOutlet weak var headerLightLabel: UILabel!
+
+    @IBOutlet weak var linesTitle: UILabel!
+    @IBOutlet weak var linesScroll: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        let line3 = TransportData.getLine(byTamId: 3)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-        //tap.delegate = self
-        panel1.addGestureRecognizer(tap)
-        if (line3 != nil) {
-            panel1.backgroundColor = line3!.bgColor
-            let logo = UILineLogo(lineShortName: line3!.shortName, bgColor: .white, fontColor: line3!.bgColor, type: .TRAMWAY, at: CGPoint(x: 10, y: 10))
-            self.logo = logo
-            panel1.addSubview(logo.panel)
+        //Header
+        self.headerView.frame.size = CGSize(width: UIScreen.main.bounds.width+60, height: UIScreen.main.bounds.height*0.22)
+        self.headerView.layer.shadowRadius = 40
+        self.headerView.layer.shadowColor = UIColor.lightGray.cgColor
+        self.headerView.layer.shadowOpacity = 1
+        //Label position
+        headerLightLabel.frame = CGRect(x: 30+12, y: headerView.frame.maxY-45, width: self.view.frame.width-20, height: headerLightLabel.frame.height)
+        headerShadowLabel.frame = CGRect(x: 30+16, y: headerView.frame.maxY-42, width: self.view.frame.width-20, height: headerLightLabel.frame.height)
+        headerView.addSubview(headerShadowLabel)
+        headerView.addSubview(headerLightLabel)
+        
+        //Lines scrollview
+        linesScroll.frame.origin = CGPoint(x: 0, y: self.headerView.frame.height+75)
+        linesScroll.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 170)
+        
+        self.linesTitle.frame = CGRect(x: 16, y: self.headerView.frame.maxY+50, width: self.linesScroll.frame.width, height: 23)
+        
+        let sortedLines = TransportData.lines.sorted(by: { $0.displayId < $1.displayId})
+        
+        for i in 0..<sortedLines.count {
+            if i >= sortedLines.count { break }
+            let line = sortedLines[i]
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+            let lineCard = UILineCard.init(frame: CGRect.init(x: i*150+15+(15*i), y: 5, width: 150, height: 160), line: line)
+            lineCard.addGestureRecognizer(tap)
+            lineCards.append(lineCard)
+            self.linesScroll.addSubview(lineCard)
+            self.linesScroll.contentSize = CGSize(width: i*150+15+(15*i)+150+15, height: 170)
         }
-        self.panel1.layer.cornerRadius = 15
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,30 +62,40 @@ class ResearcherViewController: UIViewController {
     
     @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
         // handling code
-        print("cc")
+        let card = self.lineCards[0]
         if (animState == 0) {
+            self.view.addSubview(card)
+            card.frame = CGRect.init(x: 15, y: 150+5, width: card.frame.width, height: card.frame.height)
+            for label in card.destinationsLabels {
+                label.removeFromSuperview()
+            }
             UIView.animate(withDuration: 0.55, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.panel1.frame.origin = CGPoint(x: 0, y: 0)
-                self.panel1.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height*0.22)
-                self.logo!.panel.frame.origin = CGPoint(x: 25, y: 50)
-                self.logo!.panel.transform = CGAffineTransform(scaleX: 1.45, y: 1.45)
-                self.panel1.layer.cornerRadius = 0
+                card.frame.origin = CGPoint(x: 0, y: 0)
+                card.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height*0.22)
+                card.logo?.panel.frame.origin = CGPoint(x: 25, y: 50)
+                card.logo?.panel.transform = CGAffineTransform(scaleX: 1.45, y: 1.45)
+                card.layer.cornerRadius = 0
             }) { (value: Bool) in
-                self.animState = 1
+                card.animState = 1
                 print("animation finished.")
             }
         } else if (animState == 1) {
             UIView.animate(withDuration: 0.55, delay: 0.0, options: [.curveEaseInOut], animations: {
-                self.panel1.frame.origin = CGPoint(x: 15, y: 150)
-                self.panel1.frame.size = CGSize(width: 150, height: 160)
-                self.logo!.panel.frame.origin = CGPoint(x: 5, y: 5)
-                self.logo!.panel.transform = CGAffineTransform.identity
-                self.panel1.layer.cornerRadius = 15
+                card.frame.origin = CGPoint(x: 15, y: 150)
+                card.frame.size = CGSize(width: 150, height: 160)
+                card.logo!.panel.frame.origin = CGPoint(x: 5, y: 5)
+                card.logo!.panel.transform = CGAffineTransform.identity
+                card.layer.cornerRadius = 15
             }) { (value: Bool) in
-                self.animState = 0
+                card.animState = 0
                 print("animation finished.")
+                self.linesScroll.addSubview(card)
             }
         }
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     /*

@@ -199,7 +199,6 @@ class StationViewController: UIViewController {
     func disappearAnimation(_ style: Int)
     {
         let haptic: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
-        self.refresher.invalidate()
         self.refresher = nil
         
         haptic.prepare()
