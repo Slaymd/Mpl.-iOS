@@ -32,20 +32,20 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
     //Navigation bar
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        //self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        //self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillDisappear(animated)
     }
     
     //Station researcher click
     
     @IBAction func stationResearcherClick(_ sender: Any) {
-        let researchView: ResearcherViewController = ResearcherViewController(nibName: "ResearcherViewController", bundle: nil)
-        self.present(researchView, animated: true, completion: nil)
+        let researchView: ResearcherViewController = ResearcherViewController.init(nibName: "ResearcherViewController", bundle: nil, mainScrollView: self)
+        self.navigationController?.pushViewController(researchView, animated: true)
     }
     
     
@@ -127,6 +127,8 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
             locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locManager.startUpdatingLocation()
         }
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

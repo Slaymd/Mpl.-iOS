@@ -32,6 +32,7 @@
 		268F77FF2017876600F3366F /* MainScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FE2017876600F3366F /* MainScrollView.swift */; };
 		268F780220178AD400F3366F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F780020178AD400F3366F /* MapView.swift */; };
 		268F780320178AD400F3366F /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 268F780120178AD400F3366F /* MapView.xib */; };
+		2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696BC29205C731B00210F15 /* UILightStationCard.swift */; };
 		2699EF4B1FFF8A6B001965EA /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2699EF4A1FFF8A6B001965EA /* ViewMaker.swift */; };
 		26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A579061FF2EC500087ADD9 /* AppDelegate.swift */; };
 		26A5790C1FF2EC500087ADD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A5790A1FF2EC500087ADD9 /* Main.storyboard */; };
@@ -106,6 +107,7 @@
 		268F77FE2017876600F3366F /* MainScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScrollView.swift; sourceTree = "<group>"; };
 		268F780020178AD400F3366F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		268F780120178AD400F3366F /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
+		2696BC29205C731B00210F15 /* UILightStationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightStationCard.swift; sourceTree = "<group>"; };
 		2699EF4A1FFF8A6B001965EA /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		26A579031FF2EC500087ADD9 /* Mpl..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mpl..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A579061FF2EC500087ADD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				26A5792C1FF3D36E0087ADD9 /* Line.swift */,
 				26D77A9C2043155800FA03B8 /* Direction.swift */,
 				2618DB222055972A00EC8E4B /* Schedule.swift */,
+				2696BC29205C731B00210F15 /* UILightStationCard.swift */,
 				263964EE205A8527007938FB /* UILineCard.swift */,
 				26A579301FF3EED80087ADD9 /* UILineLogo.swift */,
 			);
@@ -512,6 +515,7 @@
 				2659C7411FFC104A0079C362 /* StationViewController.swift in Sources */,
 				268F77FF2017876600F3366F /* MainScrollView.swift in Sources */,
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
+				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
 				2632915E20037EDF007C5156 /* DayDate.swift in Sources */,
 				2618DB232055972A00EC8E4B /* Schedule.swift in Sources */,

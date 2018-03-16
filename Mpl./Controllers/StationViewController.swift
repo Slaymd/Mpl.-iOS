@@ -27,7 +27,8 @@ class StationViewController: UIViewController {
     var effect: UIVisualEffect!
     
     var homeView: HomeView? = nil
-    var tableView: StationsTableViewController? = nil
+    var researchView: ResearcherViewController? = nil
+    //var tableView: StationsTableViewController? = nil
     
     //MARK: Remove navigation bar in main view
     
@@ -64,8 +65,6 @@ class StationViewController: UIViewController {
         //Updating old view
         if homeView != nil {
             homeView!.update()
-        } else if (tableView != nil) {
-            tableView!.tableView.reloadData()
         }
     }
     

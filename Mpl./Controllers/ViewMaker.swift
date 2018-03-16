@@ -10,7 +10,7 @@ import UIKit
 
 class ViewMaker {
 
-    class func createStationPopUpFromTableView(view: UIViewController, tableView: StationsTableViewController, station: StopZone)
+    class func createStationPopUpFromResearcherView(view: UIViewController, researcherView: ResearcherViewController, station: StopZone)
     {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let stPopUp = storyBoard.instantiateViewController(withIdentifier: "StationPopUp") as! StationViewController
@@ -19,7 +19,7 @@ class ViewMaker {
         //Setting station informations
         stPopUp.stationName.text = station.name.folding(options: .diacriticInsensitive, locale: NSLocale.current).uppercased()
         stPopUp.station = station
-        stPopUp.tableView = tableView
+        stPopUp.researchView = researcherView
         stPopUp.update()
         //Display directions
         stPopUp.displayDirections()

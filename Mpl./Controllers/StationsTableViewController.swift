@@ -75,10 +75,10 @@ class StationsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let station: StopZone
+        //let station: StopZone
         
-        station = indexPath.section == 0 ? UserData.getFavStations()[indexPath.row] : self.isFiltering() ? self.filteredStations[indexPath.row] : TransportData.stopZones[indexPath.row]
-        ViewMaker.createStationPopUpFromTableView(view: self.navigationController!, tableView: self, station: station)
+        //station = indexPath.section == 0 ? UserData.getFavStations()[indexPath.row] : self.isFiltering() ? self.filteredStations[indexPath.row] : TransportData.stopZones[indexPath.row]
+        //ViewMaker.createStationPopUpFromTableView(view: self.navigationController!, tableView: self, station: station)
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
