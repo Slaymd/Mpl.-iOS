@@ -139,7 +139,11 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     func fill(_ station: StopZone, fromView: HomeView) {
         if self.station != nil && self.station!.id == station.id { return }
         //Updating station
-        station.updateTimetable()
+        station.updateTimetable(completion: { (result: Bool) in
+            if result == true {
+                self.updateDisplayedArrivals()
+            }
+        })
         //Saving station object
         self.station = station
         //Main view

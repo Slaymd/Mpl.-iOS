@@ -24,7 +24,6 @@ class UILightStationCard: UIView {
         self.layer.cornerRadius = 15
         self.backgroundColor = .white
         
-        print("distance:", distance)
         //Line logos
         var x = Int(self.frame.maxX)-15
         let lines = station.getLines()
@@ -42,6 +41,11 @@ class UILightStationCard: UIView {
         self.label!.text = station.name
         self.label!.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(18))
         self.addSubview(self.label!)
+        
+        //If station is near
+        if (distance <= 150) {
+            self.frame.size = CGSize(width: self.frame.width, height: self.frame.height*2)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

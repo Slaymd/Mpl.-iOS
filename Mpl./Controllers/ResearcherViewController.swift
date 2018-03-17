@@ -94,16 +94,18 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         let refLocation = self.mainScrollView.userLocation != nil ? self.mainScrollView.userLocation : TransportData.getStopZoneById(stopZoneId: 308)!.coords
         let sortedStations = TransportData.stopZones.sorted(by: { refLocation!.distance(from: $0.coords) < refLocation!.distance(from: $1.coords) })
         
+        var y = 0
         for i in 0..<12 {
             if i >= sortedStations.count { break }
             
             let tap = UITapGestureRecognizer(target: self, action: #selector(handleStationTap(sender:)))
             let distance = self.mainScrollView.userLocation == nil ? 1000.0 : Double((refLocation?.distance(from: sortedStations[i].coords))!)
-            let stationCard = UILightStationCard.init(frame: CGRect.init(x: 16, y: (50+15)*i, width: Int(UIScreen.main.bounds.width)-32, height: 50), station: sortedStations[i], distance: distance)
+            let stationCard = UILightStationCard.init(frame: CGRect.init(x: 16, y: y, width: Int(UIScreen.main.bounds.width)-32, height: 50), station: sortedStations[i], distance: distance)
             stationCard.addGestureRecognizer(tap)
             self.stationsScroll.addSubview(stationCard)
             self.stationCards.append(stationCard)
-            self.stationsScroll.contentSize = CGSize(width: Int(self.stationsScroll.frame.width), height: (50+15)*i+50+15)
+            y += Int(stationCard.frame.height)+15
+            self.stationsScroll.contentSize = CGSize(width: Int(self.stationsScroll.frame.width), height: y)
         }
 
         //Navigation

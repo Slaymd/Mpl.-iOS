@@ -103,7 +103,11 @@ class StationViewController: UIViewController {
         for view in self.directionsPanel.subviews {
             view.removeFromSuperview()
         }
-        self.station!.updateTimetable()
+        self.station!.updateTimetable(completion: { (result: Bool) in
+            if result == true {
+                self.update()
+            }
+        })
         if (self.station!.schedules.count == 0) {
             let waitLabel = UILabel(frame: CGRect(x: 0, y: 15, width: self.directionsPanel.frame.width, height: 25))
             waitLabel.text = self.station!.updateState == 1 ? "..." : "Service terminé."

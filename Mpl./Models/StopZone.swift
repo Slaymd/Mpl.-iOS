@@ -86,7 +86,7 @@ class StopZone : CustomStringConvertible, Equatable {
         return self.lines
     }
     
-    func updateTimetable() {
+    func updateTimetable(completion: @escaping (_ result: Bool) -> Void) {
         if lastupdate == 0 || Date.timeIntervalSinceReferenceDate-lastupdate > 20.0 {
             TransportData.updateStopZoneDirections(stopZone: self)
             lastupdate = Date.timeIntervalSinceReferenceDate
@@ -104,10 +104,14 @@ class StopZone : CustomStringConvertible, Equatable {
                     self.updateState = 0
                     self.schedules.removeAll()
                     self.updateTimetable(fromJson: JSON(response.data!))
+                    completion(true)
+                } else {
+                    completion(false)
                 }
             }
         } else {
             os_log("Timetable update refused. Please wait.", type: .info)
+            completion(false)
         }
     }
     

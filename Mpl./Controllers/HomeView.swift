@@ -112,7 +112,11 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         } else {
             for i in 0..<newFavStations.count {
                 //Update station
-                newFavStations[i].updateTimetable()
+                newFavStations[i].updateTimetable(completion: { (result: Bool) in
+                    if result == true {
+                        self.update()
+                    }
+                })
                 if newFavStations[i].needDisplayUpdate == 1 {
                     newFavStations[i].needDisplayUpdate = 0
                     let cell = self.stationCollectionView.cellForItem(at: IndexPath.init(item: i, section: 0)) as? HomeStationCollectionViewCell
