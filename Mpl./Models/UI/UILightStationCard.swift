@@ -12,7 +12,8 @@ import CoreLocation
 
 class UILightStationCard: UIView {
     
-    var station: StopZone?
+    var station: StopZone
+    var distance: Double
     
     var logos: [UILineLogo] = []
     var label: MarqueeLabel?
@@ -32,6 +33,7 @@ class UILightStationCard: UIView {
     
     init(frame: CGRect, station: StopZone, distance: Double) {
         self.station = station
+        self.distance = distance
         super.init(frame: frame)
         
         self.layer.cornerRadius = 15
@@ -123,7 +125,7 @@ class UILightStationCard: UIView {
                 if result == true {
                     self.updateDisplayedArrivals()
                 } else {
-                    if (self.station!.schedules.count > 0) {
+                    if (self.station.schedules.count > 0) {
                         self.updateDisplayedArrivals()
                     }
                 }
@@ -132,27 +134,26 @@ class UILightStationCard: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        fatalError("init(coder:) has not been implemented")
     }
     
     // UI UPDATES
     
     func updateDisplayedArrivals() {
-        if (self.station == nil) { return }
-        var nbArrivals = self.station!.schedules.count
+        var nbArrivals = self.station.schedules.count
         
         hideAllScheduleElements()
         if nbArrivals > 0 {
             otherLabel.isHidden = true
             nbArrivals = nbArrivals > 2 ? 2 : nbArrivals
             for i in 0..<nbArrivals {
-                let schedule = self.station!.schedules[i]
+                let schedule = self.station.schedules[i]
                 displaySchedule(displayId: i, schedule: schedule)
             }
         } else {
             otherLabel.isHidden = false
-            print(self.station!.updateState)
-            if self.station!.updateState == 1 {
+            print(self.station.updateState)
+            if self.station.updateState == 1 {
                 otherLabel.text = "..."
             } else {
                 otherLabel.text = "Service terminé."

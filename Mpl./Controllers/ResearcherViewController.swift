@@ -26,6 +26,8 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var stationsTitle: UILabel!
     @IBOutlet weak var stationsScroll: UIScrollView!
     
+    var refresher: Timer!
+    
     
     //MARK: - INITS
     
@@ -36,18 +38,6 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    //MARK: - APPEAR
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        //self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillDisappear(animated)
     }
     
     //MARK: - VIEW LOAD INITIALIZATION
@@ -113,15 +103,27 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
             y += Int(stationCard.frame.height)+15
             self.stationsScroll.contentSize = CGSize(width: Int(self.stationsScroll.frame.width), height: y)
         }
+        
+        //Timer init
+        self.refresher = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
 
         //Navigation
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - UI UPDATE LOOP
+    
+    @objc func update() {
+        for stationCard in self.stationCards {
+            if stationCard.distance <= 200 {
+                stationCard.station.updateTimetable(completion: { (state: Bool) in
+                    if state == true {
+                        stationCard.updateDisplayedArrivals()
+                    }
+                })
+            }
+        }
     }
     
     //MARK: - CLICKS
@@ -133,7 +135,7 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
             if clickLoc.x < stationCard.frame.minX || clickLoc.x > stationCard.frame.maxX { continue }
             if clickLoc.y < stationCard.frame.minY || clickLoc.y > stationCard.frame.maxY { continue }
             
-            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station!)
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station)
             stationPopUp.modalPresentationStyle = .overCurrentContext
             self.present(stationPopUp, animated: false, completion: nil)
             break

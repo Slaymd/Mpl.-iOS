@@ -19,6 +19,7 @@ class StationPopUpView: UIViewController {
     @IBOutlet weak var popUpCard: UIView!
     @IBOutlet weak var stationCard: UIView!
     @IBOutlet weak var stationDataScroll: UIScrollView!
+    var informationLabel: UILabel?
     
     var effect: UIVisualEffect?
     
@@ -134,11 +135,19 @@ class StationPopUpView: UIViewController {
         let schedules = self.station.getShedulesByDirection()
         
         //Creating directions panel if null
+        let disturbMaxY = self.disturbancesPanel == nil ? 0 : self.disturbancesPanel!.frame.maxY
         if self.directionsPanel == nil {
-            let disturbMaxY = self.disturbancesPanel == nil ? 0 : self.disturbancesPanel!.frame.maxY
             self.directionsPanel = UIView(frame: CGRect(x: 0, y: disturbMaxY, width: self.stationDataScroll.frame.width, height: 10))
             self.directionsPanel!.backgroundColor = .clear
             self.stationDataScroll.addSubview(self.directionsPanel!)
+        }
+        
+        //No schedules
+        if (schedules.count == 0) {
+            self.informationLabel!.frame.origin.y = disturbMaxY+5
+            self.informationLabel!.text = NSLocalizedString("Service ended", comment: "")
+        } else {
+            self.informationLabel!.isHidden = true
         }
         
         //TODO: - when a direction disappear, need to remove it on UI.
@@ -240,8 +249,18 @@ class StationPopUpView: UIViewController {
     //MARK: - APPEAR ANIMATION
     
     override func viewDidAppear(_ animated: Bool) {
+        //Information label (waiting or finished service)
+        self.informationLabel = UILabel(frame: CGRect(x: 0, y: 5, width: self.stationDataScroll.frame.width, height: 25))
+        self.informationLabel!.font = UIFont(name: "Ubuntu-Bold", size: 19.0)
+        self.informationLabel!.textColor = .darkGray
+        self.informationLabel!.textAlignment = .center
+        self.informationLabel!.text = NSLocalizedString("...", comment: "")
+        self.stationDataScroll.addSubview(self.informationLabel!)
+        //UI Init
         self.displayInit()
+        //Pop up appear
         self.appearAnimation()
+        //Timer init
         self.refresher = Timer.scheduledTimer(timeInterval: 6, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         super.viewDidAppear(animated)
     }
