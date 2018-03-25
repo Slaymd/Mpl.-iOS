@@ -26,6 +26,8 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var destinationLabel2: MarqueeLabel!
     @IBOutlet weak var otherLabel: UILabel!
     
+    @IBOutlet weak var disruptedIcon: UIImageView!
+    
     let motionManager = CMMotionManager()
     var isPressed: Bool = false
     var homeView: HomeView? = nil
@@ -43,6 +45,9 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
 
         self.stationName.text = "#?"
         self.stationName.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(16))
+        
+        self.procheLabel1.text = NSLocalizedString("near", comment: "")
+        self.procheLabel2.text = NSLocalizedString("near", comment: "")
 
         self.plusLabel = UILabel(frame: CGRect(x: 0, y: 28*2, width: 40, height: 16))
         self.plusLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(14))
@@ -96,7 +101,17 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if (self.homeView == nil || self.station == nil) { return }
-        ViewMaker.createStationPopUpFromHome(view: self.homeView!, station: self.station!)
+        let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: self.station!)
+        stationPopUp.modalPresentationStyle = .overCurrentContext
+        homeView!.present(stationPopUp, animated: false, completion: nil)
+        /*homeView!.addChildViewController(stationPopUp)
+        stationPopUp.view.frame = homeView!.view.frame
+        homeView!.view.addSubview(stationPopUp.view)
+        stationPopUp.didMove(toParentViewController: homeView!)*/
+        //homeView?.navigationController?.pushViewController(stationPopUp, animated: false)
+        //homeView!.present(stationPopUp, animated: false, completion: nil)
+        //self.navigationController?.pushViewController(researchView, animated: true)
+        //ViewMaker.createStationPopUpFromHome(view: self.homeView!, station: self.station!)
     }
     
     private func handleLongPressBegan() {
@@ -193,12 +208,29 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
             }
         } else {
             otherLabel.isHidden = false
-            print(self.station!.updateState)
             if self.station!.updateState == 1 {
                 otherLabel.text = "..."
             } else {
                 otherLabel.text = "Service terminé."
             }
+        }
+        
+        //Update disruption
+        var disrupted = false
+        
+        for line in self.station!.lines {
+            DisruptionData.isLineDisrupted(line: line, completion: { (value: Bool) in
+                if value == true {
+                    disrupted = true
+                }
+            })
+        }
+        if disrupted {
+            self.disruptedIcon.isHidden = false
+            self.stationName.frame.size = CGSize(width: 172, height: 28)
+        } else {
+            self.disruptedIcon.isHidden = true
+            self.stationName.frame.size = CGSize(width: 190, height: 28)
         }
     }
     
@@ -229,7 +261,7 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
             destinationLabel!.text = schedule.destination.directionName.uppercased()
         } else if schedule.waitingTime < 180 {
             timeLabel!.isHidden = false
-            timeLabel!.text = schedule.waitingTime < 60 ?  "\(schedule.waitingTime) mins" : "+1 heure"
+            timeLabel!.text = schedule.waitingTime < 60 ?  "\(schedule.waitingTime) " + NSLocalizedString("mins", comment: "") : NSLocalizedString("+1 hour", comment: "")
             destinationLabel!.textColor = UIColor.lightGray
             destinationLabel!.text = schedule.destination.directionName.uppercased()
         }

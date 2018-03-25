@@ -122,6 +122,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="round-error-symbol-orange" translatesAutoresizingMaskIntoConstraints="NO" id="QnC-5I-CkG">
+                                <rect key="frame" x="223" y="3" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -133,6 +137,7 @@
                 <outlet property="card" destination="fQc-y8-ThU" id="i3L-p6-LIL"/>
                 <outlet property="destinationLabel1" destination="GX6-TY-htf" id="k1T-pl-0ER"/>
                 <outlet property="destinationLabel2" destination="GFH-QZ-hc2" id="SWx-iq-pEk"/>
+                <outlet property="disruptedIcon" destination="QnC-5I-CkG" id="D6v-ob-AUg"/>
                 <outlet property="nearIcon1" destination="QLj-Wf-EMZ" id="vXG-az-w1E"/>
                 <outlet property="nearIcon2" destination="p5d-nz-Gy2" id="hIL-Bb-HqS"/>
                 <outlet property="otherLabel" destination="Q3S-ad-Sw7" id="WAg-tb-aEK"/>
@@ -147,5 +152,6 @@
     </objects>
     <resources>
         <image name="near" width="25" height="25"/>
+        <image name="round-error-symbol-orange" width="256" height="256"/>
     </resources>
 </document>

@@ -39,7 +39,6 @@ class UILineCard: UIView {
             let dirLabel = MarqueeLabel(frame: CGRect(x: 5, y: (dirLabelStartY+(dirLabelHeight*3))-(dirLabelHeight*i), width: Int(self.frame.width)-10, height: dirLabelHeight), duration: 6, fadeLength: 5.0)
             dirLabel.text = sortedDests[i].uppercased()
             dirLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(16))
-            dirLabel.adjustsFontSizeToFitWidth = true
             dirLabel.textColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.8)
             self.addSubview(dirLabel)
             self.destinationsLabels.append(dirLabel)

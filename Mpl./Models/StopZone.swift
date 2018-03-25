@@ -111,7 +111,7 @@ class StopZone : CustomStringConvertible, Equatable {
             }
         } else {
             os_log("Timetable update refused. Please wait.", type: .info)
-            completion(false)
+            completion(true)
         }
     }
     

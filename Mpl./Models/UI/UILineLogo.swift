@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class UILineLogo {
 
@@ -17,7 +18,7 @@ class UILineLogo {
     
     init(lineShortName: String, bgColor: UIColor, fontColor: UIColor, type: LineType, at: CGPoint) {
         self.panel = UIView(frame: CGRect(x: at.x, y: at.y, width: 40, height: 28))
-        self.label = UILabel(frame: CGRect(x: 0, y: self.panel.center.y-9-self.panel.frame.minY, width: self.panel.frame.width, height: 16))
+        self.label = MarqueeLabel(frame: CGRect(x: 2, y: self.panel.center.y-9-self.panel.frame.minY, width: self.panel.frame.width-4, height: 16), duration: 3.0, fadeLength: 2.0)
         if type == .TRAMWAY {
             self.panel.roundCorners([.bottomLeft, .bottomRight, .topLeft], radius: 8)
             self.topLeftCornerRadius = 8

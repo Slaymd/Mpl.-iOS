@@ -66,6 +66,12 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         headerView.addSubview(headerShadowLabel)
         headerView.addSubview(headerLightLabel)
         
+        //Localizable
+        self.headerLightLabel.text = NSLocalizedString("Search", comment: "").uppercased()
+        self.headerShadowLabel.text = NSLocalizedString("Search", comment: "").uppercased()
+        self.stationsTitle.text = NSLocalizedString("Stations", comment: "")
+        self.linesTitle.text = NSLocalizedString("Lines", comment: "")
+        
         //Lines scrollview
         linesScroll.frame.origin = CGPoint(x: 0, y: self.headerView.frame.height+75)
         linesScroll.frame.size = CGSize(width: UIScreen.main.bounds.width, height: 170)
@@ -123,49 +129,27 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func handleStationTap(sender: UITapGestureRecognizer) {
         let clickLoc = sender.location(in: self.stationsScroll)
         
-        print(clickLoc)
         for stationCard in self.stationCards {
-            print(stationCard.frame)
             if clickLoc.x < stationCard.frame.minX || clickLoc.x > stationCard.frame.maxX { continue }
             if clickLoc.y < stationCard.frame.minY || clickLoc.y > stationCard.frame.maxY { continue }
             
-            ViewMaker.createStationPopUpFromResearcherView(view: self, researcherView: self, station: stationCard.station!)
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station!)
+            stationPopUp.modalPresentationStyle = .overCurrentContext
+            self.present(stationPopUp, animated: false, completion: nil)
             break
         }
     }
     
-    @objc func handleTap(sender: UITapGestureRecognizer? = nil) {
-        // handling code
-        let card = self.lineCards[0]
-        if (card.animState == 0) {
-            self.view.addSubview(card)
-            card.frame = CGRect.init(x: 15, y: 150+5, width: card.frame.width, height: card.frame.height)
-            for label in card.destinationsLabels {
-                label.removeFromSuperview()
-            }
-            UIView.animate(withDuration: 0.55, delay: 0.0, options: [.curveEaseInOut], animations: {
-                card.frame.origin = CGPoint(x: 0, y: 0)
-                card.frame.size = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height*0.22)
-                card.logo?.panel.frame.origin = CGPoint(x: 25, y: 50)
-                card.logo?.panel.transform = CGAffineTransform(scaleX: 1.45, y: 1.45)
-                card.layer.cornerRadius = 0
-            }) { (value: Bool) in
-                card.animState = 1
-                print("animation finished.")
-            }
-        } else if (card.animState == 1) {
-            UIView.animate(withDuration: 0.55, delay: 0.0, options: [.curveEaseInOut], animations: {
-                card.frame.origin = CGPoint(x: 15, y: 5)
-                card.frame.size = CGSize(width: 150, height: 160)
-                card.logo!.panel.frame.origin = CGPoint(x: 5, y: 5)
-                card.logo!.panel.transform = CGAffineTransform.identity
-                card.layer.cornerRadius = 15
-                self.linesScroll.addSubview(card)
-            }) { (value: Bool) in
-                card.animState = 0
-                print("animation finished.")
-                //self.linesScroll.addSubview(card)
-            }
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        let clickLoc = sender.location(in: self.linesScroll)
+        
+        for lineCard in self.lineCards {
+            if clickLoc.x < lineCard.frame.minX || clickLoc.x > lineCard.frame.maxX { continue }
+            if clickLoc.y < lineCard.frame.minY || clickLoc.y > lineCard.frame.maxY { continue }
+            
+            let lineView: LineViewController = LineViewController.init(nibName: "LineViewController", bundle: nil, line: lineCard.line!)
+            self.navigationController?.pushViewController(lineView, animated: true)
+            break
         }
     }
     

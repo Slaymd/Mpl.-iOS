@@ -13,6 +13,8 @@ import os.log
 
 class TransportData {
 
+    static var referenceDatabase: Connection?
+    
     static var stopZones: [StopZone] = []
     static var stops: [Stop] = []
     static var lines: [Line] = []
@@ -26,6 +28,7 @@ class TransportData {
         let refdb = try? Connection(databasePath)
         
         if refdb == nil { return }
+        self.referenceDatabase = refdb
         os_log("Initializing stop zones...", type: .info)
         initStopsZone(refdb!)
         os_log("Initializing stop...", type: .info)
@@ -52,6 +55,13 @@ class TransportData {
         return stop[0]
     }
     
+    static func getStopById(id: Int) -> Stop? {
+        let stop = stops.filter({$0.id == id})
+        
+        if stop.count != 1 { return nil }
+        return stop[0]
+    }
+    
     static func getStopByIdAtStopZone(stopZone: StopZone, stopCitywayId: Int) -> Stop? {
         var fstop: Stop?
         
@@ -61,6 +71,52 @@ class TransportData {
             }
         }
         return (fstop)
+    }
+    
+    static func getLineStopsIdByDirection(line: Line) -> [(direction: Int, stopsId: [Int])] {
+        var result: [(direction: Int, stopsId: [Int])] = []
+        
+        print("Getting line stops of \(line)")
+        if (self.referenceDatabase == nil) { return result}
+        let direction = Expression<Int64>("direction")
+        let stop = Expression<Int64>("stop")
+        let dbline = Expression<Int64>("line")
+        let lineStopsTable = Table("FLATTEN_LINE_STOP").filter(dbline == Int64(line.id))
+        
+        for lineStop in try! self.referenceDatabase!.prepare(lineStopsTable) {
+            var tmp = result.filter({$0.direction == Int(lineStop[direction])})
+            let idx = result.index(where: {$0.direction == Int(lineStop[direction])})
+            
+            if tmp.count == 1 {
+                result.remove(at: idx!)
+                tmp[0].stopsId.append(Int(lineStop[stop]))
+                result.append(tmp[0])
+            } else {
+                result.append((direction: Int(lineStop[direction]), stopsId: [Int(lineStop[stop])]))
+            }
+        }
+        return result
+    }
+    
+    static func getLineStopZonesByDirection(line: Line) -> [[StopZone]] {
+        let stopsIdByDirection = self.getLineStopsIdByDirection(line: line)
+        var result: [[StopZone]] = []
+        
+        for direction in stopsIdByDirection {
+            var dirStopZone: [StopZone] = []
+            
+            for stopId in direction.stopsId {
+                let stop = self.getStopById(id: stopId)
+                
+                if stop == nil { continue }
+                let stopZone = self.getStopZoneById(stopZoneId: stop!.stopZoneId)
+                
+                if stopZone == nil { continue }
+                dirStopZone.append(stopZone!)
+            }
+            result.append(dirStopZone)
+        }
+        return result
     }
     
     static func updateStopZoneDirections(stopZone: StopZone) {
@@ -451,6 +507,13 @@ class TransportData {
     
     static func getLine(byTamId id: Int) -> Line? {
         let _line = self.lines.filter({$0.tamId == id})
+        
+        if _line.count != 1 { return nil }
+        return _line[0]
+    }
+    
+    static func getLine(byCitywayId id: Int) -> Line? {
+        let _line = self.lines.filter({$0.citywayId == id})
         
         if _line.count != 1 { return nil }
         return _line[0]

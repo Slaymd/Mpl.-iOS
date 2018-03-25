@@ -1,0 +1,21 @@
+
+/* Class = "UILabel"; text = "DARIUS"; ObjectID = "6Eo-dR-wXC"; */
+"6Eo-dR-wXC.text" = "DARIUS";
+
+/* Class = "UILabel"; text = "StationName"; ObjectID = "DcL-VP-l3S"; */
+"DcL-VP-l3S.text" = "StationName";
+
+/* Class = "UILabel"; text = "station"; ObjectID = "g1p-Op-wuO"; */
+"g1p-Op-wuO.text" = "station";
+
+/* Class = "UILabel"; text = "bienvenue"; ObjectID = "hrY-2u-O5a"; */
+"hrY-2u-O5a.text" = "bienvenue";
+
+/* Class = "UILabel"; text = "DARIUS"; ObjectID = "msS-X8-ld3"; */
+"msS-X8-ld3.text" = "DARIUS";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "seu-ma-1zP"; */
+"seu-ma-1zP.text" = "Label";
+
+/* Class = "UITableViewController"; title = "Stations"; ObjectID = "wZ7-kn-E1G"; */
+"wZ7-kn-E1G.title" = "Stations";

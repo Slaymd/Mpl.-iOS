@@ -68,7 +68,9 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.update()
         }))
         alert.addAction(UIAlertAction(title: "Plus d'informations", style: .default, handler: { _ in
-            ViewMaker.createStationPopUpFromHome(view: self, station: station)
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: station)
+            stationPopUp.modalPresentationStyle = .overCurrentContext
+            self.present(stationPopUp, animated: false, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
             let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
@@ -114,72 +116,21 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
                 //Update station
                 newFavStations[i].updateTimetable(completion: { (result: Bool) in
                     if result == true {
-                        self.update()
+                        if newFavStations[i].needDisplayUpdate == 1 {
+                            newFavStations[i].needDisplayUpdate = 0
+                            let cell = self.stationCollectionView.cellForItem(at: IndexPath.init(item: i, section: 0)) as? HomeStationCollectionViewCell
+                            
+                            if (cell != nil) {
+                                cell!.updateDisplayedArrivals()
+                            }
+                        }
                     }
                 })
-                if newFavStations[i].needDisplayUpdate == 1 {
-                    newFavStations[i].needDisplayUpdate = 0
-                    let cell = self.stationCollectionView.cellForItem(at: IndexPath.init(item: i, section: 0)) as? HomeStationCollectionViewCell
-                    
-                    if (cell == nil) { continue }
-                    cell!.updateDisplayedArrivals()
-                }
+                
             }
         }
         
         favStations = newFavStations
-        /*if Set<StopZone>(favStations) == Set<StopZone>(newFavStations) {
-            
-        }*/
-        
-        //Timetable update
-        /*var newFavStations: [StopZone]
-        var userLocation: CLLocation? = nil
-        
-        //User location
-        if self.mainController == nil { return }
-        if self.mainController?.userLocation != nil { userLocation = self.mainController?.userLocation}
-        
-        //Getting fav stations by location
-        newFavStations = userLocation != nil ? UserData.getFavStationsByLocation(refLocation: userLocation!) : UserData.getFavStations()
-        */
-        //set view elemts
-        /*self.stationCollectionView.reloadInputViews()
-        self.stationCollectionView.reloadData()
-        favStationScrollView.contentSize = CGSize(width: newFavStations.count*265+15, height: 100)
-        for i in 0..<newFavStations.count {
-            let nextarrivals: Bool = favStationsCards.count-1 >= i && favStationsCards[i].station == newFavStations[i] && favStationsCards[i].nextSchedules.count > 0 && favStationsCards[i].nextSchedules[0] == favStations[i].timetable.schedules[0].date.getMinsFromNow() ? true : false
-            if !(favStationsCards.count-1 >= i && favStationsCards[i].station == newFavStations[i]) || nextarrivals == false {
-                if i < favStationsCards.count {
-                    for view in favStationsCards[i].card.subviews {
-                        view.removeFromSuperview()
-                    }
-                    favStationsCards[i].card.removeFromSuperview()
-                    favStationsCards.remove(at: i)
-                }
-                newFavStations[i].updateTimetable()
-                let timetable = newFavStations[i].timetable
-                
-                timetable.sortSchedules()
-                favStationsCards.insert(UIStationCard(x: CGFloat(16+(250*i+15*i)), y: 45, station: newFavStations[i]), at: i)
-                let click = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
-                let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLittlePress(sender:)))
-                longPressRecognizer.minimumPressDuration = 0.1;
-                favStationsCards[i].card.addGestureRecognizer(click)
-                favStationsCards[i].card.addGestureRecognizer(longPressRecognizer)
-                self.favStationScrollView.addSubview(favStationsCards[i].card)
-            }
-        }
-        if newFavStations.count < favStationsCards.count {
-            for i in newFavStations.count..<favStationsCards.count {
-                for view in favStationsCards[i].card.subviews {
-                    view.removeFromSuperview()
-                }
-                favStationsCards[i].card.removeFromSuperview()
-                favStationsCards.remove(at: i)
-            }
-        }
-        favStations = newFavStations*/
     }
     
     //View did load
@@ -196,6 +147,8 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         stationCollectionView.frame = CGRect(x: 0, y: mainHeader.frame.maxY+40, width: stationCollectionView.frame.width, height: stationCollectionView.frame.height)
         favStationHeaderLabel.frame = CGRect(x: 16, y: mainHeader.frame.maxY+50, width: stationCollectionView.frame.width, height: 20)
         
+        favStationHeaderLabel.text = NSLocalizedString("Favorite stations", comment: "")
+        
         //Station Collection
         self.stationCollectionView.register(UINib(nibName:"HomeStationCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
         self.stationCollectionView.delegate = self
@@ -204,56 +157,6 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         //Refresher
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
     }
-    
-    /*@objc func handleTap(sender: UITapGestureRecognizer) {
-        let loc = sender.location(in: favStationScrollView)
-        var station: StopZone!
-        //Getting station from X, Y
-        for i in 0..<favStationsCards.count {
-            if loc.x >= favStationsCards[i].card.frame.minX && loc.x <= favStationsCards[i].card.frame.maxX {
-                station = favStations[i]
-            }
-        }
-        //Displaying station pop-up
-        ViewMaker.createStationPopUpFromHome(view: self, station: station)
-    }
-    
-    @objc func handleLittlePress(sender: UILongPressGestureRecognizer) {
-        let loc = sender.location(in: favStationScrollView)
-        var station: UIStationCard? = nil
-        //Getting station from X, Y
-        for i in 0..<favStationsCards.count {
-            if loc.x >= favStationsCards[i].card.frame.minX && loc.x <= favStationsCards[i].card.frame.maxX {
-                station = favStationsCards[i]
-            }
-        }
-        //Animation
-        if (station == nil) { return }
-        if sender.state == .began {
-            station!.evt_startpress = Date.timeIntervalSinceReferenceDate
-            station!.longPressAnimationStart()
-        } else if sender.state == .ended {
-            if (station!.evt_startpress != nil) {
-                //Si le doigt n'a pas été déplacé sur une autre station
-                let duration = Date.timeIntervalSinceReferenceDate - station!.evt_startpress!
-                station!.longPressAnimationClose()
-                station!.evt_startpress = nil
-                if duration >= 0.4 {
-                    station!.dispContextualMenu(viewController: self)
-                } else {
-                    ViewMaker.createStationPopUpFromHome(view: self, station: station!.station)
-                }
-            } else {
-                //Doigt déplacé, reset toutes les cartes.
-                for stationCard in favStationsCards {
-                    if (stationCard.evt_startpress != nil) {
-                        stationCard.longPressAnimationClose()
-                        stationCard.evt_startpress = nil
-                    }
-                }
-            }
-        }
-    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -28,6 +28,8 @@ class StationViewController: UIViewController {
     
     var homeView: HomeView? = nil
     var researchView: ResearcherViewController? = nil
+    
+    var nbDisruptions = 0
     //var tableView: StationsTableViewController? = nil
     
     //MARK: Remove navigation bar in main view
@@ -103,6 +105,16 @@ class StationViewController: UIViewController {
         for view in self.directionsPanel.subviews {
             view.removeFromSuperview()
         }
+        self.nbDisruptions = 0
+        for line in self.station!.lines {
+            DisruptionData.getLineDisruption(line: line, completion: { (disruption: Disruption?) in
+                if disruption != nil {
+                    self.displayDisturbance(disruption!)
+                    self.nbDisruptions += 1
+                    self.directionsPanel.frame.origin = CGPoint(x: 0, y: Int(self.cardHeader.frame.maxY)+40*self.nbDisruptions)
+                }
+            })
+        }
         self.station!.updateTimetable(completion: { (result: Bool) in
             if result == true {
                 self.update()
@@ -119,6 +131,20 @@ class StationViewController: UIViewController {
             self.displayDirections()
         }
         
+    }
+    
+    func displayDisturbance(_ disturbance: Disruption) {
+        let panel = UIView(frame: CGRect(x: 0, y: Int(self.cardHeader.frame.maxY)+40*self.nbDisruptions, width: Int(self.stationPanel.frame.width), height: 40))
+        panel.backgroundColor = UIColor(hex: "f39c12").withAlphaComponent(0.8)
+        self.stationPanel.addSubview(panel)
+        let icon = UIImageView(frame: CGRect(x: 15, y: (40-22)/2, width: 22, height: 22))
+        icon.image = #imageLiteral(resourceName: "round-error-symbol-white")
+        panel.addSubview(icon)
+        let text = MarqueeLabel(frame: CGRect(x: 15+22+10, y: (40-28)/2, width: Int(panel.frame.width)-10, height: 28), duration: 6.0, fadeLength: 6.0)
+        text.text = disturbance.title
+        text.font = UIFont(name: "Ubuntu-Medium", size: 19.0)
+        text.textColor = .white
+        panel.addSubview(text)
     }
     
     func displayDirections() {

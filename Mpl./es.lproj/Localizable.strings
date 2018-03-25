@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  Mpl.
+
+  Created by Darius Martin on 24/03/2018.
+  Copyright © 2018 Darius MARTIN. All rights reserved.
+*/
+
+//Title
+"welcome" = "bienvenido";
+"Search" = "Buscar";
+
+//Stations
+"Favorite stations" = "Estaciónes favoritas";
+"station" = "estación";
+"Stations" = "Estaciónes";
+"Lines" = "Líneas";
+
+//Schedules
+"near" = "cercano";
+"mins" = "mins";
+"+1 hour" = "+1 hora";
+"Service ended" = "Servicio terminado";
+"..." = "...";

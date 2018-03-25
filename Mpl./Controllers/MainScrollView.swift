@@ -117,6 +117,7 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
         headerWelcomeLabel.frame = CGRect(x: self.view.frame.width+14, y: header.frame.maxY-62, width: self.view.frame.width-20, height: 15)
         
         //Setting displayed name
+        self.headerWelcomeLabel.text = NSLocalizedString("welcome", comment: "")
         updateDisplayedUserName()
         
         //Request location
@@ -127,7 +128,6 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
             locManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locManager.startUpdatingLocation()
         }
-        
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     

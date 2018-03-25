@@ -9,8 +9,8 @@
 import CoreLocation
 import Foundation
 
-class Stop : CustomStringConvertible {
-    
+class Stop : CustomStringConvertible, Equatable {
+
     var id: Int
     var tamId: Int
     var citywayId: Int
@@ -42,6 +42,13 @@ class Stop : CustomStringConvertible {
         if (id == 569) { self.directionName = "\(name) - Sens B"}
         if (id == 711) { self.directionName = "\(name) T3"}
         if (id == 713) { self.directionName = "\(name) T1"}
+    }
+    
+    static func ==(lhs: Stop, rhs: Stop) -> Bool {
+        if lhs.id == rhs.id && lhs.citywayId == rhs.citywayId && lhs.stopZoneId == rhs.stopZoneId {
+            return true
+        }
+        return false
     }
     
 }
