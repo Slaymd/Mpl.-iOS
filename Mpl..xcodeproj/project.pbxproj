@@ -23,7 +23,6 @@
 		264E04C5201E194A006885A5 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 264E04C3201E194A006885A5 /* UserView.xib */; };
 		2659C73C1FF933390079C362 /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2659C73E1FF933390079C362 /* NotificationBannerSwift.framework */; };
 		2659C73D1FF933390079C362 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2659C73F1FF933390079C362 /* SnapKit.framework */; };
-		2659C7411FFC104A0079C362 /* StationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2659C7401FFC104A0079C362 /* StationViewController.swift */; };
 		2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC44205E9B930089DF95 /* UIStationMapCard.swift */; };
 		2665FC48205F23120089DF95 /* LineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC46205F23120089DF95 /* LineViewController.swift */; };
 		2665FC49205F23120089DF95 /* LineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2665FC47205F23120089DF95 /* LineViewController.xib */; };
@@ -39,7 +38,6 @@
 		268F780220178AD400F3366F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F780020178AD400F3366F /* MapView.swift */; };
 		268F780320178AD400F3366F /* MapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 268F780120178AD400F3366F /* MapView.xib */; };
 		2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696BC29205C731B00210F15 /* UILightStationCard.swift */; };
-		2699EF4B1FFF8A6B001965EA /* ViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2699EF4A1FFF8A6B001965EA /* ViewMaker.swift */; };
 		26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A579061FF2EC500087ADD9 /* AppDelegate.swift */; };
 		26A5790C1FF2EC500087ADD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A5790A1FF2EC500087ADD9 /* Main.storyboard */; };
 		26A5790E1FF2EC500087ADD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A5790D1FF2EC500087ADD9 /* Assets.xcassets */; };
@@ -63,8 +61,6 @@
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
 		26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9A2042E2B300FA03B8 /* Stop.swift */; };
 		26D77A9D2043155800FA03B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9C2043155800FA03B8 /* Direction.swift */; };
-		26FE30051FF7F0950085F336 /* StationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FE30041FF7F0950085F336 /* StationsTableViewCell.swift */; };
-		26FE30071FF7FA530085F336 /* StationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FE30061FF7FA530085F336 /* StationsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,7 +113,6 @@
 		264E04C3201E194A006885A5 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
 		2659C73E1FF933390079C362 /* NotificationBannerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NotificationBannerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2659C73F1FF933390079C362 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2659C7401FFC104A0079C362 /* StationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationViewController.swift; sourceTree = "<group>"; };
 		2665FC44205E9B930089DF95 /* UIStationMapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStationMapCard.swift; sourceTree = "<group>"; };
 		2665FC46205F23120089DF95 /* LineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineViewController.swift; sourceTree = "<group>"; };
 		2665FC47205F23120089DF95 /* LineViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineViewController.xib; sourceTree = "<group>"; };
@@ -133,7 +128,6 @@
 		268F780020178AD400F3366F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		268F780120178AD400F3366F /* MapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapView.xib; sourceTree = "<group>"; };
 		2696BC29205C731B00210F15 /* UILightStationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILightStationCard.swift; sourceTree = "<group>"; };
-		2699EF4A1FFF8A6B001965EA /* ViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewMaker.swift; sourceTree = "<group>"; };
 		26A579031FF2EC500087ADD9 /* Mpl..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mpl..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A579061FF2EC500087ADD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26A5790B1FF2EC500087ADD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -159,8 +153,6 @@
 		26D77A982042E11700FA03B8 /* StopZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopZone.swift; sourceTree = "<group>"; };
 		26D77A9A2042E2B300FA03B8 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		26D77A9C2043155800FA03B8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
-		26FE30041FF7F0950085F336 /* StationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsTableViewCell.swift; sourceTree = "<group>"; };
-		26FE30061FF7FA530085F336 /* StationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationsTableViewController.swift; sourceTree = "<group>"; };
 		4FE7A9BF84A8CE3C367EA59F /* Pods-Mpl..debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..debug.xcconfig"; sourceTree = "<group>"; };
 		68D4354A439A0E5922BB120A /* Pods_Mpl_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mpl_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DABBD32BD99C766227731A /* Pods-Mpl..release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..release.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..release.xcconfig"; sourceTree = "<group>"; };
@@ -192,14 +184,10 @@
 		263722CF2030D03400CDCC4B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2659C7401FFC104A0079C362 /* StationViewController.swift */,
-				26FE30061FF7FA530085F336 /* StationsTableViewController.swift */,
-				2699EF4A1FFF8A6B001965EA /* ViewMaker.swift */,
 				268F77FE2017876600F3366F /* MainScrollView.swift */,
 				268F77FA201786D100F3366F /* HomeView.swift */,
 				268F780020178AD400F3366F /* MapView.swift */,
 				264E04C2201E194A006885A5 /* UserView.swift */,
-				26FE30041FF7F0950085F336 /* StationsTableViewCell.swift */,
 				26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */,
 				26AA2A29205720B50066F7FB /* ResearcherViewController.swift */,
 				2665FC46205F23120089DF95 /* LineViewController.swift */,
@@ -562,7 +550,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				268BC6951FF85B7200B9AC68 /* AdvancedString.swift in Sources */,
-				2659C7411FFC104A0079C362 /* StationViewController.swift in Sources */,
 				26442B7420654FAB00A3CC36 /* StationPopUpView.swift in Sources */,
 				268F77FF2017876600F3366F /* MainScrollView.swift in Sources */,
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
@@ -573,13 +560,11 @@
 				2618DB232055972A00EC8E4B /* Schedule.swift in Sources */,
 				268F77FC201786D100F3366F /* HomeView.swift in Sources */,
 				26A85C0E206307C2009298CB /* DisruptionData.swift in Sources */,
-				26FE30051FF7F0950085F336 /* StationsTableViewCell.swift in Sources */,
 				26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */,
 				260023721FF70D6E00FA0D81 /* UserData.swift in Sources */,
 				26A5792B1FF3D0D60087ADD9 /* Station.swift in Sources */,
 				26A85C1020630B97009298CB /* Disruption.swift in Sources */,
 				26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */,
-				26FE30071FF7FA530085F336 /* StationsTableViewController.swift in Sources */,
 				26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */,
 				26A579211FF393400087ADD9 /* UIAdvanced.swift in Sources */,
 				26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */,
@@ -589,7 +574,6 @@
 				2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */,
 				268F780220178AD400F3366F /* MapView.swift in Sources */,
 				26D77A9D2043155800FA03B8 /* Direction.swift in Sources */,
-				2699EF4B1FFF8A6B001965EA /* ViewMaker.swift in Sources */,
 				26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */,
 				26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */,
 				260023701FF704BE00FA0D81 /* TransportData.swift in Sources */,
@@ -802,7 +786,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJ6YJ53QSU;
 				INFOPLIST_FILE = Mpl./Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.epitechproject.mpl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -822,7 +806,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJ6YJ53QSU;
 				INFOPLIST_FILE = Mpl./Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.epitechproject.mpl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
