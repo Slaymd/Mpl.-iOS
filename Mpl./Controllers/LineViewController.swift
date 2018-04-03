@@ -68,7 +68,7 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             let fromLine: Line? = i == 0 ? nil : line
             let toLine: Line? = i == dirToDisp.count-1 ? nil : line
             
-            let stationMap = UIStationMapCard(frame: CGRect.init(x: 0, y: height, width: Int(self.view.frame.width), height: 75), station: station, fromLine: fromLine, toLine: toLine)
+            let stationMap = UIStationMapCard(frame: CGRect.init(x: 0, y: height, width: Int(self.scrollView.frame.width), height: 75), station: station, fromLine: fromLine, toLine: toLine)
             height += Int(stationMap.frame.height)
             self.scrollView.addSubview(stationMap)
             self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width, height: CGFloat(height)+30)

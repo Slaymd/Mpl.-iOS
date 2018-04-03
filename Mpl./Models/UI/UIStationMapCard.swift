@@ -47,8 +47,42 @@ class UIStationMapCard: UIView {
             self.addSubview(stationSubPoint)
         }
         
+        //Lines logo
+        var lines = self.station.getLines().sorted(by: {$0.displayId < $1.displayId})
+        for _ in 0..<2 {
+            let index = lines.index(where: {$0 == line1 || $0 == line2})
+            
+            if index != nil {
+                lines.remove(at: index!)
+            }
+        }
+        var dispId = 1
+        
+        for i in 0..<lines.count {
+            let line = lines[i]
+            print(line)
+            
+            if line == line1 || line == line2 { continue }
+            if dispId > 3 {
+                let more = UILabel(frame: CGRect(x: Int(UIScreen.main.bounds.width)-20, y: (Int(frame.height)-20)/2-4, width: 20, height: 28))
+                more.font = UIFont(name: "Ubuntu-Medium", size: 14.0)
+                more.text = "+\(lines.count-3)"
+                more.textColor = .lightGray
+                more.textAlignment = .center
+                self.addSubview(more)
+                //label "...+SMTH"
+                break
+            }
+            let x = Int(UIScreen.main.bounds.width)-15-(40+5)*dispId
+            let y = (Int(frame.height)-20)/2-4
+            let lineLogo = UILineLogo(lineShortName: line.shortName, bgColor: line.bgColor, fontColor: line.ftColor, type: line.type, at: CGPoint(x: x, y: y))
+            self.addSubview(lineLogo.panel)
+            dispId += 1
+        }
+        
         //Station name
-        self.stationName = MarqueeLabel(frame: CGRect(x: 35, y: (frame.height-20)/2, width: (frame.width-35)/2, height: 20) , duration: 8.0, fadeLength: 6.0)
+        let textWidth = Int(UIScreen.main.bounds.width)-15-(40+5)*dispId - 2
+        self.stationName = MarqueeLabel(frame: CGRect(x: 35, y: Int((frame.height-20)/2), width: textWidth, height: 20), duration: 8.0, fadeLength: 6.0)
         self.stationName!.text = station.name
         self.stationName!.font = UIFont(name: "Ubuntu-Bold", size: 18.0)
         self.addSubview(self.stationName!)
@@ -64,13 +98,5 @@ class UIStationMapCard: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }
