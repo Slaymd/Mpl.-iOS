@@ -97,7 +97,7 @@ class StationPopUpView: UIViewController {
     public func displayDisturbances(disturbances: [(disruption: Disruption, lines: [Line])]) {
         if disturbances.count == 0 { return }
         
-        self.disturbancesPanel = UIView(frame: CGRect(x: 0, y: -300, width: Int(self.stationDataScroll.frame.width), height: 300+(36+25)*disturbances.count))
+        self.disturbancesPanel = UIView(frame: CGRect(x: 0, y: -300, width: Int(self.stationDataScroll.frame.width), height: 304+(32+25)*disturbances.count))
         self.disturbancesPanel!.backgroundColor = UIColor(hex: "f39c12").withAlphaComponent(0.8)
         self.stationDataScroll.addSubview(self.disturbancesPanel!)
         
@@ -105,17 +105,17 @@ class StationPopUpView: UIViewController {
             let disturbance = disturbances[i]
             
             //Icon and lines
-            let icon = UIImageView(frame: CGRect(x: 15, y: 304+(28+4)*i, width: 28, height: 28))
+            let icon = UIImageView(frame: CGRect(x: 15, y: 304+(28+4+25)*i, width: 28, height: 28))
             icon.image = #imageLiteral(resourceName: "round-error-symbol-white")
             self.disturbancesPanel!.addSubview(icon)
             for i2 in 0..<disturbance.lines.count {
                 let line = disturbance.lines[i2]
-                let lineLogo = UILineLogo(lineShortName: line.shortName, bgColor: UIColor.white.withAlphaComponent(0.8), fontColor: UIColor(hex: "f39c12"), type: line.type, at: CGPoint(x: 3+48*(i2+1), y: 304+(28+4)*i))
+                let lineLogo = UILineLogo(lineShortName: line.shortName, bgColor: UIColor.white.withAlphaComponent(0.8), fontColor: UIColor(hex: "f39c12"), type: line.type, at: CGPoint(x: 3+48*(i2+1), y: 304+(28+4+25)*i))
                 self.disturbancesPanel?.addSubview(lineLogo.panel)
             }
             
             //Disruption title
-            let disruptTitle = MarqueeLabel(frame: CGRect(x: 15, y: CGFloat(304+(28+4)*i+28), width: self.disturbancesPanel!.frame.width-30, height: 25), duration: 6.0, fadeLength: 6.0)
+            let disruptTitle = MarqueeLabel(frame: CGRect(x: 15, y: CGFloat(304+(28+4+25)*i+28), width: self.disturbancesPanel!.frame.width-30, height: 25), duration: 9.0, fadeLength: 6.0)
             let startDate = disturbance.disruption.startDate.split(separator: "-")
             let day = String(startDate[2])
             let endDayStartDateIndex = day.index(day.startIndex, offsetBy: 2)
