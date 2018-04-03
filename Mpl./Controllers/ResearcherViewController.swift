@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -110,6 +111,11 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         //Navigation
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        //Background state event
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
 
     //MARK: - UI UPDATE LOOP
@@ -159,14 +165,20 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         return .lightContent
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: - BACKGROUND STATE
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        self.refresher?.invalidate()
+        self.refresher = nil
+        MarqueeLabel.controllerLabelsLabelize(self)
     }
-    */
+    
+    @objc func appMovedToForeground() {
+        print("App moved to foreground!")
+        self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        self.update()
+        MarqueeLabel.controllerLabelsAnimate(self)
+    }
 
 }

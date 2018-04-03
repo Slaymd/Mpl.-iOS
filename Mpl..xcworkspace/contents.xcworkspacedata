@@ -5,9 +5,6 @@
       location = "group:Occitanie.gpx">
    </FileRef>
    <FileRef
-      location = "group:default.gpx">
-   </FileRef>
-   <FileRef
       location = "group:Mpl..xcodeproj">
    </FileRef>
    <FileRef

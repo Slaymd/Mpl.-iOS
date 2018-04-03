@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import MarqueeLabel
 
 class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerDelegate {
     
@@ -160,11 +161,6 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
             
         }
         self.view.endEditing(true)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -66,6 +66,11 @@ class StationPopUpView: UIViewController {
             self.favoriteButton.isSelected = false
         }
         
+        //Background state event
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
+        
     }
     
     //MARK: - UI UPDATE LOOP
@@ -245,19 +250,37 @@ class StationPopUpView: UIViewController {
         }
     }
     
+    //MARK: - BACKGROUND STATE
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        self.refresher?.invalidate()
+        self.refresher = nil
+        MarqueeLabel.controllerLabelsLabelize(self)
+    }
+    
+    @objc func appMovedToForeground() {
+        print("App moved to foreground!")
+        self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        self.update()
+        MarqueeLabel.controllerLabelsAnimate(self)
+    }
     
     //MARK: - APPEAR ANIMATION
     
     override func viewDidAppear(_ animated: Bool) {
         //Information label (waiting or finished service)
-        self.informationLabel = UILabel(frame: CGRect(x: 0, y: 5, width: self.stationDataScroll.frame.width, height: 25))
-        self.informationLabel!.font = UIFont(name: "Ubuntu-Bold", size: 19.0)
-        self.informationLabel!.textColor = .darkGray
-        self.informationLabel!.textAlignment = .center
-        self.informationLabel!.text = NSLocalizedString("...", comment: "")
-        self.stationDataScroll.addSubview(self.informationLabel!)
-        //UI Init
-        self.displayInit()
+        print("DID APPEAR")
+        if (self.informationLabel == nil) {
+            self.informationLabel = UILabel(frame: CGRect(x: 0, y: 5, width: self.stationDataScroll.frame.width, height: 25))
+            self.informationLabel!.font = UIFont(name: "Ubuntu-Bold", size: 19.0)
+            self.informationLabel!.textColor = .darkGray
+            self.informationLabel!.textAlignment = .center
+            self.informationLabel!.text = NSLocalizedString("...", comment: "")
+            self.stationDataScroll.addSubview(self.informationLabel!)
+            //UI Init
+            self.displayInit()
+        }
         //Pop up appear
         self.appearAnimation()
         //Timer init

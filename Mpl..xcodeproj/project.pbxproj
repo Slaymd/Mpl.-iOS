@@ -830,7 +830,7 @@
 				2680F787201747E100194331 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		26A578FE1FF2EC500087ADD9 /* Build configuration list for PBXProject "Mpl." */ = {
 			isa = XCConfigurationList;
@@ -839,7 +839,7 @@
 				26A579141FF2EC500087ADD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		26A579151FF2EC500087ADD9 /* Build configuration list for PBXNativeTarget "Mpl." */ = {
 			isa = XCConfigurationList;
@@ -848,7 +848,7 @@
 				26A579171FF2EC500087ADD9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

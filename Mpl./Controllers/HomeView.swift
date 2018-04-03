@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import NotificationBannerSwift
+import MarqueeLabel
 
 class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -76,8 +77,6 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
             banner.haptic = .light
             banner.show()
-            /*let researchView: ResearcherViewController = ResearcherViewController(nibName: "ResearcherViewController", bundle: nil)
-            self.present(researchView, animated: true, completion: nil)*/
         }))
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -89,11 +88,9 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         super.viewWillAppear(animated)
         
         self.refresher.invalidate()
+        self.refresher = nil
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         update()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.update()
-        }
     }
     
     //MARK: refresher
@@ -156,11 +153,29 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
         
         //Refresher
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        
+        //Background state event
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //MARK: - BACKGROUND STATE
+    
+    @objc func appMovedToBackground() {
+        print("App moved to background!")
+        //return;
+        self.refresher?.invalidate()
+        self.refresher = nil
+        MarqueeLabel.controllerLabelsLabelize(self)
+    }
+    
+    @objc func appMovedToForeground() {
+        print("App moved to foreground!")
+        //return;
+        self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
+        self.update()
+        MarqueeLabel.controllerLabelsAnimate(self)
     }
 
 }
