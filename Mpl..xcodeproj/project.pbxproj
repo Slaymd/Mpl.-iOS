@@ -32,6 +32,8 @@
 		2680F77E201747E100194331 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680F77D201747E100194331 /* TodayViewController.swift */; };
 		2680F781201747E100194331 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2680F77F201747E100194331 /* MainInterface.storyboard */; };
 		2680F785201747E100194331 /* nextArrivals.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2680F779201747E100194331 /* nextArrivals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2682E1DA20753F1E009F6E93 /* UIMultiDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */; };
+		2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1DB20754D05009F6E93 /* ScheduleData.swift */; };
 		268BC6951FF85B7200B9AC68 /* AdvancedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268BC6941FF85B7200B9AC68 /* AdvancedString.swift */; };
 		268F77FC201786D100F3366F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FA201786D100F3366F /* HomeView.swift */; };
 		268F77FF2017876600F3366F /* MainScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FE2017876600F3366F /* MainScrollView.swift */; };
@@ -122,6 +124,8 @@
 		2680F77D201747E100194331 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		2680F780201747E100194331 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		2680F782201747E100194331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMultiDirectionSchedule.swift; sourceTree = "<group>"; };
+		2682E1DB20754D05009F6E93 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		268BC6941FF85B7200B9AC68 /* AdvancedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedString.swift; sourceTree = "<group>"; };
 		268F77FA201786D100F3366F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268F77FE2017876600F3366F /* MainScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScrollView.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 		263722D12030D0AB00CDCC4B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2682E1DD20754D66009F6E93 /* Data */,
 				2665FC43205E9B280089DF95 /* UI */,
 				26A5792A1FF3D0D60087ADD9 /* Station.swift */,
 				2632915B200371D2007C5156 /* Timetable.swift */,
@@ -225,8 +230,6 @@
 				26D77A9C2043155800FA03B8 /* Direction.swift */,
 				26A85C0F20630B97009298CB /* Disruption.swift */,
 				2618DB222055972A00EC8E4B /* Schedule.swift */,
-				2600236F1FF704BE00FA0D81 /* TransportData.swift */,
-				26A85C0D206307C2009298CB /* DisruptionData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				263964EE205A8527007938FB /* UILineCard.swift */,
 				26A579301FF3EED80087ADD9 /* UILineLogo.swift */,
 				26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */,
+				2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -251,6 +255,16 @@
 				2680F782201747E100194331 /* Info.plist */,
 			);
 			path = nextArrivals;
+			sourceTree = "<group>";
+		};
+		2682E1DD20754D66009F6E93 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2600236F1FF704BE00FA0D81 /* TransportData.swift */,
+				26A85C0D206307C2009298CB /* DisruptionData.swift */,
+				2682E1DB20754D05009F6E93 /* ScheduleData.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		26A578FA1FF2EC500087ADD9 = {
@@ -555,6 +569,7 @@
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
 				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
+				2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */,
 				2632915E20037EDF007C5156 /* DayDate.swift in Sources */,
 				2665FC48205F23120089DF95 /* LineViewController.swift in Sources */,
 				2618DB232055972A00EC8E4B /* Schedule.swift in Sources */,
@@ -569,6 +584,7 @@
 				26A579211FF393400087ADD9 /* UIAdvanced.swift in Sources */,
 				26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */,
 				26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */,
+				2682E1DA20753F1E009F6E93 /* UIMultiDirectionSchedule.swift in Sources */,
 				2632915C200371D2007C5156 /* Timetable.swift in Sources */,
 				263964EF205A8527007938FB /* UILineCard.swift in Sources */,
 				2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */,

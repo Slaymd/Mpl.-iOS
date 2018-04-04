@@ -136,7 +136,7 @@ class StopZone : CustomStringConvertible, Equatable {
         }
     }
     
-    private func sortSchedules() {
+    func sortSchedules() {
         self.schedules.sort(by: {$0.waitingTime < $1.waitingTime})
     }
     

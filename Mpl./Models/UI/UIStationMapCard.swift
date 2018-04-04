@@ -17,6 +17,8 @@ class UIStationMapCard: UIView {
     
     var stationName: MarqueeLabel?
     
+    var schedulesUI: [UIMultiDirectionSchedule] = []
+    
     init(frame: CGRect, station: StopZone, fromLine line1: Line?, toLine line2: Line?) {
         self.station = station
         self.fromLine = line1
@@ -60,7 +62,6 @@ class UIStationMapCard: UIView {
         
         for i in 0..<lines.count {
             let line = lines[i]
-            print(line)
             
             if line == line1 || line == line2 { continue }
             if dispId > 3 {
@@ -70,7 +71,6 @@ class UIStationMapCard: UIView {
                 more.textColor = .lightGray
                 more.textAlignment = .center
                 self.addSubview(more)
-                //label "...+SMTH"
                 break
             }
             let x = Int(UIScreen.main.bounds.width)-15-(40+5)*dispId
@@ -86,6 +86,24 @@ class UIStationMapCard: UIView {
         self.stationName!.text = station.name
         self.stationName!.font = UIFont(name: "Ubuntu-Bold", size: 18.0)
         self.addSubview(self.stationName!)
+        
+        //Schedules
+        let scheduleLen = Int((UIScreen.main.bounds.width-35-10)/2.5)
+        for i in 0..<3 {
+            self.schedulesUI.append(UIMultiDirectionSchedule(frame: CGRect(x: 35+scheduleLen*i, y: Int(self.stationName!.frame.maxY)+11, width: scheduleLen, height: 31)))
+            self.addSubview(schedulesUI[i])
+        }
+    }
+    
+    //MARK: - UPDATE SCHEDULES
+    
+    public func updateDisplayedSchedules() {
+        for i in 0..<station.schedules.count {
+            let schedule = station.schedules[i]
+            
+            if i >= schedulesUI.count-1 { break }
+            schedulesUI[i].update(with: schedule)
+        }
     }
     
     required init?(coder aDecoder: NSCoder, station: StopZone, fromLine line1: Line?, toLine line2: Line?) {

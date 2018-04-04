@@ -18,6 +18,8 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var line: Line
     
+    var stationsMap: [UIStationMapCard] = []
+    
     //MARK: - INITS
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, line: Line) {
@@ -72,7 +74,26 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             height += Int(stationMap.frame.height)
             self.scrollView.addSubview(stationMap)
             self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width, height: CGFloat(height)+30)
+            self.stationsMap.append(stationMap)
         }
+        
+        //display schedules
+        self.update()
+        
+    }
+    
+    //MARK: - UPDATE
+    
+    public func update() {
+        
+        ScheduleData.getSchedules(of: self.line, completion: {(result: Bool) in
+            if result {
+                for card in self.stationsMap {
+                    card.updateDisplayedSchedules()
+                }
+            }
+        })
+        
     }
     
 
