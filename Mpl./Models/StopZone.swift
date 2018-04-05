@@ -42,6 +42,10 @@ class StopZone : CustomStringConvertible, Equatable {
         self.coords = CLLocation(latitude: CLLocationDegrees(lat), longitude: CLLocationDegrees(lon))
     }
     
+    func getSchedules(of line: Line) -> [Schedule] {
+        return (self.schedules.filter({$0.line == line}))
+    }
+    
     func getShedulesByDirection() -> [(line: Line, dest: Stop, times: [Int])] {
         var sortedSchedules: [(line: Line, dest: Stop, times: [Int])] = []
         

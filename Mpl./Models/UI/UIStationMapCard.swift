@@ -97,9 +97,22 @@ class UIStationMapCard: UIView {
     
     //MARK: - UPDATE SCHEDULES
     
+    public func getLines() -> [Line] {
+        var lines: [Line] = []
+        
+        if fromLine != nil { lines.append(fromLine!) }
+        if toLine != nil && toLine != fromLine { lines.append(toLine!) }
+        return (lines)
+    }
+    
     public func updateDisplayedSchedules() {
-        for i in 0..<station.schedules.count {
-            let schedule = station.schedules[i]
+        var stopSchedules: [Schedule] = []
+        
+        for line in getLines() {
+            stopSchedules.append(contentsOf: self.station.getSchedules(of: line))
+        }
+        for i in 0..<stopSchedules.count {
+            let schedule = stopSchedules[i]
             
             if i >= schedulesUI.count-1 { break }
             schedulesUI[i].update(with: schedule)
