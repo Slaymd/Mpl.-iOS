@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextResearcherView" customModule="Mpl_" customModuleProvider="target">
+            <connections>
+                <outlet property="searchField" destination="GGl-wa-giN" id="9xR-rx-UoP"/>
+                <outlet property="stationScroll" destination="SJH-1f-9aU" id="GiG-8N-Iju"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8z-Fk-Rzh">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="178.66666666666666"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Station ou ligne" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GGl-wa-giN">
+                            <rect key="frame" x="11" y="122.66666666666669" width="353" height="43"/>
+                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="38"/>
+                            <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                            <connections>
+                                <action selector="editingSearchValue:" destination="-1" eventType="valueChanged" id="d6D-BZ-O5G"/>
+                                <action selector="finishedEditingSearchValue:" destination="-1" eventType="editingDidEnd" id="HTa-Si-2ny"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" red="0.020960971710000002" green="0.66000837089999997" blue="0.99654918910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="GGl-wa-giN" firstAttribute="centerX" secondItem="W8z-Fk-Rzh" secondAttribute="centerX" id="4An-aG-dYA"/>
+                        <constraint firstItem="GGl-wa-giN" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" constant="11" id="G9O-xc-qMU"/>
+                        <constraint firstAttribute="trailing" secondItem="GGl-wa-giN" secondAttribute="trailing" constant="11" id="q4y-6L-eLR"/>
+                        <constraint firstAttribute="bottom" secondItem="GGl-wa-giN" secondAttribute="bottom" constant="12.666666666666657" id="rQI-qs-EgI"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJH-1f-9aU">
+                    <rect key="frame" x="0.0" y="178.66666666666669" width="375" height="633.33333333333326"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="SJH-1f-9aU" secondAttribute="bottom" id="7af-wF-eoI"/>
+                <constraint firstAttribute="trailing" secondItem="W8z-Fk-Rzh" secondAttribute="trailing" id="8zd-PD-Q4V"/>
+                <constraint firstItem="SJH-1f-9aU" firstAttribute="top" secondItem="W8z-Fk-Rzh" secondAttribute="bottom" id="BlQ-2L-fD9"/>
+                <constraint firstItem="W8z-Fk-Rzh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Eds-IN-vwq"/>
+                <constraint firstItem="W8z-Fk-Rzh" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.22" id="OSi-43-Xq8"/>
+                <constraint firstItem="W8z-Fk-Rzh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WKF-rr-VMy"/>
+                <constraint firstItem="SJH-1f-9aU" firstAttribute="trailing" secondItem="W8z-Fk-Rzh" secondAttribute="trailing" id="pA5-Ex-rYy"/>
+                <constraint firstItem="SJH-1f-9aU" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" id="xnA-tM-2Mh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="32.5" y="54"/>
+        </view>
+    </objects>
+</document>

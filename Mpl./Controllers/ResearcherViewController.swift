@@ -26,6 +26,7 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var stationsTitle: UILabel!
     @IBOutlet weak var stationsScroll: UIScrollView!
+    @IBOutlet weak var stationsSearchButton: UIButton!
     
     var refresher: Timer!
     
@@ -87,6 +88,10 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         self.stationsTitle.frame.origin = CGPoint(x: 16, y: self.linesScroll.frame.maxY+20)
         self.stationsScroll.frame.origin = CGPoint(x: 0, y: self.linesScroll.frame.maxY+50)
         self.stationsScroll.frame.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-self.stationsScroll.frame.minY)
+        print(self.stationsSearchButton.frame)
+        self.stationsSearchButton.frame.origin = CGPoint(x: UIScreen.main.bounds.width-16-self.stationsSearchButton.frame.width, y: self.stationsTitle.frame.minY-7)
+        print(self.stationsSearchButton.frame)
+        self.view.addSubview(self.stationsSearchButton)
         
         let refLocation = self.mainScrollView.userLocation != nil ? self.mainScrollView.userLocation : TransportData.getStopZoneById(stopZoneId: 308)!.coords
         let sortedStations = TransportData.stopZones.sorted(by: { refLocation!.distance(from: $0.coords) < refLocation!.distance(from: $1.coords) })
@@ -161,6 +166,12 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    @IBAction func clickOnTextResearcher(_ sender: Any) {
+        let textResearchView: TextResearcherView =  TextResearcherView.init(nibName: "TextResearcherView", bundle: nil)
+        
+        self.navigationController?.pushViewController(textResearchView, animated: true)
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
