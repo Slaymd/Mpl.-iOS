@@ -8,40 +8,56 @@
 
 import UIKit
 
-class TextResearcherView: UIViewController {
+class TextResearcherView: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var stationScroll: UIScrollView!
+    @IBOutlet weak var newSearchField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchField.placeholder = NSLocalizedString("Station name", comment: "")
-        searchField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
-                            for: UIControlEvents.editingChanged)
-        // Do any additional setup after loading the view.
+        newSearchField.placeholder = NSLocalizedString("Station name", comment: "")
+        newSearchField.delegate = self
     }
     
-    //MARK: - EDIT VALUE EVENT
+    //MARK: - EDITING TEXTFIELD
     
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        let formattedTextField: String
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        var str = newSearchField.text
+        let endindex = str!.index(str!.endIndex, offsetBy: range.length * -1)
         var filteredStations: [StopZone] = []
         
-        print("coucou")
-        if (self.searchField.text == nil) { return }
-        formattedTextField = self.searchField.text!.toASCII().lowercased()
-        if formattedTextField.count < 2 {
-            //Clear displayed stations
+        str = String(str![..<endindex])
+        if (string.count > 1) { return true }
+        if (str == nil) { str = string } else { str!.append(string) }
+        str = str!.toASCII().lowercased()
+        if (str!.count > 2) {
+            //Display
+            filteredStations = getStationListFiltered(byName: str!)
+            updateStationList(with: filteredStations)
+        } else {
+            //Clear
             for view in self.stationScroll.subviews { view.removeFromSuperview() }
-            return
         }
-        //Filter each stations with good name / city
-        filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().contains(formattedTextField)})
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
+        self.view.endEditing(true)
+    }
+    
+    //MARK: - GET STATIONS LIST BY STRING
+    
+    func getStationListFiltered(byName name: String) -> [StopZone] {
+        var filteredStations: [StopZone] = []
+        
+        //Filter each stations with good name
+        filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().contains(name)})
         //Sort by number of lines
         filteredStations = filteredStations.sorted(by: {$0.getLines().count > $1.getLines().count})
         filteredStations = filteredStations.sorted(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})
         updateStationList(with: filteredStations)
+        return filteredStations
     }
     
     //MARK: - DISP STATION LIST
@@ -59,6 +75,10 @@ class TextResearcherView: UIViewController {
             self.stationScroll.addSubview(stationCard)
             self.stationScroll.contentSize = CGSize(width: Int(self.stationScroll.frame.width), height: y)
         }
+    }
+    
+    @IBAction func clickBackButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - STATUS BAR

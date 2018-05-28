@@ -18,7 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextResearcherView" customModule="Mpl_" customModuleProvider="target">
             <connections>
-                <outlet property="searchField" destination="GGl-wa-giN" id="9xR-rx-UoP"/>
+                <outlet property="newSearchField" destination="o84-JK-ZJU" id="L6k-pw-yUV"/>
                 <outlet property="stationScroll" destination="SJH-1f-9aU" id="GiG-8N-Iju"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,30 +31,42 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8z-Fk-Rzh">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="178.66666666666666"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Station ou ligne" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GGl-wa-giN">
-                            <rect key="frame" x="11" y="122.66666666666669" width="353" height="43"/>
-                            <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="38"/>
-                            <textInputTraits key="textInputTraits" keyboardAppearance="light" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieG-PE-zm0">
+                            <rect key="frame" x="11" y="39" width="62" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Back">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
                             <connections>
-                                <action selector="editingSearchValue:" destination="-1" eventType="valueChanged" id="d6D-BZ-O5G"/>
-                                <action selector="finishedEditingSearchValue:" destination="-1" eventType="editingDidEnd" id="HTa-Si-2ny"/>
+                                <action selector="clickBackButton:" destination="-1" eventType="touchUpInside" id="QDn-rz-lmW"/>
                             </connections>
+                        </button>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Station" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o84-JK-ZJU">
+                            <rect key="frame" x="11" y="123.66666666666669" width="353" height="43"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="38"/>
+                            <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
                     <color key="backgroundColor" red="0.020960971710000002" green="0.66000837089999997" blue="0.99654918910000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="GGl-wa-giN" firstAttribute="centerX" secondItem="W8z-Fk-Rzh" secondAttribute="centerX" id="4An-aG-dYA"/>
-                        <constraint firstItem="GGl-wa-giN" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" constant="11" id="G9O-xc-qMU"/>
-                        <constraint firstAttribute="trailing" secondItem="GGl-wa-giN" secondAttribute="trailing" constant="11" id="q4y-6L-eLR"/>
-                        <constraint firstAttribute="bottom" secondItem="GGl-wa-giN" secondAttribute="bottom" constant="12.666666666666657" id="rQI-qs-EgI"/>
+                        <constraint firstItem="o84-JK-ZJU" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" constant="11" id="8wd-Mj-hoD"/>
+                        <constraint firstItem="o84-JK-ZJU" firstAttribute="centerX" secondItem="W8z-Fk-Rzh" secondAttribute="centerX" id="EKq-CA-8Te"/>
+                        <constraint firstAttribute="trailing" secondItem="o84-JK-ZJU" secondAttribute="trailing" constant="11" id="bh2-Ld-4vR"/>
+                        <constraint firstAttribute="bottom" secondItem="o84-JK-ZJU" secondAttribute="bottom" constant="12" id="p0X-w1-SKe"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJH-1f-9aU">
                     <rect key="frame" x="0.0" y="178.66666666666669" width="375" height="633.33333333333326"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="SJH-1f-9aU" secondAttribute="bottom" id="7af-wF-eoI"/>
                 <constraint firstAttribute="trailing" secondItem="W8z-Fk-Rzh" secondAttribute="trailing" id="8zd-PD-Q4V"/>

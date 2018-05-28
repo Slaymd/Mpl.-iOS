@@ -9,7 +9,7 @@
 import UIKit
 import MarqueeLabel
 
-class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
+class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
 
     var mainScrollView: MainScrollView
     
@@ -29,8 +29,7 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var stationsSearchButton: UIButton!
     
     var refresher: Timer!
-    
-    
+
     //MARK: - INITS
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, mainScrollView: MainScrollView) {
