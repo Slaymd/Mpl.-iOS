@@ -13,11 +13,37 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stationScroll: UIScrollView!
     @IBOutlet weak var newSearchField: UITextField!
     
+    var keyboardHeight: CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         newSearchField.placeholder = NSLocalizedString("Station name", comment: "")
         newSearchField.delegate = self
+        //Observer when keyboard is opened to getting its size.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillShow,
+            object: nil
+        )
+    }
+    
+    //MARK: - GETTING KEYBOARD HEIGHT
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            keyboardHeight = keyboardRectangle.height
+            print(keyboardHeight)
+        }
+    }
+    
+    //MARK: - CLICKING DONE BUTTON
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     //MARK: - EDITING TEXTFIELD
@@ -40,10 +66,6 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
             for view in self.stationScroll.subviews { view.removeFromSuperview() }
         }
         return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
-        self.view.endEditing(true)
     }
     
     //MARK: - GET STATIONS LIST BY STRING
@@ -73,7 +95,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
             stationCard = UILightStationCard(frame: CGRect(x: 16, y: y, width: Int(UIScreen.main.bounds.width)-32, height: 50), station: stations[i], distance: 1000)
             y += Int(stationCard.frame.height)+15
             self.stationScroll.addSubview(stationCard)
-            self.stationScroll.contentSize = CGSize(width: Int(self.stationScroll.frame.width), height: y)
+            self.stationScroll.contentSize = CGSize(width: Int(self.stationScroll.frame.width), height: y + Int(self.keyboardHeight))
         }
     }
     
