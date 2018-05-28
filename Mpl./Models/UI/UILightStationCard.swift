@@ -41,11 +41,10 @@ class UILightStationCard: UIView {
         
         //Line logos
         var x = Int(self.frame.maxX)-15
-        let lines = station.getLines()
+        let lines = station.getLines().sorted(by: {$0.displayId < $1.displayId})
         for i in 0..<lines.count {
+            if (x-50 < Int(self.frame.width)/2) { break }
             x -= 50
-            
-            if (x < Int(self.frame.width)/2) { break }
             let logo = UILineLogo(lineShortName: lines[i].shortName, bgColor: lines[i].bgColor, fontColor: lines[i].ftColor, type: lines[i].type, at: CGPoint(x: x, y: (Int(self.frame.height)-28)/2))
             self.logos.append(logo)
             self.addSubview(logo.panel)
