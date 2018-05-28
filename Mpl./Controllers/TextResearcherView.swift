@@ -13,6 +13,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stationScroll: UIScrollView!
     @IBOutlet weak var newSearchField: UITextField!
     
+    var lastFilteredStations: [StopZone] = []
     var keyboardHeight: CGFloat = 0.0
     
     override func viewDidLoad() {
@@ -20,6 +21,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
 
         newSearchField.placeholder = NSLocalizedString("Station name", comment: "")
         newSearchField.delegate = self
+        newSearchField.returnKeyType = .done
         //Observer when keyboard is opened to getting its size.
         NotificationCenter.default.addObserver(
             self,
@@ -35,14 +37,16 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
         if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
-            print(keyboardHeight)
+            self.updateStationList(with: self.lastFilteredStations)
         }
     }
     
-    //MARK: - CLICKING DONE BUTTON
+    //MARK: - CLICKING DONE BUTTON : UI redisplay without keyboard space
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
+        self.keyboardHeight = 0
+        self.updateStationList(with: self.lastFilteredStations)
         return true
     }
     
@@ -51,7 +55,6 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         var str = newSearchField.text
         let endindex = str!.index(str!.endIndex, offsetBy: range.length * -1)
-        var filteredStations: [StopZone] = []
         
         str = String(str![..<endindex])
         if (string.count > 1) { return true }
@@ -59,8 +62,8 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
         str = str!.toASCII().lowercased()
         if (str!.count > 2) {
             //Display
-            filteredStations = getStationListFiltered(byName: str!)
-            updateStationList(with: filteredStations)
+            self.lastFilteredStations = getStationListFiltered(byName: str!)
+            updateStationList(with: self.lastFilteredStations)
         } else {
             //Clear
             for view in self.stationScroll.subviews { view.removeFromSuperview() }
