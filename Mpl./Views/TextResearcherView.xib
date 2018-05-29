@@ -18,6 +18,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TextResearcherView" customModule="Mpl_" customModuleProvider="target">
             <connections>
+                <outlet property="backButton" destination="ieG-PE-zm0" id="nde-8n-0tD"/>
+                <outlet property="headerHeightConstraint" destination="OSi-43-Xq8" id="Mx8-RS-Xjy"/>
+                <outlet property="headerView" destination="W8z-Fk-Rzh" id="Bdr-ac-03l"/>
                 <outlet property="newSearchField" destination="o84-JK-ZJU" id="L6k-pw-yUV"/>
                 <outlet property="stationScroll" destination="SJH-1f-9aU" id="GiG-8N-Iju"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -72,7 +75,7 @@
                 <constraint firstAttribute="trailing" secondItem="W8z-Fk-Rzh" secondAttribute="trailing" id="8zd-PD-Q4V"/>
                 <constraint firstItem="SJH-1f-9aU" firstAttribute="top" secondItem="W8z-Fk-Rzh" secondAttribute="bottom" id="BlQ-2L-fD9"/>
                 <constraint firstItem="W8z-Fk-Rzh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Eds-IN-vwq"/>
-                <constraint firstItem="W8z-Fk-Rzh" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.22" id="OSi-43-Xq8"/>
+                <constraint firstItem="W8z-Fk-Rzh" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.22" identifier="height" id="OSi-43-Xq8"/>
                 <constraint firstItem="W8z-Fk-Rzh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="WKF-rr-VMy"/>
                 <constraint firstItem="SJH-1f-9aU" firstAttribute="trailing" secondItem="W8z-Fk-Rzh" secondAttribute="trailing" id="pA5-Ex-rYy"/>
                 <constraint firstItem="SJH-1f-9aU" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" id="xnA-tM-2Mh"/>

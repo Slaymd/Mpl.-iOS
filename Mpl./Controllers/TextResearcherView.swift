@@ -8,10 +8,15 @@
 
 import UIKit
 
-class TextResearcherView: UIViewController, UITextFieldDelegate {
+class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDelegate {
 
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var stationScroll: UIScrollView!
     @IBOutlet weak var newSearchField: UITextField!
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
+    var headerHeightState = 0
     
     var lastFilteredStations: [StopZone] = []
     var keyboardHeight: CGFloat = 0.0
@@ -21,6 +26,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
 
         newSearchField.placeholder = NSLocalizedString("Station name", comment: "")
         newSearchField.delegate = self
+        stationScroll.delegate = self
         newSearchField.returnKeyType = .done
         //Observer when keyboard is opened to getting its size.
         NotificationCenter.default.addObserver(
@@ -29,6 +35,32 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
             name: NSNotification.Name.UIKeyboardWillShow,
             object: nil
         )
+    }
+    
+    //MARK: - HEADER VIEW HEIGHT WHILE SCROLLING STATION LIST
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffset = scrollView.contentOffset
+        var heightConstraint: [NSLayoutConstraint]
+        
+        heightConstraint = self.view.constraints.filter({$0.identifier == "height"})
+        if (contentOffset.y > 10 && self.headerHeightState == 0) {
+            if (heightConstraint.count != 1) { return; }
+            self.view.addConstraint(heightConstraint[0].setMultiplier(multiplier: 0.12))
+            self.headerHeightState = 1
+        } else if (contentOffset.y <= 10 &&  self.headerHeightState == 1) {
+            if (heightConstraint.count != 1) { return; }
+            self.view.addConstraint(heightConstraint[0].setMultiplier(multiplier: 0.22))
+            self.headerHeightState = 0
+        } else { return }
+        UIView.animate(withDuration: 0.125, animations: {
+            if (self.headerHeightState == 1) {
+                self.backButton.alpha = 0
+            } else {
+                self.backButton.alpha = 1
+            }
+            self.view.layoutIfNeeded()
+        })
     }
     
     //MARK: - GETTING KEYBOARD HEIGHT
@@ -110,5 +142,34 @@ class TextResearcherView: UIViewController, UITextFieldDelegate {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+}
+
+extension NSLayoutConstraint {
+    /**
+     Change multiplier constraint
+     
+     - parameter multiplier: CGFloat
+     - returns: NSLayoutConstraint
+     */
+    func setMultiplier(multiplier:CGFloat) -> NSLayoutConstraint {
+        
+        NSLayoutConstraint.deactivate([self])
+        
+        let newConstraint = NSLayoutConstraint(
+            item: firstItem as Any,
+            attribute: firstAttribute,
+            relatedBy: relation,
+            toItem: secondItem,
+            attribute: secondAttribute,
+            multiplier: multiplier,
+            constant: constant)
+        
+        newConstraint.priority = priority
+        newConstraint.shouldBeArchived = self.shouldBeArchived
+        newConstraint.identifier = self.identifier
+        
+        NSLayoutConstraint.activate([newConstraint])
+        return newConstraint
     }
 }
