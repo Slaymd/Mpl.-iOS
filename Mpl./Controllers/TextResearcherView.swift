@@ -19,6 +19,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
     var headerHeightState = 0
     
     var lastFilteredStations: [StopZone] = []
+    var stationCards: [UILightStationCard] = []
     var keyboardHeight: CGFloat = 0.0
     
     override func viewDidLoad() {
@@ -111,8 +112,11 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         //Filter each stations with good name
         filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().contains(name)})
         //Sort by number of lines
-        filteredStations = filteredStations.sorted(by: {$0.getLines().count > $1.getLines().count})
-        filteredStations = filteredStations.sorted(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})
+        filteredStations.sort(by: {($0.getLines().count > 0 && $1.getLines().count > 0) && $0.getLines()[0].tamId < $1.getLines()[0].tamId})
+        filteredStations.sort(by: {$0.getLines().count > $1.getLines().count})
+        filteredStations.sort(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})
+        /*filteredStations = filteredStations.sorted(by: {$0.getLines().count > $1.getLines().count})
+        filteredStations = filteredStations.sorted(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})*/
         updateStationList(with: filteredStations)
         return filteredStations
     }
@@ -122,17 +126,43 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
     func updateStationList(with stations: [StopZone]) {
         var y = 16;
         var stationCard: UILightStationCard
+        var tap: UITapGestureRecognizer
         
         //Clear displayed stations
         for view in self.stationScroll.subviews { view.removeFromSuperview() }
+        self.stationCards.removeAll()
         //Display new station list
         for i in 0..<stations.count {
             stationCard = UILightStationCard(frame: CGRect(x: 16, y: y, width: Int(UIScreen.main.bounds.width)-32, height: 50), station: stations[i], distance: 1000)
             y += Int(stationCard.frame.height)+15
+            tap = UITapGestureRecognizer(target: self, action: #selector(handleStationTap(sender:)))
+            stationCard.addGestureRecognizer(tap)
+            self.stationCards.append(stationCard)
             self.stationScroll.addSubview(stationCard)
             self.stationScroll.contentSize = CGSize(width: Int(self.stationScroll.frame.width), height: y + Int(self.keyboardHeight))
         }
     }
+    
+    //MARK: - CLICKING ON STATION CARD
+    
+    @objc func handleStationTap(sender: UITapGestureRecognizer) {
+        let clickLoc = sender.location(in: self.stationScroll)
+        
+        for stationCard in self.stationCards {
+            if clickLoc.x < stationCard.frame.minX || clickLoc.x > stationCard.frame.maxX { continue }
+            if clickLoc.y < stationCard.frame.minY || clickLoc.y > stationCard.frame.maxY { continue }
+            
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station, mainView: self)
+            stationPopUp.modalPresentationStyle = .overCurrentContext
+            self.view.endEditing(true)
+            self.keyboardHeight = 0
+            self.updateStationList(with: self.lastFilteredStations)
+            self.present(stationPopUp, animated: false, completion: nil)
+            break
+        }
+    }
+    
+    //MARK: - CLICKING BACK BUTTON
     
     @IBAction func clickBackButton(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
