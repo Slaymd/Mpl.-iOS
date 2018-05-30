@@ -30,11 +30,13 @@ class StationPopUpView: UIViewController {
     var disturbances: [(disruption: Disruption, lines: [Line])] = []
     
     var refresher: Timer!
+    var mainView: UIViewController
     
     //MARK: - INITS
     
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, station: StopZone) {
+    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, station: StopZone, mainView: UIViewController) {
         self.station = station
+        self.mainView = mainView
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -253,14 +255,12 @@ class StationPopUpView: UIViewController {
     //MARK: - BACKGROUND STATE
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
         self.refresher?.invalidate()
         self.refresher = nil
         MarqueeLabel.controllerLabelsLabelize(self)
     }
     
     @objc func appMovedToForeground() {
-        print("App moved to foreground!")
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         self.update()
         MarqueeLabel.controllerLabelsAnimate(self)
@@ -270,7 +270,7 @@ class StationPopUpView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //Information label (waiting or finished service)
-        print("DID APPEAR")
+        MarqueeLabel.controllerLabelsLabelize(mainView)
         if (self.informationLabel == nil) {
             self.informationLabel = UILabel(frame: CGRect(x: 0, y: 5, width: self.stationDataScroll.frame.width, height: 25))
             self.informationLabel!.font = UIFont(name: "Ubuntu-Bold", size: 19.0)
@@ -316,6 +316,7 @@ class StationPopUpView: UIViewController {
         }
         self.refresher.invalidate()
         self.refresher = nil
+        MarqueeLabel.controllerLabelsAnimate(mainView)
         disappearAnimation()
     }
     

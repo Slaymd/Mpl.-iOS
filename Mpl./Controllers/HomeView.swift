@@ -69,7 +69,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.update()
         }))
         alert.addAction(UIAlertAction(title: "Plus d'informations", style: .default, handler: { _ in
-            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: station)
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: station, mainView: self)
             stationPopUp.modalPresentationStyle = .overCurrentContext
             self.present(stationPopUp, animated: false, completion: nil)
         }))

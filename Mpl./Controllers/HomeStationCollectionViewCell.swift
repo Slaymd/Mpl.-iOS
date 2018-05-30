@@ -101,7 +101,7 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     
     @objc func handleTap(sender: UITapGestureRecognizer) {
         if (self.homeView == nil || self.station == nil) { return }
-        let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: self.station!)
+        let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: self.station!, mainView: self.homeView!)
         stationPopUp.modalPresentationStyle = .overCurrentContext
         homeView!.present(stationPopUp, animated: false, completion: nil)
         /*homeView!.addChildViewController(stationPopUp)

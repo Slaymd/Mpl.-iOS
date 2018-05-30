@@ -145,7 +145,7 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate, U
             if clickLoc.x < stationCard.frame.minX || clickLoc.x > stationCard.frame.maxX { continue }
             if clickLoc.y < stationCard.frame.minY || clickLoc.y > stationCard.frame.maxY { continue }
             
-            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station)
+            let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stationCard.station, mainView: self)
             stationPopUp.modalPresentationStyle = .overCurrentContext
             self.present(stationPopUp, animated: false, completion: nil)
             break
