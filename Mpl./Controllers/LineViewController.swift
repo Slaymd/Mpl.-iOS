@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class LineViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -53,6 +54,11 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
         
         //Line
         fillLine(line)
+        
+        //Background state event
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
     }
     
     private func fillLine(_ line: Line) {
@@ -70,7 +76,7 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             let fromLine: Line? = i == 0 ? nil : line
             let toLine: Line? = i == dirToDisp.count-1 ? nil : line
             
-            let stationMap = UIStationMapCard(frame: CGRect.init(x: 0, y: height, width: Int(self.scrollView.frame.width), height: 75), station: station, fromLine: fromLine, toLine: toLine)
+            let stationMap = UIStationMapCard(frame: CGRect.init(x: 0, y: height, width: Int(self.scrollView.frame.width), height: 100), station: station, fromLine: fromLine, toLine: toLine)
             height += Int(stationMap.frame.height)
             self.scrollView.addSubview(stationMap)
             self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width, height: CGFloat(height)+30)
@@ -96,10 +102,15 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
         
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //MARK: - BACKGROUND STATE
+    
+    @objc func appMovedToBackground() {
+        MarqueeLabel.controllerLabelsLabelize(self)
+    }
+    
+    @objc func appMovedToForeground() {
+        self.update()
+        MarqueeLabel.controllerLabelsAnimate(self)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -109,15 +120,5 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             return .lightContent
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

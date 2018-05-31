@@ -67,6 +67,10 @@ class ScheduleData {
             let stopZone = TransportData.getStopZoneById(stopZoneId: stop!.stopZoneId)
             if stopZone == nil { continue }
             
+            //Removing old schedules
+            var old = stopZone!.schedules.filter({$0.line.tamId == lineId})
+            old.removeAll()
+            //Getting new schedules
             for (_,subArrivals):(String, JSON) in subJson["stop_next_time"] {
                 let waitingTime: Int? = Int(subArrivals["waiting_time"].stringValue.replacingOccurrences(of: " min", with: ""))
                 let passingHour: Int? = Int(subArrivals["passing_hour"].stringValue)

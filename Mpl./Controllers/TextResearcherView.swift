@@ -115,8 +115,6 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         filteredStations.sort(by: {($0.getLines().count > 0 && $1.getLines().count > 0) && $0.getLines()[0].tamId < $1.getLines()[0].tamId})
         filteredStations.sort(by: {$0.getLines().count > $1.getLines().count})
         filteredStations.sort(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})
-        /*filteredStations = filteredStations.sorted(by: {$0.getLines().count > $1.getLines().count})
-        filteredStations = filteredStations.sorted(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})*/
         updateStationList(with: filteredStations)
         return filteredStations
     }

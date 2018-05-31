@@ -35,7 +35,7 @@ class UILineCard: UIView {
         let dirLabelHeight = ((Int(self.frame.height)-10)-dirLabelStartY)/4;
         for i in 0..<line.directions.count {
             if i >= 4 { break }
-            
+
             let dirLabel = MarqueeLabel(frame: CGRect(x: 5, y: (dirLabelStartY+(dirLabelHeight*3))-(dirLabelHeight*i), width: Int(self.frame.width)-10, height: dirLabelHeight), duration: 6, fadeLength: 5.0)
             dirLabel.text = sortedDests[i].uppercased()
             dirLabel.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(16))

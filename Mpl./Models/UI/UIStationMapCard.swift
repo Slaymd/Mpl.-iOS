@@ -88,9 +88,9 @@ class UIStationMapCard: UIView {
         self.addSubview(self.stationName!)
         
         //Schedules
-        let scheduleLen = Int((UIScreen.main.bounds.width-35-10)/2.5)
+        let scheduleLen = Int((UIScreen.main.bounds.width-35-10)/2.2)
         for i in 0..<3 {
-            self.schedulesUI.append(UIMultiDirectionSchedule(frame: CGRect(x: 35+scheduleLen*i, y: Int(self.stationName!.frame.maxY)+11, width: scheduleLen, height: 31)))
+            self.schedulesUI.append(UIMultiDirectionSchedule(frame: CGRect(x: 35+scheduleLen*i, y: Int(self.stationName!.frame.maxY)+Int(frame.height/4)-(31/4), width: scheduleLen, height: 31)))
             self.addSubview(schedulesUI[i])
         }
     }
