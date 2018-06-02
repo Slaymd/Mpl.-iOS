@@ -28,6 +28,12 @@
 		2665FC49205F23120089DF95 /* LineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2665FC47205F23120089DF95 /* LineViewController.xib */; };
 		2666791A2041F8A50045E6EC /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 266679192041F8A50045E6EC /* referential_android.sqlite */; };
 		2666791B2041F9080045E6EC /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 266679192041F8A50045E6EC /* referential_android.sqlite */; };
+		266DA90020BFFBFF00C687A9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */; };
+		266DA90220BFFBFF00C687A9 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */; };
+		266DA90420BFFBFF00C687A9 /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */; };
+		266DA90620BFFBFF00C687A9 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90520BFFBFF00C687A9 /* SnapKit.framework */; };
+		266DA90820BFFBFF00C687A9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90720BFFBFF00C687A9 /* SQLite.framework */; };
+		266DA90A20BFFBFF00C687A9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */; };
 		2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2680F77A201747E100194331 /* NotificationCenter.framework */; };
 		2680F77E201747E100194331 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680F77D201747E100194331 /* TodayViewController.swift */; };
 		2680F781201747E100194331 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2680F77F201747E100194331 /* MainInterface.storyboard */; };
@@ -58,11 +64,6 @@
 		26B4D96920BDF901004EC19A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B4D96820BDF901004EC19A /* Assets.xcassets */; };
 		26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */; };
 		26BC3B8D2049830000831BF0 /* HomeStationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BC3B8B2049830000831BF0 /* HomeStationCollectionViewCell.xib */; };
-		26C8CD7F207600B200365562 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD7E207600B200365562 /* Alamofire.framework */; };
-		26C8CD81207600B200365562 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD80207600B200365562 /* MarqueeLabel.framework */; };
-		26C8CD83207600B200365562 /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD82207600B200365562 /* NotificationBannerSwift.framework */; };
-		26C8CD85207600B200365562 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD84207600B200365562 /* SnapKit.framework */; };
-		26C8CD87207600B200365562 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD86207600B200365562 /* SQLite.framework */; };
 		26C8CD8B2076862300365562 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8CD8A2076862300365562 /* ColorManager.swift */; };
 		26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */; };
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
@@ -126,6 +127,13 @@
 		2665FC46205F23120089DF95 /* LineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineViewController.swift; sourceTree = "<group>"; };
 		2665FC47205F23120089DF95 /* LineViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineViewController.xib; sourceTree = "<group>"; };
 		266679192041F8A50045E6EC /* referential_android.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = referential_android.sqlite; sourceTree = "<group>"; };
+		266DA8FC20BFFB8400C687A9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NotificationBannerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90520BFFBFF00C687A9 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90720BFFBFF00C687A9 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2680F779201747E100194331 /* nextArrivals.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = nextArrivals.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2680F77A201747E100194331 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2680F77D201747E100194331 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -192,11 +200,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26C8CD7F207600B200365562 /* Alamofire.framework in Frameworks */,
-				26C8CD81207600B200365562 /* MarqueeLabel.framework in Frameworks */,
-				26C8CD83207600B200365562 /* NotificationBannerSwift.framework in Frameworks */,
-				26C8CD85207600B200365562 /* SnapKit.framework in Frameworks */,
-				26C8CD87207600B200365562 /* SQLite.framework in Frameworks */,
+				266DA90020BFFBFF00C687A9 /* Alamofire.framework in Frameworks */,
+				266DA90220BFFBFF00C687A9 /* MarqueeLabel.framework in Frameworks */,
+				266DA90420BFFBFF00C687A9 /* NotificationBannerSwift.framework in Frameworks */,
+				266DA90620BFFBFF00C687A9 /* SnapKit.framework in Frameworks */,
+				266DA90820BFFBFF00C687A9 /* SQLite.framework in Frameworks */,
+				266DA90A20BFFBFF00C687A9 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +341,13 @@
 		26A579191FF2ED7E0087ADD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */,
+				266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */,
+				266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */,
+				266DA90520BFFBFF00C687A9 /* SnapKit.framework */,
+				266DA90720BFFBFF00C687A9 /* SQLite.framework */,
+				266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */,
+				266DA8FC20BFFB8400C687A9 /* SwiftyJSON.framework */,
 				26C8CD7E207600B200365562 /* Alamofire.framework */,
 				26C8CD80207600B200365562 /* MarqueeLabel.framework */,
 				26C8CD82207600B200365562 /* NotificationBannerSwift.framework */,
