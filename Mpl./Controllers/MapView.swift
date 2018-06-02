@@ -11,10 +11,11 @@ import Mapbox
 
 class StationPointAnnotation: MGLPointAnnotation {
     var station: StopZone
-    var stops: [(stop: Stop, line: Line)] = []
+    var lines: [Line]
     
-    init(_ station: StopZone) {
+    init(_ station: StopZone, lines: [Line]) {
         self.station = station
+        self.lines = lines
         super.init()
     }
     
@@ -51,10 +52,18 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         self.view.addSubview(mapView)
         //Stations
         for station in TransportData.stopZones {
-            let annotation = StationPointAnnotation(station)
-            annotation.coordinate = station.coords.coordinate
-            annotation.title = station.name
-            mapView.addAnnotation(annotation)
+            if station.getLines().filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
+            let locs = TransportData.getStopZoneLocationsByLine(stopZone: station)
+            
+            print(station)
+            print(locs)
+            for loc in locs {
+                if loc.lines.filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
+                let annotation = StationPointAnnotation(station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
+                annotation.coordinate = loc.location
+                annotation.title = station.name
+                mapView.addAnnotation(annotation)
+            }
         }
         
         //Creating header gradient
@@ -74,7 +83,7 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         var annotationView: MGLAnnotationView?
         
         if (stationAnnotation == nil) { return nil }
-        lines = stationAnnotation!.station.getLines().filter({$0.type == LineType.TRAMWAY}).sorted(by: {$0.displayId < $1.displayId})
+        lines = stationAnnotation!.lines
         
         if (lines.count > 1) {
             //Multi-line

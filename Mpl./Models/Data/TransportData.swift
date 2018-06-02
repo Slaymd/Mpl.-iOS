@@ -12,6 +12,28 @@ import SQLite
 import os.log
 import CoreLocation
 
+extension CLLocationCoordinate2D {
+    
+    // MARK: - CLLocationCoordinate2D+MidPoint
+    
+    func middleLocationWith(location: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+        
+        let lon1 = longitude * Double.pi / 180
+        let lon2 = location.longitude * Double.pi / 180
+        let lat1 = latitude * Double.pi / 180
+        let lat2 = location.latitude * Double.pi / 180
+        let dLon = lon2 - lon1
+        let x = cos(lat2) * cos(dLon)
+        let y = cos(lat2) * sin(dLon)
+        
+        let lat3 = atan2( sin(lat1) + sin(lat2), sqrt((cos(lat1) + x) * (cos(lat1) + x) + y * y) )
+        let lon3 = lon1 + atan2(y, cos(lat1) + x)
+        
+        let center:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat3 * 180 / Double.pi, lon3 * 180 / Double.pi)
+        return center
+    }
+}
+
 class TransportData {
 
     static var referenceDatabase: Connection?
@@ -65,6 +87,61 @@ class TransportData {
         return stop[0]
     }
     
+    static func getLines(ofStop stop: Stop, atStopZone stopZone: StopZone?) -> [Line]? {
+        var finalStopZone: StopZone
+        
+        if (stop.lines != nil) { return stop.lines }
+        stop.lines = []
+        //getting stop zone if not specified
+        if (stopZone == nil) {
+            if let returnvalue = self.getStopZoneById(stopZoneId: stop.stopZoneId) {
+                finalStopZone = returnvalue
+            } else { return nil }
+        } else { finalStopZone = stopZone! }
+        for tmpline in finalStopZone.getLines() {
+            for dir in self.getLineStopsIdByDirection(line: tmpline) {
+                for stopid in dir.stopsId {
+                    if stopid == stop.id && !stop.lines!.contains(tmpline) {
+                        stop.lines!.append(tmpline)
+                    }
+                }
+            }
+        }
+        return stop.lines
+    }
+    
+    private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
+        let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
+                                                        ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
+                                                        ("Corum", [2], 43.614452, 3.882029)]
+        
+        for fix in fixes {
+            if stop.name == fix.0 && fix.1.contains(line.tamId) {
+                stop.coords = CLLocation(latitude: fix.2, longitude: fix.3)
+            }
+        }
+    }
+    
+    static func getStopZoneLocationsByLine(stopZone: StopZone) -> [(lines: [Line], location: CLLocationCoordinate2D)] {
+        var stopZoneLocs: [(lines: [Line], location: CLLocationCoordinate2D)] = []
+        
+        for stop in stopZone.stops {
+            let lines = self.getLines(ofStop: stop, atStopZone: stopZone)
+            if (lines == nil) { continue }
+            var stopZoneLoc = stopZoneLocs.filter({$0.lines == lines!})
+            
+            if (lines?.count)! > 0 {
+                self.fixLocation(ofStop: stop, onLine: lines![0])
+            }
+            if stopZoneLoc.count == 1 {
+                stopZoneLoc[0].location = stopZoneLoc[0].location.middleLocationWith(location: stop.coords.coordinate)
+            } else {
+                stopZoneLocs.append((lines: lines!, location: stop.coords.coordinate))
+            }
+        }
+        return (stopZoneLocs)
+    }
+    
     static func getStopByIdAtStopZone(stopZone: StopZone, stopCitywayId: Int) -> Stop? {
         var fstop: Stop?
         
@@ -83,7 +160,6 @@ class TransportData {
         if (past_result.count == 1) {
             return (past_result[0].dirs)
         }
-        print("Getting line stops of \(line)")
         if (self.referenceDatabase == nil) { return result }
         let direction = Expression<Int64>("direction")
         let stop = Expression<Int64>("stop")
@@ -104,14 +180,6 @@ class TransportData {
         }
         self.lineStops.append((line: line, dirs: result))
         return result
-    }
-    
-    static func getStopZoneLocationsByLine(stopZone: StopZone) -> [(line: Line, location: CLLocationCoordinate2D)] {
-        var stopzoneLocs: [(line: Line, location: CLLocationCoordinate2D)] = []
-        
-        for ()
-        
-        return (stopzoneLocs)
     }
     
     static func getLineStopZonesByDirection(line: Line) -> [[StopZone]] {
@@ -161,26 +229,6 @@ class TransportData {
             stopDirections.append((stopId: Int(stopDir[stopId]), directionId: Int(stopDir[directionId])))
         }
     }
-    
-    /*static func initStopLines(_ refdb: Connection) {
-        let stopLineTable = Table("LINE_STOPZONE")
-        let lineId = Expression<Int64>("line")
-        let stopZone = Expression<Int64>("stopzone")
-        
-        for line in try! refdb.prepare(stopLineTable) {
-            let _line = lines.filter({$0.id == Int(line[lineId])})
-            
-            if (_line.count != 1) { continue }
-            if stopLines.contains(where: {$0.stopZoneId == Int(line[stopZone])}) {
-                var _stops = stopLines.filter({$0.stopZoneId == Int(line[stopZone])})
-                let idx = stopLines.index(where: {$0.stopZoneId == Int(line[stopZone])})
-                
-            } else {
-                stopLines.append((stopZoneId: Int(line[stopZone]), lines: [_line[0]]))
-            }
-            
-        }
-    }*/
     
     static func initDirections(_ refdb: Connection) {
         let dirTable = Table("DIRECTION")
