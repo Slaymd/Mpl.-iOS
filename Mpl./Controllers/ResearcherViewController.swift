@@ -184,7 +184,6 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate, U
     }
     
     @objc func appMovedToForeground() {
-        print("App moved to foreground!")
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         self.update()
         MarqueeLabel.controllerLabelsAnimate(self)

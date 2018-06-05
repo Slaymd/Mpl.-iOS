@@ -32,6 +32,8 @@
 		266DA90620BFFBFF00C687A9 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90520BFFBFF00C687A9 /* SnapKit.framework */; };
 		266DA90820BFFBFF00C687A9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90720BFFBFF00C687A9 /* SQLite.framework */; };
 		266DA90A20BFFBFF00C687A9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */; };
+		2672E0E020C69B220086830B /* FinderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2672E0DF20C69B220086830B /* FinderView.xib */; };
+		2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2672E0E120C6A1BC0086830B /* FinderViewController.swift */; };
 		2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2680F77A201747E100194331 /* NotificationCenter.framework */; };
 		2680F77E201747E100194331 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680F77D201747E100194331 /* TodayViewController.swift */; };
 		2680F781201747E100194331 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2680F77F201747E100194331 /* MainInterface.storyboard */; };
@@ -132,6 +134,8 @@
 		266DA90520BFFBFF00C687A9 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		266DA90720BFFBFF00C687A9 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2672E0DF20C69B220086830B /* FinderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinderView.xib; sourceTree = "<group>"; };
+		2672E0E120C6A1BC0086830B /* FinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderViewController.swift; sourceTree = "<group>"; };
 		2680F779201747E100194331 /* nextArrivals.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = nextArrivals.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2680F77A201747E100194331 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2680F77D201747E100194331 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 				2665FC46205F23120089DF95 /* LineViewController.swift */,
 				26442B7220654FAB00A3CC36 /* StationPopUpView.swift */,
 				2617F23820A77365001ACE7B /* TextResearcherView.swift */,
+				2672E0E120C6A1BC0086830B /* FinderViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				2665FC47205F23120089DF95 /* LineViewController.xib */,
 				26442B7320654FAB00A3CC36 /* StationPopUpView.xib */,
 				2617F23920A77365001ACE7B /* TextResearcherView.xib */,
+				2672E0DF20C69B220086830B /* FinderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -513,6 +519,7 @@
 				26A579281FF3CF4E0087ADD9 /* Ubuntu-M.ttf in Resources */,
 				264E04C5201E194A006885A5 /* UserView.xib in Resources */,
 				26A579241FF3CE980087ADD9 /* Ubuntu-B.ttf in Resources */,
+				2672E0E020C69B220086830B /* FinderView.xib in Resources */,
 				26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */,
 				26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */,
 				268F780320178AD400F3366F /* MapView.xib in Resources */,
@@ -642,6 +649,7 @@
 				26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */,
 				26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */,
 				260023701FF704BE00FA0D81 /* TransportData.swift in Sources */,
+				2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */,
 				26D77A992042E11700FA03B8 /* StopZone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
