@@ -32,20 +32,32 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     
     let gradient = CAGradientLayer()
     
-    func initStationAnnotations(mapView: MGLMapView) {
-        let stations = TransportData.stopZones
-        
+    func initStationAnnotations(mapView: MGLMapView, lines: [Line]) {
         DispatchQueue.global(qos: .background).async {
-            for station in stations {
-                if station.getLines().filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
-                let tmplocs = TransportData.getStopZoneLocationsByLine(stopZone: station)
+            var stations: [(lines: [Line], stopZone: StopZone)] = []
             
-                for loc in tmplocs {
-                    if loc.lines.filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
+            for line in lines {
+                for stopZone in TransportData.getLineStopZones(line: line) {
+                    var tmp = stations.filter({$0.stopZone.id == stopZone.id})
+                    
+                    if tmp.isEmpty {
+                        stations.append((lines: [line], stopZone: stopZone))
+                    } else {
+                        tmp[0].lines.append(line)
+                    }
+                }
+            }
+            for station in stations {
+                let tmplocs = TransportData.getStopZoneLocationsByLine(stopZone: station.stopZone)
+            
+                for loc in tmplocs.sorted(by: {$0.lines.count < $1.lines.count}) {
+                    let wantedLines = loc.lines.filter({lines.contains($0)}).sorted(by: {$0.displayId > $1.displayId})
+                    
+                    if wantedLines.count == 0 { continue }
                     DispatchQueue.main.async {
-                        let annotation = StationPointAnnotation(station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
+                        let annotation = StationPointAnnotation(station.stopZone, lines: wantedLines)
                         annotation.coordinate = loc.location
-                        annotation.title = station.name
+                        annotation.title = station.stopZone.name
                         mapView.addAnnotation(annotation)
                     }
                 }
@@ -72,30 +84,10 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         self.mapBoxView = mapView
         self.view.addSubview(mapView)
         
-        print("init station annots")
         //Stations
-        self.initStationAnnotations(mapView: mapView)
-        /*self.initStationAnnotations(mapView: mapView, completion: { (locs) -> Void in
-                for loc in locs {
-                    let annotation = StationPointAnnotation(loc.station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
-                    annotation.coordinate = loc.location
-                    annotation.title = loc.station.name
-                    mapView.addAnnotation(annotation)
-                }
-            })*/
-        print("init station finished")
-        /*for station in TransportData.stopZones {
-            if station.getLines().filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
-            let locs = TransportData.getStopZoneLocationsByLine(stopZone: station)
-            
-            for loc in locs {
-                if loc.lines.filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
-                let annotation = StationPointAnnotation(station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
-                annotation.coordinate = loc.location
-                annotation.title = station.name
-                mapView.addAnnotation(annotation)
-            }
-        }*/
+        let linesToDisp = TransportData.lines.filter({$0.type == .TRAMWAY})
+        
+        self.initStationAnnotations(mapView: mapView, lines: linesToDisp)
         
         //Creating header gradient
         header.backgroundColor = gradientBotColor

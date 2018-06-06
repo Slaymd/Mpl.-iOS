@@ -110,10 +110,25 @@ class TransportData {
         return stop.lines
     }
     
-    static func getLine(atStop stop: Stop) -> [Line] {
+    static func getLines(atStop stop: Stop) -> [Line] {
         var result: [Line] = []
+        var tmpLineIds: [Int] = []
+        var tmpLine: Line?
         let lineId = Expression<Int64>("line")
         let stopId = Expression<Int64>("stop")
+        let lineStopZonesTable = Table("LINE_STOP").filter(stopId == Int64(stop.id))
+        
+        if (self.referenceDatabase == nil) { return result }
+        for lineDirs in try! self.referenceDatabase!.prepare(lineStopZonesTable) {
+            if !tmpLineIds.contains(Int(lineDirs[lineId])) {
+                tmpLine = self.getLineById(Int(lineDirs[lineId]))
+                
+                if tmpLine == nil { continue }
+                result.append(tmpLine!)
+                tmpLineIds.append(tmpLine!.id)
+            }
+        }
+        return result
     }
     
     private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
@@ -132,17 +147,17 @@ class TransportData {
         var stopZoneLocs: [(lines: [Line], location: CLLocationCoordinate2D)] = []
         
         for stop in stopZone.stops {
-            let lines = self.getLines(ofStop: stop, atStopZone: stopZone)
-            if (lines == nil) { continue }
-            var stopZoneLoc = stopZoneLocs.filter({$0.lines == lines!})
+            let lines = self.getLines(atStop: stop)
+            if (lines.count == 0) { continue }
+            var stopZoneLoc = stopZoneLocs.filter({$0.lines == lines})
             
-            if (lines?.count)! > 0 {
-                self.fixLocation(ofStop: stop, onLine: lines![0])
+            if lines.count > 0 {
+                self.fixLocation(ofStop: stop, onLine: lines[0])
             }
             if stopZoneLoc.count == 1 {
                 stopZoneLoc[0].location = stopZoneLoc[0].location.middleLocationWith(location: stop.coords.coordinate)
             } else {
-                stopZoneLocs.append((lines: lines!, location: stop.coords.coordinate))
+                stopZoneLocs.append((lines: lines, location: stop.coords.coordinate))
             }
         }
         return (stopZoneLocs)
