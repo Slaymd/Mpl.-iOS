@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,10 +41,18 @@
                             <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="38"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieG-PE-zm0">
-                            <rect key="frame" x="11" y="34" width="178" height="39"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Back">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ieG-PE-zm0">
+                            <rect key="frame" x="3" y="48" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="1Nh-UU-qPT">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                                <constraint firstAttribute="width" constant="28" id="aX3-vq-UEc">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                            <state key="normal" image="left-arrow-white">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
@@ -55,6 +64,8 @@
                     <constraints>
                         <constraint firstItem="o84-JK-ZJU" firstAttribute="leading" secondItem="W8z-Fk-Rzh" secondAttribute="leading" constant="11" id="8wd-Mj-hoD"/>
                         <constraint firstItem="o84-JK-ZJU" firstAttribute="centerX" secondItem="W8z-Fk-Rzh" secondAttribute="centerX" id="EKq-CA-8Te"/>
+                        <constraint firstItem="ieG-PE-zm0" firstAttribute="leading" secondItem="o84-JK-ZJU" secondAttribute="leading" constant="-8" id="Pvf-W7-geR"/>
+                        <constraint firstItem="ieG-PE-zm0" firstAttribute="top" secondItem="W8z-Fk-Rzh" secondAttribute="topMargin" constant="-4" id="b9t-xt-T1z"/>
                         <constraint firstAttribute="trailing" secondItem="o84-JK-ZJU" secondAttribute="trailing" constant="11" id="bh2-Ld-4vR"/>
                         <constraint firstAttribute="bottom" secondItem="o84-JK-ZJU" secondAttribute="bottom" constant="12" id="p0X-w1-SKe"/>
                     </constraints>
@@ -84,4 +95,7 @@
             <point key="canvasLocation" x="32.5" y="54"/>
         </view>
     </objects>
+    <resources>
+        <image name="left-arrow-white" width="256" height="256"/>
+    </resources>
 </document>

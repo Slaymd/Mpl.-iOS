@@ -19,6 +19,7 @@ class Stop : CustomStringConvertible, Equatable {
     var directionName: String
     var coords: CLLocation
     var pmrAccess: Bool
+    var lines: [Line]?
     
     var timetable: Timetable = Timetable(schedules: [])
     var directions: [Direction] = []

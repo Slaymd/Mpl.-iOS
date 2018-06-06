@@ -45,8 +45,8 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
     //Station researcher click
     
     @IBAction func stationResearcherClick(_ sender: Any) {
-        let researchView: ResearcherViewController = ResearcherViewController.init(nibName: "ResearcherViewController", bundle: nil, mainScrollView: self)
-        self.navigationController?.pushViewController(researchView, animated: true)
+        let finderView: FinderViewController = FinderViewController.init(nibName: "FinderView", bundle: nil, userLocation: self.userLocation)
+        self.navigationController?.pushViewController(finderView, animated: true)
     }
     
     
@@ -77,7 +77,7 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
         self.homeController = homeView
         homeView.viewDidLoad()
         mapView.view.frame = self.view.frame
-        mapView.viewDidLoad()
+        //mapView.viewDidLoad()
         self.mapController = mapView
         
         self.addChildViewController(homeView)

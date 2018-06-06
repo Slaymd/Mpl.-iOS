@@ -16,9 +16,15 @@ class UILineCard: UIView {
     var destinationsLabels: [UILabel] = []
     var animState: Int = 0
     
+    //tmp height
+    private var normalHeight: CGFloat = 0.0
+    
     init(frame: CGRect, line: Line) {
         self.line = line
         super.init(frame: frame)
+        
+        //tmp val
+        self.normalHeight = frame.height
         
         //Graphic init
         self.layer.cornerRadius = 11
@@ -45,17 +51,38 @@ class UILineCard: UIView {
         }
     }
     
+    convenience init(frame: CGRect, line: Line, small: Bool) {
+        self.init(frame: frame, line: line)
+        if small {
+            self.setSmallVersion()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    //MARK: - SET SMALL VERSION
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    func setSmallVersion() {
+        let height: CGFloat
+        
+        if self.logo == nil { return }
+        self.normalHeight = self.frame.height
+        height = self.logo!.panel.frame.minY * 2 + self.logo!.panel.frame.height
+        for destLabel in self.destinationsLabels {
+            destLabel.isHidden = true
+        }
+        self.frame.size = CGSize(width: self.frame.width, height: height)
     }
-    */
+    
+    //MARK: - SET NORMAL VERSION
+    
+    func setNormalVersion() {
+        for destLabel in self.destinationsLabels {
+            destLabel.isHidden = false
+        }
+        self.frame.size = CGSize(width: self.frame.width, height: self.normalHeight)
+    }
 
 }

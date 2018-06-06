@@ -178,14 +178,12 @@ class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate, U
     //MARK: - BACKGROUND STATE
     
     @objc func appMovedToBackground() {
-        print("App moved to background!")
         self.refresher?.invalidate()
         self.refresher = nil
         MarqueeLabel.controllerLabelsLabelize(self)
     }
     
     @objc func appMovedToForeground() {
-        print("App moved to foreground!")
         self.refresher = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.update), userInfo: nil, repeats: true)
         self.update()
         MarqueeLabel.controllerLabelsAnimate(self)

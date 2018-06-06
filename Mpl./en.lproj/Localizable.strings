@@ -25,3 +25,7 @@
 
 //Search
 "Station name" = "Station name";
+
+//Notifications
+"Localization" = "Localization";
+"Turn on localization to get station list sorted by distance !" = "Turn on localization to get station list sorted by distance !";

@@ -23,8 +23,8 @@ class UIMonoDirectionSchedule: UIView {
         super.init(frame: frame)
         
         //NEAR: round panel
-        self.nearPanel = UIView(frame: CGRect(x: 0, y: 0, width: 90, height: 25))
-        self.nearPanel!.layer.cornerRadius = 15
+        self.nearPanel = UIView(frame: CGRect(x: 0, y: 0, width: 85, height: 25))
+        self.nearPanel!.layer.cornerRadius = 14
         self.nearPanel!.backgroundColor = .white
         self.addSubview(nearPanel!)
         
@@ -40,6 +40,7 @@ class UIMonoDirectionSchedule: UIView {
         self.nearLabel!.text = NSLocalizedString("near", comment: "")
         self.nearLabel!.textColor = UIColor(red: 120.0/255, green: 169.0/255, blue: 66.0/255, alpha: 1.0)
         self.nearLabel!.font = UIFont(name: "Ubuntu-Bold", size: CGFloat(15))
+        self.nearLabel!.adjustsFontSizeToFitWidth = true
         self.nearPanel!.addSubview(nearLabel!)
         
         //NORMAL TIME: label

@@ -10,6 +10,29 @@ import Foundation
 import UIKit
 import SQLite
 import os.log
+import CoreLocation
+
+extension CLLocationCoordinate2D {
+    
+    // MARK: - CLLocationCoordinate2D+MidPoint
+    
+    func middleLocationWith(location: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
+        
+        let lon1 = longitude * Double.pi / 180
+        let lon2 = location.longitude * Double.pi / 180
+        let lat1 = latitude * Double.pi / 180
+        let lat2 = location.latitude * Double.pi / 180
+        let dLon = lon2 - lon1
+        let x = cos(lat2) * cos(dLon)
+        let y = cos(lat2) * sin(dLon)
+        
+        let lat3 = atan2( sin(lat1) + sin(lat2), sqrt((cos(lat1) + x) * (cos(lat1) + x) + y * y) )
+        let lon3 = lon1 + atan2(y, cos(lat1) + x)
+        
+        let center:CLLocationCoordinate2D = CLLocationCoordinate2DMake(lat3 * 180 / Double.pi, lon3 * 180 / Double.pi)
+        return center
+    }
+}
 
 class TransportData {
 
@@ -22,6 +45,8 @@ class TransportData {
     
     static var stopDirections: [(stopId: Int, directionId: Int)] = []
     static var stopLines: [(stopZoneId: Int, lines: [Line])] = []
+    
+    private static var lineStops: [(line: Line, dirs: [(direction: Int, stopsId: [Int])])] = []
     
     static func initDatabase() {
         let databasePath = Bundle.main.path(forResource: "referential_android", ofType: "sqlite")!
@@ -62,6 +87,82 @@ class TransportData {
         return stop[0]
     }
     
+    static func getLines(ofStop stop: Stop, atStopZone stopZone: StopZone?) -> [Line]? {
+        var finalStopZone: StopZone
+        
+        if (stop.lines != nil) { return stop.lines }
+        stop.lines = []
+        //getting stop zone if not specified
+        if (stopZone == nil) {
+            if let returnvalue = self.getStopZoneById(stopZoneId: stop.stopZoneId) {
+                finalStopZone = returnvalue
+            } else { return nil }
+        } else { finalStopZone = stopZone! }
+        for tmpline in finalStopZone.getLines() {
+            for dir in self.getLineStopsIdByDirection(line: tmpline) {
+                for stopid in dir.stopsId {
+                    if stopid == stop.id && !stop.lines!.contains(tmpline) {
+                        stop.lines!.append(tmpline)
+                    }
+                }
+            }
+        }
+        return stop.lines
+    }
+    
+    static func getLines(atStop stop: Stop) -> [Line] {
+        var result: [Line] = []
+        var tmpLineIds: [Int] = []
+        var tmpLine: Line?
+        let lineId = Expression<Int64>("line")
+        let stopId = Expression<Int64>("stop")
+        let lineStopZonesTable = Table("LINE_STOP").filter(stopId == Int64(stop.id))
+        
+        if (self.referenceDatabase == nil) { return result }
+        for lineDirs in try! self.referenceDatabase!.prepare(lineStopZonesTable) {
+            if !tmpLineIds.contains(Int(lineDirs[lineId])) {
+                tmpLine = self.getLineById(Int(lineDirs[lineId]))
+                
+                if tmpLine == nil { continue }
+                result.append(tmpLine!)
+                tmpLineIds.append(tmpLine!.id)
+            }
+        }
+        return result
+    }
+    
+    private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
+        let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
+                                                        ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
+                                                        ("Corum", [2], 43.614452, 3.882029)]
+        
+        for fix in fixes {
+            if stop.name == fix.0 && fix.1.contains(line.tamId) {
+                stop.coords = CLLocation(latitude: fix.2, longitude: fix.3)
+            }
+        }
+    }
+    
+    static func getStopZoneLocationsByLine(stopZone: StopZone) -> [(lines: [Line], location: CLLocationCoordinate2D)] {
+        var stopZoneLocs: [(lines: [Line], location: CLLocationCoordinate2D)] = []
+        
+        for stop in stopZone.stops {
+            let lines = self.getLines(atStop: stop)
+            if (lines.count == 0) { continue }
+            var stopZoneLoc = stopZoneLocs.filter({$0.lines == lines})
+            
+            if lines.count > 0 {
+                self.fixLocation(ofStop: stop, onLine: lines[0])
+            }
+            if stopZoneLoc.count == 1 {
+                stopZoneLoc[0].location = stopZoneLoc[0].location.middleLocationWith(location: stop.coords.coordinate)
+            } else {
+                stopZoneLocs.append((lines: lines, location: stop.coords.coordinate))
+            }
+        }
+        return (stopZoneLocs)
+    }
+    
     static func getStopByIdAtStopZone(stopZone: StopZone, stopCitywayId: Int) -> Stop? {
         var fstop: Stop?
         
@@ -73,11 +174,33 @@ class TransportData {
         return (fstop)
     }
     
+    static func getLineStopZones(line: Line) -> [StopZone] {
+        var result: [StopZone] = []
+        let lineId = Expression<Int64>("line")
+        let stopZone = Expression<Int64>("stopzone")
+        var tmpStopZoneId: Int
+        var tmpStopZone: StopZone?
+        let lineStopZonesTable = Table("LINE_STOPZONE").filter(lineId == Int64(line.id))
+        
+        if (self.referenceDatabase == nil) { return result }
+        for lineStopZone in try! self.referenceDatabase!.prepare(lineStopZonesTable) {
+            tmpStopZoneId = Int(lineStopZone[stopZone])
+            tmpStopZone = self.getStopZoneById(stopZoneId: tmpStopZoneId)
+            
+            if tmpStopZone == nil { continue }
+            result.append(tmpStopZone!)
+        }
+        return result
+    }
+    
     static func getLineStopsIdByDirection(line: Line) -> [(direction: Int, stopsId: [Int])] {
         var result: [(direction: Int, stopsId: [Int])] = []
+        let past_result = self.lineStops.filter({$0.line == line})
         
-        print("Getting line stops of \(line)")
-        if (self.referenceDatabase == nil) { return result}
+        if (past_result.count == 1) {
+            return (past_result[0].dirs)
+        }
+        if (self.referenceDatabase == nil) { return result }
         let direction = Expression<Int64>("direction")
         let stop = Expression<Int64>("stop")
         let dbline = Expression<Int64>("line")
@@ -95,6 +218,7 @@ class TransportData {
                 result.append((direction: Int(lineStop[direction]), stopsId: [Int(lineStop[stop])]))
             }
         }
+        self.lineStops.append((line: line, dirs: result))
         return result
     }
     
@@ -145,26 +269,6 @@ class TransportData {
             stopDirections.append((stopId: Int(stopDir[stopId]), directionId: Int(stopDir[directionId])))
         }
     }
-    
-    /*static func initStopLines(_ refdb: Connection) {
-        let stopLineTable = Table("LINE_STOPZONE")
-        let lineId = Expression<Int64>("line")
-        let stopZone = Expression<Int64>("stopzone")
-        
-        for line in try! refdb.prepare(stopLineTable) {
-            let _line = lines.filter({$0.id == Int(line[lineId])})
-            
-            if (_line.count != 1) { continue }
-            if stopLines.contains(where: {$0.stopZoneId == Int(line[stopZone])}) {
-                var _stops = stopLines.filter({$0.stopZoneId == Int(line[stopZone])})
-                let idx = stopLines.index(where: {$0.stopZoneId == Int(line[stopZone])})
-                
-            } else {
-                stopLines.append((stopZoneId: Int(line[stopZone]), lines: [_line[0]]))
-            }
-            
-        }
-    }*/
     
     static func initDirections(_ refdb: Connection) {
         let dirTable = Table("DIRECTION")
@@ -241,269 +345,6 @@ class TransportData {
             }
         }
     }
-    
-    /*static func getDbLineDirections(forward_name: String, backward_name: String) -> [String] {
-        var directions: [String] = []
-        let dir1 = String(forward_name[forward_name.index(forward_name.startIndex, offsetBy: 5)...])
-        let dir2 = String(backward_name[backward_name.index(backward_name.startIndex, offsetBy: 5)...])
-        let alldirs = "\(dir1) / \(dir2)"
-        
-        for dir in alldirs.replacingOccurrences(of: " / ", with: "$").split(separator: "$") {
-            directions.append(String(dir))
-        }
-        return (directions)
-    }
-    
-    static func initLines(_ refdb: Connection) {
-        let lines = Table("LINE")
-        let id = Expression<Int64>("_id")
-        let name = Expression<String>("short_name")
-        let type = Expression<Int64>("mode")
-        let bgColor = Expression<String>("color")
-        let ftColor = Expression<String>("line_text_color")
-        let forward = Expression<String>("commercial_forward_name")
-        let backward = Expression<String>("commercial_backward_name")
-        
-        for line in try! refdb.prepare(lines) {
-            self.lineList.append(Line(id: Int(line[id]),
-                                      name: line[name],
-                                      type: line[type] == 0 ? LineType.TRAMWAY : LineType.BUS,
-                                      bgColor: hexStringToUIColor(hex: line[bgColor]),
-                                      fontColor: hexStringToUIColor(hex: line[ftColor]),
-                                      directions: getDbLineDirections(forward_name: line[forward], backward_name: line[backward])))
-        }
-    }*/
-    
-    /*static func get_line_stops(_ refdb: Connection) -> [(lineId: Int, stopIds: [Int])] {
-        var line_stops: [(lineId: Int, stopIds: [Int])] = []
-        let line_stops_table = Table("LINE_STOPZONE")
-        let lineId = Expression<Int64>("line")
-        let stopId = Expression<Int64>("stopzone")
-        
-        for stop in try! refdb.prepare(line_stops_table) {
-            if line_stops.contains(where: {$0.lineId == stop[lineId]}) {
-                var linestop = line_stops.filter({$0.lineId == stop[lineId]})
-                let index = line_stops.index(where: {$0.lineId == stop[lineId]})
-                line_stops.remove(at: index!)
-                linestop[0].stopIds.append(Int(stop[stopId]))
-                line_stops.insert(linestop[0], at: index!)
-            } else {
-                line_stops.append((lineId: Int(stop[lineId]), stopIds: [Int(stop[stopId])]))
-            }
-        }
-        return (line_stops)
-    }
-    
-    static func initStations(_ refdb: Connection) {
-        let line_stops = get_line_stops(refdb)
-        let stop_zone = Table("STOPZONE")
-        let id = Expression<Int64>("_id")
-        //let tam_id = Expression<Int64>("tam_id")
-        let name = Expression<String>("stopzone_name")
-        let lat = Expression<Double>("latitude")
-        let lon = Expression<Double>("longitude")
-        
-        for stop in try! refdb.prepare(stop_zone) {
-            var lines: [Line] = []
-            var linestops = line_stops.filter({$0.stopIds.contains(Int(stop[id]))})
-            for i in 0..<linestops.count {
-                let line = getLineById(linestops[i].lineId)
-                if line != nil { lines.append(line!) }
-            }
-            self.stationList.append(Station(id: Int(stop[id]), name: stop[name], lines: lines, timetable: [], coords: [stop[lat], stop[lon]]))
-        }
-    }
-    
-    static func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-        
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-        
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-        
-        var rgbValue:UInt32 = 0
-        Scanner(string: cString).scanHexInt32(&rgbValue)
-        
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
-    }*/
-    
-    /*static func initLines() {
-        /*print("initialising directions...")
-        var directions: [(dirId: Int, lineId: Int, dirName: String)] = []
-        do {
-            //Récupération du fichier de trips
-            let path = Bundle.main.path(forResource: "trips", ofType: "txt")
-            let rawData = try String(contentsOfFile: path!, encoding: .utf8)
-            let data = rawData.components(separatedBy: .newlines)
-            for tripLine in data {
-                let splt = tripLine.split(separator: ",")
-                if (splt.count < 5 || Int(splt[2]) == nil || Int(splt[0]) == nil) { continue }
-                let dirStrId = splt[3].replacingOccurrences(of: " - ", with: "€").split(separator: "€")[1]
-                directions.append((dirId: Int(splt[2])!, lineId: Int(splt[0])!, dirName: String(dirStrId)))
-            }
-        } catch {
-            print(error)
-        }
-        print("initialising lines...")
-        do {
-            //Récupération du fichier de lines (routes)
-            let path = Bundle.main.path(forResource: "routes", ofType: "txt")
-            let rawData = try String(contentsOfFile: path!, encoding: .utf8)
-            let data = rawData.components(separatedBy: .newlines)
-            for tripLine in data {
-                var splt = tripLine.replacingOccurrences(of: "\"", with: "").split(separator: ",")
-                if (splt.count < 5 || Int(splt[0]) == nil) { continue }
-                var directions: [String] = []
-                for dir in splt[3].replacingOccurrences(of: " - ", with: "€").split(separator: "€") {
-                    directions.append(String(dir))
-                }
-                let lineId = Int(splt[0])!
-                let lineName = String(splt[2])
-                let lineType = (splt[4] == "3" ? LineType.BUS : LineType.TRAMWAY)
-                Data.lineList.append(Line(id: lineId, name: String(lineName), type: lineType, bgColor: UIColor.lightGray, fontColor: UIColor.black, directions: directions))
-            }
-        } catch {
-            print(error)
-        }
-        print("initialising timetables...")
-        do {
-            //Récupération du fichier de timetable (stop_time)
-            let path = Bundle.main.path(forResource: "stop_times", ofType: "txt")
-            let rawData = try String(contentsOfFile: path!, encoding: .utf8)
-            let data = rawData.components(separatedBy: .newlines)
-            for timeLine in data {
-                var splt = timeLine.split(separator: ",")
-                if (splt.count < 5 || Int(splt[0]) == nil) { continue }
-                
-                let stationId = Int(splt[3])
-                if (stationId == nil || !self.isFavorite(stationId: stationId!)) { continue }
-                
-                let tripId = Int(splt[0])!
-                let arrSplt = String(splt[1]).split(separator: ":")
-                let arrDate = DayDate(Int(arrSplt[0])!, Int(arrSplt[1])!, Int(arrSplt[2])!)
-                if (arrDate.getMinsFromNow() > 120 && arrDate.getMinsFromNow() < 800) { continue }
-                var station: Station? = self.getStationById(Int(splt[3])!)
-                
-                if station == nil  { continue }
-                for dir in directions {
-                    if dir.dirId == tripId {
-                        var line: Line? = self.getLineById(dir.lineId)
-                        
-                        if line == nil { continue }
-                        if !station!.getLines().contains(line!) {
-                            station?.lines.append(line!)
-                        }
-                        if !(station!.lines.contains(line!)) { station!.lines.append(line!) }
-                        
-                        var destId: Int? = nil
-                        if line!.directions.contains(dir.dirName) { destId = line!.directions.index(of: dir.dirName) }
-                        if destId == nil { continue }
-                        
-                        if (station!.timetable.count == 0) { station!.timetable.append(Timetable(calendars: [], schedules: [])) }
-                        station!.timetable[0].addSchedule(date: arrDate, lineId: dir.lineId, destId: destId!)
-                        line = nil
-                    }
-                }
-                station = nil
-                
-            }
-        } catch {
-            print(error)
-        }
-        print("timetables initializing finished...")*/
-        let line1: Line = Line(id: 1, name: "1", type: LineType.TRAMWAY, bgColor: UIColor(red: 0.0/255.0, green: 83.0/255.0, blue: 156.0/255.0, alpha: 1.0), fontColor: UIColor.white, directions: ["Mosson", "Odysseum"])
-        self.lineList.append(line1)
-        let line2: Line = Line(id: 2, name: "2", type: LineType.TRAMWAY, bgColor: UIColor(red: 238.0/255.0, green: 127.0/255.0, blue: 2.0/255.0, alpha: 1.0), fontColor: UIColor.white, directions: ["Jacou", "Sablassou", "Sabines", "St Jean de Vedas"])
-        self.lineList.append(line2)
-        let line3: Line = Line(id: 3, name: "3", type: LineType.TRAMWAY, bgColor: UIColor(red: 203.0/255.0, green: 211.0/255.0, blue: 1.0/255.0, alpha: 1.0), fontColor: UIColor.black, directions: ["Juvignac", "Mosson", "Pérols étang de l'or", "Lattes centre", "Boirargues"])
-        self.lineList.append(line3)
-        let line4: Line = Line(id: 4, name: "4", type: LineType.TRAMWAY, bgColor: UIColor(red: 84.0/255.0, green: 43.0/255.0, blue: 33.0/255.0, alpha: 1.0), fontColor: UIColor.white, directions: ["Sens A", "Sens B"])
-        self.lineList.append(line4)
-        //Ligne 6 rgb(230, 64, 144)
-        //Ligne 7 rgb(166, 120, 174)
-        //Ligne 8 rgb(255, 221, 0) BLK IN
-        //Ligne 9 rgb(150, 191, 14)
-    }*/
-    
-    /*static func initStations() {
-        let stationsFileList: [String] = ["antigone", "moulares", "comedie"]
-        
-        for stationFile in stationsFileList {
-            if let path = Bundle.main.path(forResource: stationFile, ofType: "json") {
-                do {
-                    //Getting json object
-                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                    let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                    //Parsing json
-                    if let jsonResult = jsonResult as? Dictionary<String, AnyObject> {
-                        //Getting raw data in swift objects
-                        let stationName: String? = jsonResult["name"] as? String
-                        let stationId: Int? = jsonResult["id"] as? Int
-                        let stationLogicIds: [Int]? = jsonResult["logicIds"] as? [Int]
-                        let stationLines: [Int]? = jsonResult["lines"] as? [Int]
-                        let stationCoords: [Double]? = jsonResult["coords"] as? [Double]
-                        var stationTimetableWeekdays: [String: Any]? = [:]
-                        
-                        //Getting timetable
-                        if let stationTimetables = jsonResult["timetables"] as? [String: Any] {
-                            if stationTimetables["weekdays"] as? [String: Any] != nil {
-                                stationTimetableWeekdays = (stationTimetables["weekdays"] as! [String: Any])
-                            }
-                        }
-                        
-                        if stationName != nil && stationId != nil && stationLogicIds != nil && stationLines != nil && stationTimetableWeekdays != nil && stationCoords != nil {
-                            let timetable: Timetable = Timetable(calendars: [], schedules: [])
-                            var stationLinesConverted: [Line] = []
-                            
-                            for lineId in stationLines! {
-                                let lineObj: Line? = self.getLineById(lineId)
-                                if (lineObj != nil) {
-                                    stationLinesConverted.append(lineObj!)
-                                }
-                            }
-                            
-                            //Parsing timetable
-                            for line in stationLinesConverted {
-                                if let lineTimetable = stationTimetableWeekdays!["\(line.id)"] as? [String: Any] {
-                                    for lineDestId in 0..<line.directions.count {
-                                        if let destTimetable = lineTimetable["\(lineDestId)"] as? [String: [Int]] {
-                                            for hour in destTimetable.keys {
-                                                if Int(hour) != nil {
-                                                    for mins in destTimetable[hour]! {
-                                                        timetable.addSchedule(date: DayDate(Int(hour)!, mins, 0), lineId: line.id, destId: lineDestId)
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            timetable.sortSchedules()
-                            self.stationList.append(Station(id: stationId!, name: stationName!, lines: stationLinesConverted, timetable: [timetable], coords: stationCoords!))
-                        } else {
-                            print("Failed to parse", stationFile, "file.")
-                            print("StationId:", stationId == nil ? "null" : stationId!)
-                            print("StationName:", stationName == nil ? "null" : stationName!)
-                            print("StationLines:", stationLines == nil ? "null" : stationLines!)
-                            print("StationLogicIds:", stationLogicIds == nil ? "null" : stationLogicIds!)
-                            print("StationTimetable:", stationTimetableWeekdays == nil ? "null" : "founded and filled")
-                        }
-                    }
-                } catch {
-                    print(error)
-                }
-            }
-        }
-    }*/
     
     static func getLine(byTamId id: Int) -> Line? {
         let _line = self.lines.filter({$0.tamId == id})

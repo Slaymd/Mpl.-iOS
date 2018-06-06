@@ -26,14 +26,15 @@
 		2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC44205E9B930089DF95 /* UIStationMapCard.swift */; };
 		2665FC48205F23120089DF95 /* LineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC46205F23120089DF95 /* LineViewController.swift */; };
 		2665FC49205F23120089DF95 /* LineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2665FC47205F23120089DF95 /* LineViewController.xib */; };
-		2666791A2041F8A50045E6EC /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 266679192041F8A50045E6EC /* referential_android.sqlite */; };
-		2666791B2041F9080045E6EC /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 266679192041F8A50045E6EC /* referential_android.sqlite */; };
+		2672E0E020C69B220086830B /* FinderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2672E0DF20C69B220086830B /* FinderView.xib */; };
+		2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2672E0E120C6A1BC0086830B /* FinderViewController.swift */; };
 		2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2680F77A201747E100194331 /* NotificationCenter.framework */; };
 		2680F77E201747E100194331 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680F77D201747E100194331 /* TodayViewController.swift */; };
 		2680F781201747E100194331 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2680F77F201747E100194331 /* MainInterface.storyboard */; };
 		2680F785201747E100194331 /* nextArrivals.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2680F779201747E100194331 /* nextArrivals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2682E1DA20753F1E009F6E93 /* UIMultiDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */; };
 		2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1DB20754D05009F6E93 /* ScheduleData.swift */; };
+		26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 26897A8920C3214A00B62D1A /* referential_android.sqlite */; };
 		268BC6951FF85B7200B9AC68 /* AdvancedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268BC6941FF85B7200B9AC68 /* AdvancedString.swift */; };
 		268F77FC201786D100F3366F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FA201786D100F3366F /* HomeView.swift */; };
 		268F77FF2017876600F3366F /* MainScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FE2017876600F3366F /* MainScrollView.swift */; };
@@ -58,11 +59,6 @@
 		26B4D96920BDF901004EC19A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B4D96820BDF901004EC19A /* Assets.xcassets */; };
 		26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */; };
 		26BC3B8D2049830000831BF0 /* HomeStationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BC3B8B2049830000831BF0 /* HomeStationCollectionViewCell.xib */; };
-		26C8CD7F207600B200365562 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD7E207600B200365562 /* Alamofire.framework */; };
-		26C8CD81207600B200365562 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD80207600B200365562 /* MarqueeLabel.framework */; };
-		26C8CD83207600B200365562 /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD82207600B200365562 /* NotificationBannerSwift.framework */; };
-		26C8CD85207600B200365562 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD84207600B200365562 /* SnapKit.framework */; };
-		26C8CD87207600B200365562 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26C8CD86207600B200365562 /* SQLite.framework */; };
 		26C8CD8B2076862300365562 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8CD8A2076862300365562 /* ColorManager.swift */; };
 		26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */; };
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
@@ -125,7 +121,15 @@
 		2665FC44205E9B930089DF95 /* UIStationMapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStationMapCard.swift; sourceTree = "<group>"; };
 		2665FC46205F23120089DF95 /* LineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineViewController.swift; sourceTree = "<group>"; };
 		2665FC47205F23120089DF95 /* LineViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineViewController.xib; sourceTree = "<group>"; };
-		266679192041F8A50045E6EC /* referential_android.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = referential_android.sqlite; sourceTree = "<group>"; };
+		266DA8FC20BFFB8400C687A9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NotificationBannerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90520BFFBFF00C687A9 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90720BFFBFF00C687A9 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2672E0DF20C69B220086830B /* FinderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FinderView.xib; sourceTree = "<group>"; };
+		2672E0E120C6A1BC0086830B /* FinderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderViewController.swift; sourceTree = "<group>"; };
 		2680F779201747E100194331 /* nextArrivals.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = nextArrivals.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2680F77A201747E100194331 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		2680F77D201747E100194331 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 		2681DE142075FE3C00CB8B51 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMultiDirectionSchedule.swift; sourceTree = "<group>"; };
 		2682E1DB20754D05009F6E93 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
+		26897A8920C3214A00B62D1A /* referential_android.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = referential_android.sqlite; sourceTree = "<group>"; };
 		268BC6941FF85B7200B9AC68 /* AdvancedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedString.swift; sourceTree = "<group>"; };
 		268F77FA201786D100F3366F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268F77FE2017876600F3366F /* MainScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScrollView.swift; sourceTree = "<group>"; };
@@ -192,11 +197,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26C8CD7F207600B200365562 /* Alamofire.framework in Frameworks */,
-				26C8CD81207600B200365562 /* MarqueeLabel.framework in Frameworks */,
-				26C8CD83207600B200365562 /* NotificationBannerSwift.framework in Frameworks */,
-				26C8CD85207600B200365562 /* SnapKit.framework in Frameworks */,
-				26C8CD87207600B200365562 /* SQLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +215,7 @@
 				2665FC46205F23120089DF95 /* LineViewController.swift */,
 				26442B7220654FAB00A3CC36 /* StationPopUpView.swift */,
 				2617F23820A77365001ACE7B /* TextResearcherView.swift */,
+				2672E0E120C6A1BC0086830B /* FinderViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -232,6 +233,7 @@
 				2665FC47205F23120089DF95 /* LineViewController.xib */,
 				26442B7320654FAB00A3CC36 /* StationPopUpView.xib */,
 				2617F23920A77365001ACE7B /* TextResearcherView.xib */,
+				2672E0DF20C69B220086830B /* FinderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +334,13 @@
 		26A579191FF2ED7E0087ADD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */,
+				266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */,
+				266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */,
+				266DA90520BFFBFF00C687A9 /* SnapKit.framework */,
+				266DA90720BFFBFF00C687A9 /* SQLite.framework */,
+				266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */,
+				266DA8FC20BFFB8400C687A9 /* SwiftyJSON.framework */,
 				26C8CD7E207600B200365562 /* Alamofire.framework */,
 				26C8CD80207600B200365562 /* MarqueeLabel.framework */,
 				26C8CD82207600B200365562 /* NotificationBannerSwift.framework */,
@@ -363,7 +372,7 @@
 		26E2A36F200F5CE400BF656A /* data */ = {
 			isa = PBXGroup;
 			children = (
-				266679192041F8A50045E6EC /* referential_android.sqlite */,
+				26897A8920C3214A00B62D1A /* referential_android.sqlite */,
 				26200517201A2F3400D684E8 /* mapLightStyle.json */,
 			);
 			path = data;
@@ -481,7 +490,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2680F781201747E100194331 /* MainInterface.storyboard in Resources */,
-				2666791B2041F9080045E6EC /* referential_android.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,9 +505,10 @@
 				26A579111FF2EC500087ADD9 /* LaunchScreen.storyboard in Resources */,
 				26B4D96920BDF901004EC19A /* Assets.xcassets in Resources */,
 				26A579281FF3CF4E0087ADD9 /* Ubuntu-M.ttf in Resources */,
-				2666791A2041F8A50045E6EC /* referential_android.sqlite in Resources */,
 				264E04C5201E194A006885A5 /* UserView.xib in Resources */,
 				26A579241FF3CE980087ADD9 /* Ubuntu-B.ttf in Resources */,
+				2672E0E020C69B220086830B /* FinderView.xib in Resources */,
+				26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */,
 				26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */,
 				268F780320178AD400F3366F /* MapView.xib in Resources */,
 				2611CB7B20666A1200F2F8A2 /* Localizable.strings in Resources */,
@@ -628,6 +637,7 @@
 				26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */,
 				26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */,
 				260023701FF704BE00FA0D81 /* TransportData.swift in Sources */,
+				2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */,
 				26D77A992042E11700FA03B8 /* StopZone.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -816,6 +826,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -825,7 +836,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
