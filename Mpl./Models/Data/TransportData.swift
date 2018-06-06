@@ -110,6 +110,12 @@ class TransportData {
         return stop.lines
     }
     
+    static func getLine(atStop stop: Stop) -> [Line] {
+        var result: [Line] = []
+        let lineId = Expression<Int64>("line")
+        let stopId = Expression<Int64>("stop")
+    }
+    
     private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
         let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
                                                         ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
@@ -151,6 +157,25 @@ class TransportData {
             }
         }
         return (fstop)
+    }
+    
+    static func getLineStopZones(line: Line) -> [StopZone] {
+        var result: [StopZone] = []
+        let lineId = Expression<Int64>("line")
+        let stopZone = Expression<Int64>("stopzone")
+        var tmpStopZoneId: Int
+        var tmpStopZone: StopZone?
+        let lineStopZonesTable = Table("LINE_STOPZONE").filter(lineId == Int64(line.id))
+        
+        if (self.referenceDatabase == nil) { return result }
+        for lineStopZone in try! self.referenceDatabase!.prepare(lineStopZonesTable) {
+            tmpStopZoneId = Int(lineStopZone[stopZone])
+            tmpStopZone = self.getStopZoneById(stopZoneId: tmpStopZoneId)
+            
+            if tmpStopZone == nil { continue }
+            result.append(tmpStopZone!)
+        }
+        return result
     }
     
     static func getLineStopsIdByDirection(line: Line) -> [(direction: Int, stopsId: [Int])] {

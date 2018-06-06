@@ -26,12 +26,6 @@
 		2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC44205E9B930089DF95 /* UIStationMapCard.swift */; };
 		2665FC48205F23120089DF95 /* LineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC46205F23120089DF95 /* LineViewController.swift */; };
 		2665FC49205F23120089DF95 /* LineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2665FC47205F23120089DF95 /* LineViewController.xib */; };
-		266DA90020BFFBFF00C687A9 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA8FF20BFFBFF00C687A9 /* Alamofire.framework */; };
-		266DA90220BFFBFF00C687A9 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90120BFFBFF00C687A9 /* MarqueeLabel.framework */; };
-		266DA90420BFFBFF00C687A9 /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90320BFFBFF00C687A9 /* NotificationBannerSwift.framework */; };
-		266DA90620BFFBFF00C687A9 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90520BFFBFF00C687A9 /* SnapKit.framework */; };
-		266DA90820BFFBFF00C687A9 /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90720BFFBFF00C687A9 /* SQLite.framework */; };
-		266DA90A20BFFBFF00C687A9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 266DA90920BFFBFF00C687A9 /* SwiftyJSON.framework */; };
 		2672E0E020C69B220086830B /* FinderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2672E0DF20C69B220086830B /* FinderView.xib */; };
 		2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2672E0E120C6A1BC0086830B /* FinderViewController.swift */; };
 		2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2680F77A201747E100194331 /* NotificationCenter.framework */; };
@@ -203,12 +197,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				266DA90020BFFBFF00C687A9 /* Alamofire.framework in Frameworks */,
-				266DA90220BFFBFF00C687A9 /* MarqueeLabel.framework in Frameworks */,
-				266DA90420BFFBFF00C687A9 /* NotificationBannerSwift.framework in Frameworks */,
-				266DA90620BFFBFF00C687A9 /* SnapKit.framework in Frameworks */,
-				266DA90820BFFBFF00C687A9 /* SQLite.framework in Frameworks */,
-				266DA90A20BFFBFF00C687A9 /* SwiftyJSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

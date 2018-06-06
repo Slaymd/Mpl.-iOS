@@ -32,27 +32,24 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     
     let gradient = CAGradientLayer()
     
-    func initStationAnnotations(mapView: MGLMapView, completion: @escaping ([(station: StopZone, lines: [Line], location: CLLocationCoordinate2D)]) -> ()) {
+    func initStationAnnotations(mapView: MGLMapView) {
         let stations = TransportData.stopZones
-        let queue = DispatchGroup()
-        var locs: [(station: StopZone, lines: [Line], location: CLLocationCoordinate2D)] = []
         
-        queue.enter()
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .background).async {
             for station in stations {
                 if station.getLines().filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
                 let tmplocs = TransportData.getStopZoneLocationsByLine(stopZone: station)
-                
+            
                 for loc in tmplocs {
                     if loc.lines.filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
-                    locs.append((station: station, lines: loc.lines, location: loc.location))
+                    DispatchQueue.main.async {
+                        let annotation = StationPointAnnotation(station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
+                        annotation.coordinate = loc.location
+                        annotation.title = station.name
+                        mapView.addAnnotation(annotation)
+                    }
                 }
             }
-            queue.leave()
-        }
-        
-        queue.notify(queue: .main) {
-            completion(locs)
         }
     }
 
@@ -75,15 +72,18 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         self.mapBoxView = mapView
         self.view.addSubview(mapView)
         
+        print("init station annots")
         //Stations
-        self.initStationAnnotations(mapView: mapView, completion: { (locs) -> Void in
+        self.initStationAnnotations(mapView: mapView)
+        /*self.initStationAnnotations(mapView: mapView, completion: { (locs) -> Void in
                 for loc in locs {
                     let annotation = StationPointAnnotation(loc.station, lines: loc.lines.filter({$0.type == LineType.TRAMWAY}))
                     annotation.coordinate = loc.location
                     annotation.title = loc.station.name
                     mapView.addAnnotation(annotation)
                 }
-            })
+            })*/
+        print("init station finished")
         /*for station in TransportData.stopZones {
             if station.getLines().filter({$0.type == LineType.TRAMWAY}).count == 0 { continue }
             let locs = TransportData.getStopZoneLocationsByLine(stopZone: station)
