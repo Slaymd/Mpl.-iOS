@@ -259,7 +259,7 @@ class TransportData {
             }
         }
     }
-    
+
     static func initStopDirections(_ refdb: Connection) {
         let stopDirTable = Table("STOP_DIRECTION")
         let stopId = Expression<Int64>("stop")

@@ -95,7 +95,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         str = str!.toASCII().lowercased()
         if (str!.count > 2) {
             //Display
-            self.lastFilteredStations = getStationListFiltered(byName: str!)
+            self.lastFilteredStations = getStationListFiltered(byName: str!.replacingOccurrences(of: "-", with: " "))
             updateStationList(with: self.lastFilteredStations)
         } else {
             //Clear
@@ -110,7 +110,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         var filteredStations: [StopZone] = []
         
         //Filter each stations with good name
-        filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().contains(name)})
+        filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().replacingOccurrences(of: "-", with: " ").contains(name)})
         //Sort by number of lines
         filteredStations.sort(by: {($0.getLines().count > 0 && $1.getLines().count > 0) && $0.getLines()[0].tamId < $1.getLines()[0].tamId})
         filteredStations.sort(by: {$0.getLines().count > $1.getLines().count})

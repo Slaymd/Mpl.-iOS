@@ -100,7 +100,7 @@ class StopZone : CustomStringConvertible, Equatable {
             var requestparams = ["stopList": []]
             for stop in stops {
                 for dir in stop.directions {
-                    requestparams["stopList"]!.append(["citywayStopId": stop.citywayId, "lineNumber": dir.line.tamId, "urbanLine": dir.line.urban, "directions": [dir.arrival.citywayId]])
+                    requestparams["stopList"]!.append(["citywayLineId": dir.line.citywayId, "citywayStopId": stop.citywayId, "tamStopId": stop.tamId, "lineNumber": dir.line.tamId, "urbanLine": dir.line.urban, "sens": dir.direction,"directions": [dir.arrival.citywayId]])
                 }
             }
             Alamofire.request("https://apimobile.tam-voyages.com/api/v1/hours/next/stops", method: .post, parameters: requestparams, encoding: JSONEncoding.default).responseJSON { response in
@@ -121,8 +121,27 @@ class StopZone : CustomStringConvertible, Equatable {
     
     private func updateTimetable(fromJson json: JSON) {
         for (_,subJson):(String, JSON) in json {
-            let stopArrivalId = subJson["line_direction"].intValue
-            let lineId = Int(subJson["tam_line_id"].stringValue)!
+            var stopArrivalId = subJson["line_direction"].intValue
+            let tam_stop_id = subJson["tam_stop_id"].intValue
+            let direction_name = subJson["line_direction_name"].stringValue
+            let tam_line_id = subJson["tam_line_id"].stringValue
+            let cityway_line_number = subJson["cityway_line_number"].stringValue
+            let lineId = tam_line_id.count == 0 ? cityway_line_number.count == 0 ? -1 : Int(cityway_line_number) : Int(tam_line_id)
+            
+            if lineId == nil || lineId == -1 { continue }
+            //subbus lines getting stop arrival id
+            if tam_stop_id != -1 {
+                for fstop in self.stops.filter({$0.tamId == tam_stop_id}) {
+                    for dir in fstop.directions {
+                        if direction_name.contains(dir.arrival.name) {
+                            stopArrivalId = dir.arrival.citywayId
+                            break
+                        }
+                    }
+                }
+            }
+            //check if it is the terminus
+            if self.stops.filter({$0.citywayId == stopArrivalId}).count > 0 { continue }
             
             for (_,subArrivals):(String, JSON) in subJson["stop_next_time"] {
                 let waitingTime: Int? = Int(subArrivals["waiting_time"].stringValue.replacingOccurrences(of: " min", with: ""))
@@ -130,7 +149,7 @@ class StopZone : CustomStringConvertible, Equatable {
                 let passingMin: Int? = Int(subArrivals["passing_minute"].stringValue)
                 
                 if (waitingTime == nil || passingHour == nil || passingMin == nil) { continue }
-                let schedule = Schedule(waitingTime: waitingTime!, scheduledHour: passingHour!, scheduledMinute: passingMin!, destCitywayId: stopArrivalId, lineTamId: lineId, atStopZone: self)
+                let schedule = Schedule(waitingTime: waitingTime!, scheduledHour: passingHour!, scheduledMinute: passingMin!, destCitywayId: stopArrivalId, lineTamId: lineId!, atStopZone: self)
                 
                 if (schedule == nil) { continue }
                 self.schedules.append(schedule!)
