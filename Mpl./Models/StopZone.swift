@@ -119,7 +119,7 @@ class StopZone : CustomStringConvertible, Equatable {
         }
     }
     
-    private func updateTimetable(fromJson json: JSON) {
+    public func updateTimetable(fromJson json: JSON) {
         for (_,subJson):(String, JSON) in json {
             var stopArrivalId = subJson["line_direction"].intValue
             let tam_stop_id = subJson["tam_stop_id"].intValue

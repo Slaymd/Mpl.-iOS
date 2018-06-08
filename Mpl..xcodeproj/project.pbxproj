@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		260023701FF704BE00FA0D81 /* TransportData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2600236F1FF704BE00FA0D81 /* TransportData.swift */; };
 		260023721FF70D6E00FA0D81 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 260023711FF70D6E00FA0D81 /* UserData.swift */; };
+		2601C77720CA87C200A44F1A /* StationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2601C77620CA87C200A44F1A /* StationData.swift */; };
 		2611CB7B20666A1200F2F8A2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2611CB7D20666A1200F2F8A2 /* Localizable.strings */; };
 		2611CB8920666DCC00F2F8A2 /* HomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2611CB8820666DCB00F2F8A2 /* HomeView.xib */; };
 		2617F23A20A77365001ACE7B /* TextResearcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617F23820A77365001ACE7B /* TextResearcherView.swift */; };
@@ -60,6 +61,8 @@
 		26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */; };
 		26BC3B8D2049830000831BF0 /* HomeStationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BC3B8B2049830000831BF0 /* HomeStationCollectionViewCell.xib */; };
 		26C8CD8B2076862300365562 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8CD8A2076862300365562 /* ColorManager.swift */; };
+		26C9051320CB1F6F0077D8AB /* SNCFSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C9051220CB1F6F0077D8AB /* SNCFSchedule.swift */; };
+		26C9051520CB43E40077D8AB /* UISNCFSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */; };
 		26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */; };
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
 		26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9A2042E2B300FA03B8 /* Stop.swift */; };
@@ -93,6 +96,7 @@
 /* Begin PBXFileReference section */
 		2600236F1FF704BE00FA0D81 /* TransportData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportData.swift; sourceTree = "<group>"; };
 		260023711FF70D6E00FA0D81 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		2601C77620CA87C200A44F1A /* StationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationData.swift; sourceTree = "<group>"; };
 		2611CB77206669B800F2F8A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		2611CB8020666A2D00F2F8A2 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2611CB8220666AEF00F2F8A2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		26C8CD86207600B200365562 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C8CD88207600B200365562 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26C8CD8A2076862300365562 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		26C9051220CB1F6F0077D8AB /* SNCFSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCFSchedule.swift; sourceTree = "<group>"; };
+		26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISNCFSchedule.swift; sourceTree = "<group>"; };
 		26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMonoDirectionSchedule.swift; sourceTree = "<group>"; };
 		26D77A982042E11700FA03B8 /* StopZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopZone.swift; sourceTree = "<group>"; };
 		26D77A9A2042E2B300FA03B8 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 				26D77A9C2043155800FA03B8 /* Direction.swift */,
 				26A85C0F20630B97009298CB /* Disruption.swift */,
 				2618DB222055972A00EC8E4B /* Schedule.swift */,
+				26C9051220CB1F6F0077D8AB /* SNCFSchedule.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -265,6 +272,7 @@
 				26A579301FF3EED80087ADD9 /* UILineLogo.swift */,
 				26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */,
 				2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */,
+				26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */,
 				266466F6207A2BD500927D10 /* UIAlert.swift */,
 			);
 			path = UI;
@@ -283,6 +291,7 @@
 		2682E1DD20754D66009F6E93 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2601C77620CA87C200A44F1A /* StationData.swift */,
 				2600236F1FF704BE00FA0D81 /* TransportData.swift */,
 				26A85C0D206307C2009298CB /* DisruptionData.swift */,
 				2682E1DB20754D05009F6E93 /* ScheduleData.swift */,
@@ -608,11 +617,13 @@
 				26442B7420654FAB00A3CC36 /* StationPopUpView.swift in Sources */,
 				268F77FF2017876600F3366F /* MainScrollView.swift in Sources */,
 				2617F23A20A77365001ACE7B /* TextResearcherView.swift in Sources */,
+				2601C77720CA87C200A44F1A /* StationData.swift in Sources */,
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
 				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
 				2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */,
 				26C8CD8B2076862300365562 /* ColorManager.swift in Sources */,
+				26C9051320CB1F6F0077D8AB /* SNCFSchedule.swift in Sources */,
 				2632915E20037EDF007C5156 /* DayDate.swift in Sources */,
 				2665FC48205F23120089DF95 /* LineViewController.swift in Sources */,
 				2618DB232055972A00EC8E4B /* Schedule.swift in Sources */,
@@ -632,6 +643,7 @@
 				266466F7207A2BD500927D10 /* UIAlert.swift in Sources */,
 				263964EF205A8527007938FB /* UILineCard.swift in Sources */,
 				2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */,
+				26C9051520CB43E40077D8AB /* UISNCFSchedule.swift in Sources */,
 				268F780220178AD400F3366F /* MapView.swift in Sources */,
 				26D77A9D2043155800FA03B8 /* Direction.swift in Sources */,
 				26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */,

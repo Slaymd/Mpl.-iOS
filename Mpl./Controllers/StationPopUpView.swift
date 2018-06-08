@@ -11,7 +11,23 @@ import MarqueeLabel
 
 class StationPopUpView: UIViewController {
     
+    //MARK: - VARIABLES
+    
     var station: StopZone
+    
+    //UI pop-up
+    
+    @IBOutlet weak var popUpWidthConstraint: NSLayoutConstraint!
+    
+    //UI header
+    
+    @IBOutlet weak var headerStationTypeLabel: UILabel!
+    @IBOutlet weak var headerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var header: UIView!
+    private var headerTabButtons: [UIButton] = []
+    private var headerTabLine: UIView?
+    
+    //UI content
 
     @IBOutlet weak var blurBackground: UIVisualEffectView!
     @IBOutlet weak var stationNameLabel: UILabel!
@@ -19,6 +35,7 @@ class StationPopUpView: UIViewController {
     @IBOutlet weak var popUpCard: UIView!
     @IBOutlet weak var stationCard: UIView!
     @IBOutlet weak var stationDataScroll: UIScrollView!
+    private var contentTamScroll: UIScrollView?
     var informationLabel: UILabel?
     
     var effect: UIVisualEffect?
@@ -86,9 +103,119 @@ class StationPopUpView: UIViewController {
         
     }
     
+    /*
+    **  STATION POP-UP PAGINATION
+    */
+    
+    //MARK: - SETUP POP-UP PAGE (TRANSPORT DATA, SNCF, SERVICES...)
+    
+    public func initPages() {
+        let dataTypes = StationData.getDataTypes(stopZone: self.station)
+        let tabWidth: CGFloat
+        let tabHeight: CGFloat
+        var tabX: CGFloat = 0
+        let tabY: CGFloat
+        
+        //header pagination when needed
+        if dataTypes.count > 1 {
+            //values
+            tabHeight = 100.0 - self.headerHeightConstraint.constant
+            tabY = self.headerHeightConstraint.constant
+            self.headerHeightConstraint.constant = 100
+            tabWidth = self.stationCard.frame.width / CGFloat(dataTypes.count)
+            
+            //header tabline
+            self.headerTabLine = UIView(frame: CGRect(x: tabX, y: tabY + tabHeight - 3.0, width: tabWidth, height: 3.0))
+            self.headerTabLine!.backgroundColor = .black
+            self.header.addSubview(headerTabLine!)
+            
+            //creating header tab buttons
+            for dataType in dataTypes {
+                let tabButton = UIButton(frame: CGRect(x: tabX, y: tabY, width: tabWidth, height: tabHeight))
+                
+                tabButton.setTitleColor(.darkGray, for: .normal)
+                tabButton.setTitleColor(.black, for: .selected)
+                tabButton.titleLabel?.font = UIFont(name: "Ubuntu-Medium", size: 18)
+                tabButton.titleLabel?.adjustsFontSizeToFitWidth = true
+                tabButton.addTarget(self, action: #selector(clickedTabBarButton(sender:)), for: .touchUpInside)
+                switch (dataType.type) {
+                case .PUBLIC_TRANSPORT:
+                    tabButton.tag = 21
+                    tabButton.isSelected = true
+                    tabButton.setTitle("TaM", for: .normal)
+                case .SNCF:
+                    tabButton.tag = 42
+                    tabButton.setTitle("SNCF", for: .normal)
+                    tabButton.setTitleColor(UIColor(red: 205/255, green: 0.0, blue: 55/255, alpha: 1.0), for: .selected)
+                    if (dataType.info != nil) {
+                        StationData.getSNCFSchedules(stopArea: dataType.info as! String) { (schedules) in
+                            if schedules != nil {
+                                for schedule in schedules! {
+                                    print(schedule.trainType, schedule.trainNumber, "destination:", schedule.destination, schedule.status)
+                                }
+                            }
+                        }
+                    }
+                case .SERVICES:
+                    tabButton.tag = 84
+                    tabButton.setTitle("Services", for: .normal)
+                }
+                self.headerTabButtons.append(tabButton)
+                self.header.addSubview(tabButton)
+                tabX += tabWidth
+            }
+            
+            //scroll content size
+            self.stationDataScroll.contentSize = CGSize(width: self.stationDataScroll.frame.width * CGFloat(dataTypes.count), height: self.stationDataScroll.frame.height)
+        }
+        //TaM scroll view
+        self.contentTamScroll = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.stationDataScroll.frame.width, height: self.stationDataScroll.frame.height))
+        self.stationDataScroll.addSubview(self.contentTamScroll!)
+    }
+    
+    //MARK: - INIT SNCF SCHEDULES
+    
+    func displaySNCFSchedules(schedules: [SNCFSchedule]) {
+        
+    }
+    
+    //MARK: - TAB BUTTON CLICKED
+    
+    @objc func clickedTabBarButton(sender: UIButton!) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
+            //default
+            for tabButton in self.headerTabButtons { tabButton.setTitleColor(.black, for: .normal) ; tabButton.isSelected = false }
+            //new design values
+            sender.isSelected = true
+            self.headerTabLine?.frame.origin = CGPoint(x: sender.frame.minX, y: self.headerTabLine!.frame.minY)
+            if (sender.tag == 42) {
+                //SNCF
+                self.headerStationTypeLabel.textColor = UIColor(white: 0.9, alpha: 1.0)
+                self.stationNameLabel.textColor = .white
+                self.header.backgroundColor = UIColor(red: 0.0, green: 136/255, blue: 206/255, alpha: 1)
+                for tabButton in self.headerTabButtons { tabButton.setTitleColor(.white, for: .normal) }
+                self.headerTabLine?.backgroundColor = UIColor(red: 205/255, green: 0.0, blue: 55/255, alpha: 1.0)
+            } else {
+                self.header.backgroundColor = .white
+                self.headerStationTypeLabel.textColor = .darkGray
+                self.stationNameLabel.textColor = .black
+                self.headerTabLine?.backgroundColor = .black
+            }
+            //scrolling
+            self.stationDataScroll.contentOffset = CGPoint(x: self.stationDataScroll.frame.width * CGFloat(self.headerTabButtons.index(of: sender)!), y: 0)
+        }, completion: nil)
+    }
+    
+    /*
+    **  SCHEDULE DATA DISPLAY
+    */
+    
     //MARK: - INIT DISPLAY
     
     public func displayInit() {
+        //Init pagination
+        self.initPages()
+        //Init schedules
         self.station.updateTimetable(completion: { (state: Bool) in
             if state == true {
                 DisruptionData.getStationDisruptions(station: self.station, completion: {(disturbances: [(disruption: Disruption, lines: [Line])]) in
@@ -104,9 +231,9 @@ class StationPopUpView: UIViewController {
     public func displayDisturbances(disturbances: [(disruption: Disruption, lines: [Line])]) {
         if disturbances.count == 0 { return }
         
-        self.disturbancesPanel = UIView(frame: CGRect(x: 0, y: -300, width: Int(self.stationDataScroll.frame.width), height: 304+(32+25)*disturbances.count))
+        self.disturbancesPanel = UIView(frame: CGRect(x: 0, y: -300, width: Int(self.contentTamScroll!.frame.width), height: 304+(32+25)*disturbances.count))
         self.disturbancesPanel!.backgroundColor = UIColor(hex: "f39c12").withAlphaComponent(0.8)
-        self.stationDataScroll.addSubview(self.disturbancesPanel!)
+        self.contentTamScroll!.addSubview(self.disturbancesPanel!)
         
         for i in 0..<disturbances.count {
             let disturbance = disturbances[i]
@@ -144,9 +271,9 @@ class StationPopUpView: UIViewController {
         //Creating directions panel if null
         let disturbMaxY = self.disturbancesPanel == nil ? 0 : self.disturbancesPanel!.frame.maxY
         if self.directionsPanel == nil {
-            self.directionsPanel = UIView(frame: CGRect(x: 0, y: disturbMaxY, width: self.stationDataScroll.frame.width, height: 10))
+            self.directionsPanel = UIView(frame: CGRect(x: 0, y: disturbMaxY, width: self.contentTamScroll!.frame.width, height: 10))
             self.directionsPanel!.backgroundColor = .clear
-            self.stationDataScroll.addSubview(self.directionsPanel!)
+            self.contentTamScroll!.addSubview(self.directionsPanel!)
         }
         
         //No schedules
@@ -227,7 +354,7 @@ class StationPopUpView: UIViewController {
         
         //Main container insets (direction panel and scroll view)
         self.directionsPanel!.frame.size = CGSize(width: self.directionsPanel!.frame.width, height: CGFloat(self.directionsPanel!.frame.height)+110)
-        self.stationDataScroll.contentSize = CGSize(width: self.stationDataScroll.frame.width, height: CGFloat(61*self.disturbances.count)+self.directionsPanel!.frame.maxY)
+        self.contentTamScroll!.contentSize = CGSize(width: self.contentTamScroll!.frame.width, height: CGFloat(61*self.disturbances.count)+self.directionsPanel!.frame.maxY)
         
         //Adding scheduleUI to schedulesUI (for updating without redrawing labels/view...)
         self.schedulesUI.append(scheduleUI)
@@ -277,9 +404,9 @@ class StationPopUpView: UIViewController {
             self.informationLabel!.textColor = .darkGray
             self.informationLabel!.textAlignment = .center
             self.informationLabel!.text = NSLocalizedString("...", comment: "")
-            self.stationDataScroll.addSubview(self.informationLabel!)
             //UI Init
             self.displayInit()
+            self.contentTamScroll!.addSubview(self.informationLabel!)
         }
         //Pop up appear
         self.appearAnimation()
