@@ -32,6 +32,17 @@ class SNCFSchedule {
         self.destination = ""
     }
     
+    func setDestination(sncfDest: String) {
+        var parentIndex = sncfDest.index(of: "(")
+        
+        if parentIndex != nil {
+            parentIndex = sncfDest.index(parentIndex!, offsetBy: -1)
+            self.destination = String(sncfDest[..<parentIndex!])
+            return
+        }
+        self.destination = sncfDest
+    }
+    
     func convertSNCFTime(sncfTime: String) -> DayDate {
         let endMins = sncfTime.index(sncfTime.endIndex, offsetBy: -2)
         let startMins = sncfTime.index(sncfTime.endIndex, offsetBy: -4)
@@ -41,7 +52,7 @@ class SNCFSchedule {
         let min = Int(mins)
         let hour = Int(hours)
         
-        return DayDate(min != nil ? min! : 0, hour != nil ? hour! : 0, 0)
+        return DayDate(hour != nil ? hour! : 0, min != nil ? min! : 0, 0)
     }
     
 }

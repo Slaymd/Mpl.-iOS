@@ -18,6 +18,10 @@ class DayDate : CustomStringConvertible {
         return "\(hours) \(mins) \(seconds)"
     }
     
+    var formatted: String {
+        return "\(hours < 10 ? "0\(hours)" : "\(hours)"):\(mins < 10 ? "0\(mins)" : "\(mins)")"
+    }
+    
     init(minsFromNow waitMinutes: Int) {
         //Now
         let date = Date()

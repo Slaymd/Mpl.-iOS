@@ -22,7 +22,8 @@ class StationData {
     //MARK: - VARIABLES
     
     static private let specialStations: [(stopZoneId: Int, dataTypes: [(type: StationDataType, info: Any?)])] = [
-        (stopZoneId: 308, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002"), (type: .SERVICES, info: nil)])]
+        (stopZoneId: 308, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002"), (type: .SERVICES, info: nil)]),
+        (stopZoneId: 651, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")])]
     
     //MARK: - GET DATA TYPE
     
@@ -61,7 +62,7 @@ class StationData {
         
         schedule.departure = schedule.convertSNCFTime(sncfTime: json["stop_date_time"]["departure_date_time"].stringValue)
         schedule.baseDeparture = schedule.convertSNCFTime(sncfTime: json["stop_date_time"]["base_departure_date_time"].stringValue)
-        schedule.destination = json["route"]["direction"]["stop_area"]["name"].stringValue
+        schedule.setDestination(sncfDest: json["display_informations"]["direction"].stringValue)
         schedule.status = schedule.baseDeparture.getMinsFromNow() - schedule.departure.getMinsFromNow() <= -5 ? .DELAYED : .ON_TIME
         schedule.trainNumber = json["display_informations"]["headsign"].stringValue
         schedule.trainType = json["display_informations"]["commercial_mode"].stringValue

@@ -57,6 +57,7 @@
 		26A85C1020630B97009298CB /* Disruption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A85C0F20630B97009298CB /* Disruption.swift */; };
 		26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA2A29205720B50066F7FB /* ResearcherViewController.swift */; };
 		26AA2A2C205720B50066F7FB /* ResearcherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26AA2A2A205720B50066F7FB /* ResearcherViewController.xib */; };
+		26AF1ECD20CC123D00E00736 /* ParkingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AF1ECC20CC123D00E00736 /* ParkingData.swift */; };
 		26B4D96920BDF901004EC19A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26B4D96820BDF901004EC19A /* Assets.xcassets */; };
 		26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */; };
 		26BC3B8D2049830000831BF0 /* HomeStationCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26BC3B8B2049830000831BF0 /* HomeStationCollectionViewCell.xib */; };
@@ -168,6 +169,7 @@
 		26A85C0F20630B97009298CB /* Disruption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disruption.swift; sourceTree = "<group>"; };
 		26AA2A29205720B50066F7FB /* ResearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearcherViewController.swift; sourceTree = "<group>"; };
 		26AA2A2A205720B50066F7FB /* ResearcherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResearcherViewController.xib; sourceTree = "<group>"; };
+		26AF1ECC20CC123D00E00736 /* ParkingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingData.swift; sourceTree = "<group>"; };
 		26B4D96820BDF901004EC19A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26B6793E1FF4103500185BA1 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = MarqueeLabel.framework; path = "../../../../../../../../../Users/Darius/Library/Developer/Xcode/DerivedData/Mpl.-byuiwtjkctnjjvelsehwwmrdsstx/Build/Products/Debug-iphoneos/MarqueeLabel.framework"; sourceTree = SDKROOT; };
 		26BC3B8A2049830000831BF0 /* HomeStationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStationCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				26A85C0D206307C2009298CB /* DisruptionData.swift */,
 				2682E1DB20754D05009F6E93 /* ScheduleData.swift */,
 				26C8CD8A2076862300365562 /* ColorManager.swift */,
+				26AF1ECC20CC123D00E00736 /* ParkingData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				2601C77720CA87C200A44F1A /* StationData.swift in Sources */,
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
 				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
+				26AF1ECD20CC123D00E00736 /* ParkingData.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
 				2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */,
 				26C8CD8B2076862300365562 /* ColorManager.swift in Sources */,

@@ -122,6 +122,7 @@ class StationPopUpView: UIViewController {
             tabHeight = 100.0 - self.headerHeightConstraint.constant
             tabY = self.headerHeightConstraint.constant
             self.headerHeightConstraint.constant = 100
+            self.view.layoutIfNeeded()
             tabWidth = self.stationCard.frame.width / CGFloat(dataTypes.count)
             
             //header tabline
@@ -150,9 +151,7 @@ class StationPopUpView: UIViewController {
                     if (dataType.info != nil) {
                         StationData.getSNCFSchedules(stopArea: dataType.info as! String) { (schedules) in
                             if schedules != nil {
-                                for schedule in schedules! {
-                                    print(schedule.trainType, schedule.trainNumber, "destination:", schedule.destination, schedule.status)
-                                }
+                                self.displaySNCFSchedules(schedules: schedules!)
                             }
                         }
                     }
@@ -176,7 +175,20 @@ class StationPopUpView: UIViewController {
     //MARK: - INIT SNCF SCHEDULES
     
     func displaySNCFSchedules(schedules: [SNCFSchedule]) {
+        let SNCFTab = self.headerTabButtons.filter({$0.tag == 42})
+        if SNCFTab.count == 0 { return }
+        let tabIndex = self.headerTabButtons.index(of: SNCFTab[0])
+        if tabIndex == nil { return }
+        var y: CGFloat = 10
+        let SNCFScrollView = UIScrollView(frame: CGRect(x: self.stationDataScroll.frame.width * CGFloat(tabIndex!), y: 0, width: self.stationDataScroll.frame.width, height: self.stationDataScroll.frame.height))
         
+        for schedule in schedules {
+            let UISchedule = UISNCFSchedule(frame: CGRect(x: 0, y: y, width: SNCFScrollView.frame.width, height: 40), schedule: schedule)
+            SNCFScrollView.addSubview(UISchedule)
+            y += UISchedule.frame.height + 20
+            SNCFScrollView.contentSize = CGSize(width: SNCFScrollView.frame.width, height: y)
+        }
+        self.stationDataScroll.addSubview(SNCFScrollView)
     }
     
     //MARK: - TAB BUTTON CLICKED
