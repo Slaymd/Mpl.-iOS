@@ -139,6 +139,8 @@ class StationPopUpView: UIViewController {
                 tabButton.titleLabel?.font = UIFont(name: "Ubuntu-Medium", size: 18)
                 tabButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 tabButton.addTarget(self, action: #selector(clickedTabBarButton(sender:)), for: .touchUpInside)
+                self.headerTabButtons.append(tabButton)
+                self.header.addSubview(tabButton)
                 switch (dataType.type) {
                 case .PUBLIC_TRANSPORT:
                     tabButton.tag = 21
@@ -158,9 +160,11 @@ class StationPopUpView: UIViewController {
                 case .SERVICES:
                     tabButton.tag = 84
                     tabButton.setTitle("Services", for: .normal)
+                    if (dataType.info != nil) {
+                        self.displayServices(services: dataType.info as! ServiceBundle)
+                    }
+                    
                 }
-                self.headerTabButtons.append(tabButton)
-                self.header.addSubview(tabButton)
                 tabX += tabWidth
             }
             
@@ -170,6 +174,38 @@ class StationPopUpView: UIViewController {
         //TaM scroll view
         self.contentTamScroll = UIScrollView(frame: CGRect(x: 0, y: 0, width: self.stationDataScroll.frame.width, height: self.stationDataScroll.frame.height))
         self.stationDataScroll.addSubview(self.contentTamScroll!)
+    }
+    
+    //MARK: - INIT SERVICES
+    
+    func displayServices(services: ServiceBundle) {
+        let servicesTab = self.headerTabButtons.filter({$0.tag == 84})
+        if servicesTab.count == 0 { return }
+        let tabIndex = self.headerTabButtons.index(of: servicesTab[0])
+        if tabIndex == nil { return }
+        var y: CGFloat = 10
+        let servicesScrollView = UIScrollView(frame: CGRect(x: self.stationDataScroll.frame.width * CGFloat(tabIndex!), y: 0, width: self.stationDataScroll.frame.width, height: self.stationDataScroll.frame.height))
+        //Parkings
+        for parking in services.parkings {
+            ParkingData.updateData(of: parking) { (success) in
+                let parkingUI = UIParking(frame: CGRect(x: 0, y: y, width: servicesScrollView.frame.width, height: 42), parking: parking)
+                servicesScrollView.addSubview(parkingUI)
+                y += parkingUI.frame.height + 20
+                servicesScrollView.contentSize = CGSize(width: servicesScrollView.frame.width, height: y)
+            }
+        }
+        //Bike Stations
+        if services.bikeStations.count > 0 {
+            BikeData.updateIfNeeded { (success) in
+                for bike in services.bikeStations {
+                    let bikeUI = UIBike(frame: CGRect(x: 0, y: y, width: servicesScrollView.frame.width, height: 42), bikeStation: bike)
+                    servicesScrollView.addSubview(bikeUI)
+                    y += bikeUI.frame.height + 20
+                    servicesScrollView.contentSize = CGSize(width: servicesScrollView.frame.width, height: y)
+                }
+            }
+        }
+        self.stationDataScroll.addSubview(servicesScrollView)
     }
     
     //MARK: - INIT SNCF SCHEDULES

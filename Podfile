@@ -12,6 +12,7 @@ target 'Mpl.' do
   pod 'Mapbox-iOS-SDK', '~> 3.7'
   pod 'SQLite.swift', '~> 0.11.4'
   pod 'Alamofire', '~> 4.6'
+  pod 'SWXMLHash', '~> 4.0.0'
   pod 'SwiftyJSON'
 
 end

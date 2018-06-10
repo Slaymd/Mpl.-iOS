@@ -22,17 +22,23 @@ class StationData {
     //MARK: - VARIABLES
     
     static private let specialStations: [(stopZoneId: Int, dataTypes: [(type: StationDataType, info: Any?)])] = [
-        (stopZoneId: 308, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002"), (type: .SERVICES, info: nil)]),
+        (stopZoneId: 308, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")]),
         (stopZoneId: 651, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")])]
     
     //MARK: - GET DATA TYPE
     
     static public func getDataTypes(stopZone: StopZone) -> [(type: StationDataType, info: Any?)] {
+        var services: (type: StationDataType, info: Any?) = (type: .SERVICES, info: nil)
         var dataTypes: [(type: StationDataType, info: Any?)] = [(type: .PUBLIC_TRANSPORT, info: nil)]
         let filteredSpecialCases = self.specialStations.filter({$0.stopZoneId == stopZone.id})
         
         if (filteredSpecialCases.count > 0) {
             dataTypes = filteredSpecialCases[0].dataTypes
+        }
+        //Services
+        if let serviceBundle = ServicesData.getServices(at: stopZone) {
+            services.info = serviceBundle
+            dataTypes.append(services)
         }
         return dataTypes
     }
