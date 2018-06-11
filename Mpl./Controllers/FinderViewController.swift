@@ -71,6 +71,12 @@ class FinderViewController: UIViewController, UIGestureRecognizerDelegate, UIScr
             banner.show()
         }
         
+        //Locales
+        self.headerTitleLight.text = NSLocalizedString("Search", comment: "").uppercased()
+        self.headerTitleShadow.text = NSLocalizedString("Search", comment: "").uppercased()
+        self.stationsTitle.text = NSLocalizedString("Stations", comment: "")
+        self.linesTitle.text = NSLocalizedString("Lines", comment: "")
+        
         //Setup lines
         dispLines(TransportData.lines.sorted(by: {$0.displayId < $1.displayId}))
         

@@ -44,6 +44,9 @@ class SNCFSchedule {
     }
     
     func convertSNCFTime(sncfTime: String) -> DayDate {
+        if sncfTime.count < 8 {
+            return DayDate(0, 0, 0)
+        }
         let endMins = sncfTime.index(sncfTime.endIndex, offsetBy: -2)
         let startMins = sncfTime.index(sncfTime.endIndex, offsetBy: -4)
         let startHours = sncfTime.index(sncfTime.endIndex, offsetBy: -6)
