@@ -10,6 +10,7 @@ PODS:
     - SQLite.swift/standard (= 0.11.5)
   - SQLite.swift/standard (0.11.5)
   - SwiftyJSON (4.1.0)
+  - SWXMLHash (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.6)
@@ -18,6 +19,18 @@ DEPENDENCIES:
   - NotificationBannerSwift
   - SQLite.swift (~> 0.11.4)
   - SwiftyJSON
+  - SWXMLHash (~> 4.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - Mapbox-iOS-SDK
+    - MarqueeLabel
+    - NotificationBannerSwift
+    - SnapKit
+    - SQLite.swift
+    - SwiftyJSON
+    - SWXMLHash
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -27,7 +40,8 @@ SPEC CHECKSUMS:
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLite.swift: 6e5356850bb1791459f8c16d6ee9195b28714a2e
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SWXMLHash: 6bbc0bf72975a18ceda469fb7d6a886a26d81694
 
-PODFILE CHECKSUM: 12eac6472f1d2bd573cb51380cf002df8de18b06
+PODFILE CHECKSUM: a7c3295c93d6bbda05dc4d0a561ceee4fc8accae
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3

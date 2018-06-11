@@ -24,6 +24,23 @@ class StationPointAnnotation: MGLPointAnnotation {
     }
 }
 
+class ServicePointAnnotation: MGLPointAnnotation {
+    
+    var type: ServiceType
+    var service: Any?
+    
+    init(type: ServiceType, serviceData: Any?) {
+        self.type = type
+        self.service = serviceData
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
 class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
 
     @IBOutlet weak var header: UIAdvanced!
@@ -31,6 +48,25 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     var mapBoxView: MGLMapView?
     
     let gradient = CAGradientLayer()
+    
+    func initServiceAnnotations(mapView: MGLMapView) {
+        //Parkings
+        for parking in ParkingData.getParkings() {
+            let annotation = ServicePointAnnotation(type: .PARKING, serviceData: parking)
+            annotation.coordinate = parking.location.coordinate
+            annotation.title = parking.name
+            mapView.addAnnotation(annotation)
+        }
+        //BikeStations
+        BikeData.updateIfNeeded { (success) in
+            for bike in BikeData.getStations() {
+                let annotation = ServicePointAnnotation(type: .BIKE, serviceData: bike)
+                annotation.coordinate = bike.location.coordinate
+                annotation.title = bike.name
+                mapView.addAnnotation(annotation)
+            }
+        }
+    }
     
     func initStationAnnotations(mapView: MGLMapView, lines: [Line]) {
         DispatchQueue.global(qos: .background).async {
@@ -78,7 +114,7 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         let url = URL(string: "mapbox://styles/slaymd/cjdj47fr31ex32sqp8dy4h9m7")
         let mapView = MGLMapView(frame: view.bounds, styleURL: url)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setCenter(CLLocationCoordinate2D(latitude: 43.610769, longitude: 3.876716), zoomLevel: 11, animated: false)
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 43.610769, longitude: 3.876716), zoomLevel: 12.5, animated: false)
         mapView.showsUserLocation = true
         mapView.delegate = self
         self.mapBoxView = mapView
@@ -86,8 +122,10 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         
         //Stations
         let linesToDisp = TransportData.lines.filter({$0.type == .TRAMWAY})
-        
         self.initStationAnnotations(mapView: mapView, lines: linesToDisp)
+        
+        //Services
+        self.initServiceAnnotations(mapView: mapView)
         
         //Creating header gradient
         header.backgroundColor = gradientBotColor
@@ -98,21 +136,74 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         header.layer.insertSublayer(gradient, at: 0)
         self.view.addSubview(header)
     }
+
+    /*
+    **  ANNOTATION DISPLAY
+    */
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        let stationAnnotation = annotation as? StationPointAnnotation
-        let lines: [Line]
+        var annotView: MGLAnnotationView?
+        
+        if let stationAnnotation = annotation as? StationPointAnnotation {
+            annotView = displayViewOf(mapView: mapView, stationAnnotation: stationAnnotation)
+        } else if let serviceAnnotation = annotation as? ServicePointAnnotation {
+            annotView = displayViewOf(mapView: mapView, serviceAnnotation: serviceAnnotation)
+        }
+        
+        if annotView == nil { mapView.removeAnnotation(annotation) }
+        return annotView
+    }
+    
+    //Service Annotation Display
+    
+    func displayViewOf(mapView: MGLMapView, serviceAnnotation: ServicePointAnnotation) -> MGLAnnotationView? {
         let reuseIdentifier: String
         var annotationView: MGLAnnotationView?
         
-        if (stationAnnotation == nil) { return nil }
-        lines = stationAnnotation!.lines
+        switch serviceAnnotation.type {
+        case .PARKING:
+            reuseIdentifier = "parking"
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+            if annotationView == nil {
+                annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+                annotationView!.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+                annotationView!.backgroundColor = UIColor(red: 0, green: 168/255, blue: 1.0, alpha: 0.8)
+                let logoLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
+                logoLabel.text = "P"
+                logoLabel.textColor = .white
+                logoLabel.textAlignment = .center
+                logoLabel.font = UIFont(name: "Ubuntu-Bold", size: 12)
+                annotationView!.addSubview(logoLabel)
+            }
+        case .BIKE:
+            reuseIdentifier = "bike"
+            annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+            if annotationView == nil {
+                annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+                annotationView!.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+                annotationView!.backgroundColor = UIColor(red: 241/255, green: 196/255, blue: 15/255, alpha: 0.8)
+                let logoImageMargin = annotationView!.frame.width * 0.15
+                let logoImageSize = annotationView!.frame.width - (logoImageMargin * 2)
+                let logoImage = UIImageView(frame: CGRect(x: logoImageMargin, y: logoImageMargin, width: logoImageSize, height: logoImageSize))
+                logoImage.image = #imageLiteral(resourceName: "man-cycling")
+                annotationView!.addSubview(logoImage)
+            }
+        }
+        return annotationView
+    }
+    
+    //Station Annotation Display
+    
+    func displayViewOf(mapView: MGLMapView, stationAnnotation: StationPointAnnotation) -> MGLAnnotationView? {
+        let lines: [Line] = stationAnnotation.lines
+        let reuseIdentifier: String
+        var annotationView: MGLAnnotationView?
         
         if (lines.count > 1) {
             //Multi-line
             reuseIdentifier = "mono-line"
             annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-
+            
             if (annotationView == nil) {
                 annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
                 annotationView?.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
@@ -132,7 +223,6 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
                 annotationView!.backgroundColor = lines[0].bgColor
             }
         } else {
-            mapView.removeAnnotation(annotation)
             return nil
         }
         return annotationView

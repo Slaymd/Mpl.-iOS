@@ -10,6 +10,8 @@ import UIKit
 import MarqueeLabel
 
 class ResearcherViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate {
+    
+    //MARK: - VARIABLES
 
     var mainScrollView: MainScrollView
     
