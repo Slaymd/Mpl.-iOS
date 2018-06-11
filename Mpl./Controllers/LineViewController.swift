@@ -11,9 +11,9 @@ import MarqueeLabel
 
 class LineViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var headerShadowLabel: UILabel!
-    @IBOutlet weak var headerLightLabel: UILabel!
+    @IBOutlet weak var header: UIView!
+    @IBOutlet weak var headerTitleShadow: UILabel!
+    @IBOutlet weak var headerTitle: UILabel!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -34,19 +34,6 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //Header
-        self.headerView.frame.size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.22)
-        self.headerView.layer.shadowRadius = 40
-        self.headerView.layer.shadowColor = UIColor.lightGray.cgColor
-        self.headerView.layer.shadowOpacity = 1
-        //Label position
-        headerLightLabel.frame = CGRect(x: 12, y: headerView.frame.maxY-45, width: self.view.frame.width-20, height: headerLightLabel.frame.height)
-        headerShadowLabel.frame = CGRect(x: 16, y: headerView.frame.maxY-42, width: self.view.frame.width-20, height: headerLightLabel.frame.height)
-        headerView.addSubview(headerShadowLabel)
-        headerView.addSubview(headerLightLabel)
-        //Scroll view
-        scrollView.frame = CGRect(x: 0, y: self.headerView.frame.maxY, width: self.view.frame.width, height: UIScreen.main.bounds.height-self.headerView.frame.height)
         
         //Navigation
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -62,15 +49,15 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func fillLine(_ line: Line) {
-        self.headerView.backgroundColor = line.bgColor
-        self.headerShadowLabel.text = line.shortName
-        self.headerLightLabel.text = line.shortName
+        self.header.backgroundColor = line.bgColor
+        self.headerTitleShadow.text = line.shortName
+        self.headerTitle.text = line.shortName
         
         let lineStations = TransportData.getLineStopZonesByDirection(line: line)
         let dirToDisp: [StopZone] = lineStations.count > 0 ? lineStations[0] : []
         
         //Line map
-        var height = 30
+        var height = 15
         for i in 0..<dirToDisp.count {
             let station = dirToDisp[i]
             let fromLine: Line? = i == 0 ? nil : line
@@ -100,6 +87,12 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         })
         
+    }
+    
+    //MARK: - CLICKING BACK BUTTON
+    
+    @IBAction func clickBackButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - BACKGROUND STATE

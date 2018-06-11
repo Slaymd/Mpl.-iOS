@@ -25,3 +25,13 @@
 
 //Search
 "Station name" = "Nombre de la estación";
+
+//Services
+"Services" = "Servicios";
+"bikes" = "bicicletas";
+"free spots" = "estacionamientos disponibles";
+"parking spots" = "estacionamientos";
+
+//Notifications
+"Localization" = "Localización";
+"Turn on localization to get station list sorted by distance !" = "¡Active la localización para obtener la lista de estaciones ordenada por distancia!";

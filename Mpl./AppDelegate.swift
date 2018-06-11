@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //initializing data
         UserData.loadUserData()
         TransportData.initDatabase()
+        BikeData.updateBikeStations { (result) in
+            if result {
+                os_log("Bike data loaded.", type: .info)
+            } else {
+                os_log("Bike data request failed.", type: .error)
+            }
+        }
         return true
     }
 

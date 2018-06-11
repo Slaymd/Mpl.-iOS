@@ -26,6 +26,12 @@
 //Search
 "Station name" = "Station name";
 
+//Services
+"Services" = "Services";
+"bikes" = "bikes";
+"free spots" = "available spots";
+"parking spots" = "parking spots";
+
 //Notifications
 "Localization" = "Localization";
 "Turn on localization to get station list sorted by distance !" = "Turn on localization to get station list sorted by distance !";
