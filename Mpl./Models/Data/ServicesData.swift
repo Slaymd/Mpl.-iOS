@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum ServiceType {
+    case PARKING
+    case BIKE
+}
+
 class ServiceBundle {
     
     var parkings: [Parking] = []

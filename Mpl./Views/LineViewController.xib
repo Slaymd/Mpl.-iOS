@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,9 +18,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LineViewController" customModule="Mpl_" customModuleProvider="target">
             <connections>
-                <outlet property="headerLightLabel" destination="Tfg-NS-pxm" id="6Dc-9W-Y9G"/>
-                <outlet property="headerShadowLabel" destination="Owm-31-TzC" id="w7e-yO-cv5"/>
-                <outlet property="headerView" destination="35H-sc-h9N" id="Vlg-qU-KtS"/>
+                <outlet property="header" destination="8gV-ir-dsP" id="kAd-d1-WGt"/>
+                <outlet property="headerTitle" destination="OqX-mi-m1w" id="Bk3-Qt-AZh"/>
+                <outlet property="headerTitleShadow" destination="v3K-LK-56t" id="Jv3-fA-vN3"/>
                 <outlet property="scrollView" destination="7WD-JX-f3y" id="QSy-0I-XWk"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,37 +30,83 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="35H-sc-h9N">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="151"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gV-ir-dsP" userLabel="header">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="178.66666666666666"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" text="LIGNE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owm-31-TzC">
-                            <rect key="frame" x="11" y="106" width="346" height="37"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.24657534246575341" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" text="LIGNE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfg-NS-pxm">
-                            <rect key="frame" x="8" y="102" width="343" height="37"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaP-jy-1O7" userLabel="header-title">
+                            <rect key="frame" x="8" y="98.666666666666686" width="359" height="80"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECHERCHE" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3K-LK-56t" userLabel="title-text-shadow">
+                                    <rect key="frame" x="10" y="8" width="343" height="67"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
+                                    <color key="textColor" red="0.1529411765" green="0.68235294120000001" blue="0.37647058820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECHERCHE" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OqX-mi-m1w" userLabel="title-text-light">
+                                    <rect key="frame" x="8" y="5" width="343" height="67"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="v3K-LK-56t" firstAttribute="width" secondItem="OqX-mi-m1w" secondAttribute="width" id="2EI-OH-LK2"/>
+                                <constraint firstAttribute="bottom" secondItem="v3K-LK-56t" secondAttribute="bottom" constant="5" id="Etk-As-wHE"/>
+                                <constraint firstItem="v3K-LK-56t" firstAttribute="leading" secondItem="jaP-jy-1O7" secondAttribute="leading" constant="10" id="L4M-vt-x2Q"/>
+                                <constraint firstAttribute="bottom" secondItem="OqX-mi-m1w" secondAttribute="bottom" constant="8" id="MF1-GU-yeV"/>
+                                <constraint firstItem="OqX-mi-m1w" firstAttribute="top" secondItem="jaP-jy-1O7" secondAttribute="top" constant="5" id="QJU-jC-eFD"/>
+                                <constraint firstItem="OqX-mi-m1w" firstAttribute="leading" secondItem="jaP-jy-1O7" secondAttribute="leading" constant="8" id="Th8-jV-Gzo"/>
+                                <constraint firstItem="v3K-LK-56t" firstAttribute="height" secondItem="OqX-mi-m1w" secondAttribute="height" id="WMq-Td-tbd"/>
+                                <constraint firstAttribute="trailing" secondItem="OqX-mi-m1w" secondAttribute="trailing" constant="8" id="wSo-vJ-uMJ"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMn-so-fdY" userLabel="back-button">
+                            <rect key="frame" x="8" y="52" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="6ZW-yl-glP">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                                <constraint firstAttribute="width" constant="28" id="K9r-VN-t3B">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                            <state key="normal" image="left-arrow-white">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="jaP-jy-1O7" secondAttribute="trailing" constant="8" id="QRx-t3-Pzm"/>
+                        <constraint firstItem="jaP-jy-1O7" firstAttribute="leading" secondItem="8gV-ir-dsP" secondAttribute="leading" constant="8" id="Rz1-9B-Ia0"/>
+                        <constraint firstItem="RMn-so-fdY" firstAttribute="top" secondItem="8gV-ir-dsP" secondAttribute="topMargin" id="ZeB-Qf-C9s"/>
+                        <constraint firstItem="RMn-so-fdY" firstAttribute="leading" secondItem="jaP-jy-1O7" secondAttribute="leading" id="g2t-Qd-fSf"/>
+                        <constraint firstItem="jaP-jy-1O7" firstAttribute="height" secondItem="8gV-ir-dsP" secondAttribute="height" multiplier="0.45" id="uhx-bz-xeW"/>
+                        <constraint firstAttribute="bottom" secondItem="jaP-jy-1O7" secondAttribute="bottom" id="wAB-iT-rob"/>
+                    </constraints>
                 </view>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WD-JX-f3y">
-                    <rect key="frame" x="0.0" y="148" width="375" height="664"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WD-JX-f3y">
+                    <rect key="frame" x="0.0" y="178.66666666666669" width="375" height="633.33333333333326"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="7WD-JX-f3y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1e5-py-HZT"/>
+                <constraint firstItem="8gV-ir-dsP" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.22" id="4SE-PJ-ivR"/>
+                <constraint firstItem="8gV-ir-dsP" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="9Vy-7T-Hpc"/>
+                <constraint firstItem="8gV-ir-dsP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ADJ-Wo-Wfz"/>
+                <constraint firstItem="7WD-JX-f3y" firstAttribute="top" secondItem="8gV-ir-dsP" secondAttribute="bottom" id="Gmy-Gv-a9t"/>
+                <constraint firstItem="7WD-JX-f3y" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.78" id="WeF-zC-0T0"/>
+                <constraint firstItem="7WD-JX-f3y" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="rX9-5M-dl5"/>
+                <constraint firstAttribute="top" secondItem="8gV-ir-dsP" secondAttribute="top" id="uUA-nh-i9b"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="115.5" y="85"/>
         </view>
     </objects>
+    <resources>
+        <image name="left-arrow-white" width="256" height="256"/>
+    </resources>
 </document>

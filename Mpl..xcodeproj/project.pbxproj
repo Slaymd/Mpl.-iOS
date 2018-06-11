@@ -48,7 +48,6 @@
 		26A579241FF3CE980087ADD9 /* Ubuntu-B.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26A579231FF3CE980087ADD9 /* Ubuntu-B.ttf */; };
 		26A579281FF3CF4E0087ADD9 /* Ubuntu-M.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26A579261FF3CEB20087ADD9 /* Ubuntu-M.ttf */; };
 		26A579291FF3CF520087ADD9 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26A579271FF3CECF0087ADD9 /* Ubuntu-R.ttf */; };
-		26A5792B1FF3D0D60087ADD9 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5792A1FF3D0D60087ADD9 /* Station.swift */; };
 		26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5792C1FF3D36E0087ADD9 /* Line.swift */; };
 		26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5792E1FF3E3500087ADD9 /* UIStationCard.swift */; };
 		26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A579301FF3EED80087ADD9 /* UILineLogo.swift */; };
@@ -158,7 +157,6 @@
 		26A579231FF3CE980087ADD9 /* Ubuntu-B.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-B.ttf"; sourceTree = "<group>"; };
 		26A579261FF3CEB20087ADD9 /* Ubuntu-M.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-M.ttf"; sourceTree = "<group>"; };
 		26A579271FF3CECF0087ADD9 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
-		26A5792A1FF3D0D60087ADD9 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		26A5792C1FF3D36E0087ADD9 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		26A5792E1FF3E3500087ADD9 /* UIStationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStationCard.swift; sourceTree = "<group>"; };
 		26A579301FF3EED80087ADD9 /* UILineLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILineLogo.swift; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 			children = (
 				2682E1DD20754D66009F6E93 /* Data */,
 				2665FC43205E9B280089DF95 /* UI */,
-				26A5792A1FF3D0D60087ADD9 /* Station.swift */,
 				2632915B200371D2007C5156 /* Timetable.swift */,
 				2632915D20037EDF007C5156 /* DayDate.swift */,
 				26D77A982042E11700FA03B8 /* StopZone.swift */,
@@ -618,7 +615,6 @@
 				26A85C0E206307C2009298CB /* DisruptionData.swift in Sources */,
 				26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */,
 				260023721FF70D6E00FA0D81 /* UserData.swift in Sources */,
-				26A5792B1FF3D0D60087ADD9 /* Station.swift in Sources */,
 				26A85C1020630B97009298CB /* Disruption.swift in Sources */,
 				26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */,
 				26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */,

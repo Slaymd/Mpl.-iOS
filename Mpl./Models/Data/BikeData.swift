@@ -52,6 +52,10 @@ class BikeData {
         }
     }
     
+    static public func getStations() -> [BikeStation] {
+        return self.bikeStations
+    }
+    
     static public func updateBikeStations(completion: @escaping (Bool) -> Void) {
         self.lastUpdate = Date.timeIntervalSinceReferenceDate
         Alamofire.request("https://data.montpellier3m.fr/sites/default/files/ressources/TAM_MMM_VELOMAG.xml", method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseString { (response) in

@@ -39,10 +39,14 @@ class UIParking: UIView {
         self.parkingInfosLabel = UILabel(frame: CGRect(x: logoView!.frame.maxX + 10, y: frame.height / 2, width: frame.width - (logoView!.frame.width+10) - 8, height: frame.height / 2))
         self.parkingInfosLabel!.textColor = .darkGray
         let greenColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
-        let attrText = NSMutableAttributedString()
-        attrText.append(NSMutableAttributedString(string: "\(parking.spotFree)", attributes: [.foregroundColor : greenColor]))
-        attrText.append(NSMutableAttributedString(string: " places libres sur \(parking.spotTotal)"))
-        self.parkingInfosLabel!.attributedText = attrText
+        if parking.spotFree != -1 { //REAL TIME
+            let attrText = NSMutableAttributedString()
+            attrText.append(NSMutableAttributedString(string: "\(parking.spotFree)", attributes: [.foregroundColor : greenColor]))
+            attrText.append(NSMutableAttributedString(string: " places libres"))
+            self.parkingInfosLabel!.attributedText = attrText
+        } else { //THEORICAL
+            self.parkingInfosLabel!.text = "\(parking.spotTotal) places"
+        }
         self.parkingInfosLabel!.font = UIFont(name: "Ubuntu-Medium", size: 18)
         self.addSubview(parkingInfosLabel!)
     }
