@@ -57,7 +57,7 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
         let dirToDisp: [StopZone] = lineStations.count > 0 ? lineStations[0] : []
         
         //Line map
-        var height = 30
+        var height = 15
         for i in 0..<dirToDisp.count {
             let station = dirToDisp[i]
             let fromLine: Line? = i == 0 ? nil : line
@@ -87,6 +87,12 @@ class LineViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         })
         
+    }
+    
+    //MARK: - CLICKING BACK BUTTON
+    
+    @IBAction func clickBackButton(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - BACKGROUND STATE

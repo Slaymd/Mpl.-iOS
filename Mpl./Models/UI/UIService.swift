@@ -42,10 +42,10 @@ class UIParking: UIView {
         if parking.spotFree != -1 { //REAL TIME
             let attrText = NSMutableAttributedString()
             attrText.append(NSMutableAttributedString(string: "\(parking.spotFree)", attributes: [.foregroundColor : greenColor]))
-            attrText.append(NSMutableAttributedString(string: " places libres"))
+            attrText.append(NSMutableAttributedString(string: " \(NSLocalizedString("free spots", comment: ""))"))
             self.parkingInfosLabel!.attributedText = attrText
         } else { //THEORICAL
-            self.parkingInfosLabel!.text = "\(parking.spotTotal) places"
+            self.parkingInfosLabel!.text = "\(parking.spotTotal) \(NSLocalizedString("parking spots", comment: ""))"
         }
         self.parkingInfosLabel!.font = UIFont(name: "Ubuntu-Medium", size: 18)
         self.addSubview(parkingInfosLabel!)
@@ -88,9 +88,9 @@ class UIBike: UIView {
         let greenColor = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1.0)
         let attrText = NSMutableAttributedString()
         attrText.append(NSMutableAttributedString(string: "\(bikeStation.spotWithBike)", attributes: [.foregroundColor : greenColor]))
-        attrText.append(NSMutableAttributedString(string: " vélos • "))
+        attrText.append(NSMutableAttributedString(string: " \(NSLocalizedString("bikes", comment: "")) • "))
         attrText.append(NSMutableAttributedString(string: "\(bikeStation.spotFree)", attributes: [.foregroundColor : greenColor]))
-        attrText.append(NSMutableAttributedString(string: " places libres"))
+        attrText.append(NSMutableAttributedString(string: " \(NSLocalizedString("free spots", comment: ""))"))
         self.stationInfosLabel!.attributedText = attrText
         self.stationInfosLabel!.font = UIFont(name: "Ubuntu-Medium", size: 16)
         self.addSubview(stationInfosLabel!)

@@ -136,6 +136,7 @@ class StationPopUpView: UIViewController {
                 
                 tabButton.setTitleColor(.darkGray, for: .normal)
                 tabButton.setTitleColor(.black, for: .selected)
+                tabButton.backgroundColor = UIColor(white: 0.0, alpha: 0.02)
                 tabButton.titleLabel?.font = UIFont(name: "Ubuntu-Medium", size: 18)
                 tabButton.titleLabel?.adjustsFontSizeToFitWidth = true
                 tabButton.addTarget(self, action: #selector(clickedTabBarButton(sender:)), for: .touchUpInside)
@@ -159,7 +160,7 @@ class StationPopUpView: UIViewController {
                     }
                 case .SERVICES:
                     tabButton.tag = 84
-                    tabButton.setTitle("Services", for: .normal)
+                    tabButton.setTitle(NSLocalizedString("Services", comment: ""), for: .normal)
                     if (dataType.info != nil) {
                         self.displayServices(services: dataType.info as! ServiceBundle)
                     }
@@ -232,7 +233,7 @@ class StationPopUpView: UIViewController {
     @objc func clickedTabBarButton(sender: UIButton!) {
         UIView.animate(withDuration: 0.2, delay: 0, options: [.curveEaseOut], animations: {
             //default
-            for tabButton in self.headerTabButtons { tabButton.setTitleColor(.black, for: .normal) ; tabButton.isSelected = false }
+            for tabButton in self.headerTabButtons { tabButton.setTitleColor(.darkGray, for: .normal) ; tabButton.isSelected = false }
             //new design values
             sender.isSelected = true
             self.headerTabLine?.frame.origin = CGPoint(x: sender.frame.minX, y: self.headerTabLine!.frame.minY)

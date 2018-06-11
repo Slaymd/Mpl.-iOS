@@ -28,7 +28,6 @@
 		2665FC49205F23120089DF95 /* LineViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2665FC47205F23120089DF95 /* LineViewController.xib */; };
 		2672E0E020C69B220086830B /* FinderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2672E0DF20C69B220086830B /* FinderView.xib */; };
 		2672E0E220C6A1BC0086830B /* FinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2672E0E120C6A1BC0086830B /* FinderViewController.swift */; };
-		2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2680F77A201747E100194331 /* NotificationCenter.framework */; };
 		2680F77E201747E100194331 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2680F77D201747E100194331 /* TodayViewController.swift */; };
 		2680F781201747E100194331 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2680F77F201747E100194331 /* MainInterface.storyboard */; };
 		2680F785201747E100194331 /* nextArrivals.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2680F779201747E100194331 /* nextArrivals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -195,7 +194,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2680F77B201747E100194331 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJ6YJ53QSU;
 				INFOPLIST_FILE = nextArrivals/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.epitechproject.mpl.nextArrivals;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -713,6 +712,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZJ6YJ53QSU;
 				INFOPLIST_FILE = nextArrivals/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = eu.epitechproject.mpl.nextArrivals;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -773,7 +773,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -828,7 +828,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
