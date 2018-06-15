@@ -112,7 +112,7 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         
         //Map
         let url = URL(string: "mapbox://styles/slaymd/cjdj47fr31ex32sqp8dy4h9m7")
-        let mapView = MGLMapView(frame: view.bounds, styleURL: url)
+        let mapView = MGLMapView(frame: view.bounds, styleURL: url/*MGLStyle.lightStyleURL()*/)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setCenter(CLLocationCoordinate2D(latitude: 43.610769, longitude: 3.876716), zoomLevel: 12.5, animated: false)
         mapView.showsUserLocation = true
@@ -121,11 +121,11 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         self.view.addSubview(mapView)
         
         //Stations
-        let linesToDisp = TransportData.lines.filter({$0.type == .TRAMWAY})
-        self.initStationAnnotations(mapView: mapView, lines: linesToDisp)
+        //let linesToDisp = TransportData.lines.filter({$0.type == .TRAMWAY})
+        //self.initStationAnnotations(mapView: mapView, lines: linesToDisp)
         
         //Services
-        self.initServiceAnnotations(mapView: mapView)
+        //self.initServiceAnnotations(mapView: mapView)
         
         //Creating header gradient
         header.backgroundColor = gradientBotColor
@@ -140,6 +140,85 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     /*
     **  ANNOTATION DISPLAY
     */
+    
+    //MARK: - SETUP DISPLAY
+    
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        self.displayStations(mapView: mapView, features: MapData.getAllStations())
+    }
+    
+    //MARK: - DISPLAY STATION FEATURES
+    
+    func displayStations(mapView: MGLMapView, features: [[MGLPointFeature]]) {
+        guard let style = mapView.style else { return }
+        if features.count < 4 { return }
+        
+        //Setting data source
+        let simplebus_source = MGLShapeSource(identifier: "tam-bus-simple", features: features[3], options: nil)
+        let mainbus_source = MGLShapeSource(identifier: "tam-bus-main", features: features[2], options: nil)
+        let simpletram_source = MGLShapeSource(identifier: "tam-tram-simple", features: features[1], options: nil)
+        let maintram_source = MGLShapeSource(identifier: "tam-tram-main", features: features[0], options: nil)
+        style.addSource(simplebus_source)
+        style.addSource(mainbus_source)
+        style.addSource(simpletram_source)
+        style.addSource(maintram_source)
+        
+        //layers
+        style.addLayer(self.getSimpleBusLayer(source: simplebus_source))
+        style.addLayer(self.getMainBusLayer(source: mainbus_source))
+        style.addLayer(self.getSimpleTramLayer(source: simpletram_source))
+        style.addLayer(self.getMainTramLayer(source: maintram_source))
+    }
+    
+    //MARK: - LAYERS INITIALIZATION
+    
+    func getSimpleBusLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+        let simplebus = MGLCircleStyleLayer(identifier: "simplebus", source: source)
+        
+        simplebus.minimumZoomLevel = 13.5
+        simplebus.circleColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
+        simplebus.circleStrokeColor = MGLStyleValue(rawValue: .white)
+        simplebus.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [14: MGLStyleValue(rawValue: 1.5 as NSNumber), 22: MGLStyleValue(rawValue: 3 as NSNumber)], options: nil)
+        simplebus.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [14: MGLStyleValue(rawValue: 4 as NSNumber), 22: MGLStyleValue(rawValue: 8 as NSNumber)], options: nil)
+        return simplebus
+    }
+    
+    func getMainBusLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+        let mainbus = MGLCircleStyleLayer(identifier: "mainbus", source: source)
+        
+        mainbus.minimumZoomLevel = 13.5
+        mainbus.circleColor = MGLStyleValue(rawValue: .white)
+        mainbus.circleStrokeColor = MGLStyleValue(rawValue: .black)
+        mainbus.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [14: MGLStyleValue(rawValue: 2 as NSNumber), 22: MGLStyleValue(rawValue: 4 as NSNumber)], options: nil)
+        mainbus.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [14: MGLStyleValue(rawValue: 3.5 as NSNumber), 22: MGLStyleValue(rawValue: 7 as NSNumber)], options: nil)
+        return mainbus
+    }
+    
+    func getSimpleTramLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+        let simpletram = MGLCircleStyleLayer(identifier: "simpletram", source: source)
+        
+        simpletram.minimumZoomLevel = 11
+        
+        simpletram.circleColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
+        simpletram.circleStrokeColor = MGLStyleValue(rawValue: .white)
+        simpletram.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 2.5 as NSNumber), 22: MGLStyleValue(rawValue: 5 as NSNumber)], options: nil)
+        simpletram.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 6 as NSNumber), 22: MGLStyleValue(rawValue: 12.0 as NSNumber)], options: nil)
+        return simpletram
+    }
+    
+    func getMainTramLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+        let maintram = MGLCircleStyleLayer(identifier: "maintram", source: source)
+        
+        maintram.minimumZoomLevel = 11
+        
+        maintram.circleColor = MGLStyleValue(rawValue: .white)
+        maintram.circleStrokeColor = MGLStyleValue(rawValue: .black)
+        maintram.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 3.5 as NSNumber), 22: MGLStyleValue(rawValue: 7 as NSNumber)], options: nil)
+        maintram.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 5 as NSNumber), 22: MGLStyleValue(rawValue: 10 as NSNumber)], options: nil)
+        return maintram
+    }
+    
+    //MARK: - ANNOTATION VIEWS
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         var annotView: MGLAnnotationView?

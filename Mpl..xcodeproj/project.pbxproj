@@ -23,6 +23,7 @@
 		26442B7520654FAB00A3CC36 /* StationPopUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26442B7320654FAB00A3CC36 /* StationPopUpView.xib */; };
 		264E04C4201E194A006885A5 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E04C2201E194A006885A5 /* UserView.swift */; };
 		264E04C5201E194A006885A5 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 264E04C3201E194A006885A5 /* UserView.xib */; };
+		265680DD20D1735F009D8355 /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265680DC20D1735F009D8355 /* MapData.swift */; };
 		2658701320CF11B200C42E60 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2658701120CF11B200C42E60 /* WelcomeViewController.swift */; };
 		2658701420CF11B200C42E60 /* WelcomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2658701220CF11B200C42E60 /* WelcomeView.xib */; };
 		2665FC45205E9B930089DF95 /* UIStationMapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2665FC44205E9B930089DF95 /* UIStationMapCard.swift */; };
@@ -130,6 +131,7 @@
 		26442B7320654FAB00A3CC36 /* StationPopUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationPopUpView.xib; sourceTree = "<group>"; };
 		264E04C2201E194A006885A5 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		264E04C3201E194A006885A5 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
+		265680DC20D1735F009D8355 /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
 		2658701120CF11B200C42E60 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		2658701220CF11B200C42E60 /* WelcomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WelcomeView.xib; sourceTree = "<group>"; };
 		2665FC44205E9B930089DF95 /* UIStationMapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStationMapCard.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				26AF1ECE20CC266800E00736 /* ServicesData.swift */,
 				26AF1ECC20CC123D00E00736 /* ParkingData.swift */,
 				26AF1EE220CC789C00E00736 /* BikeData.swift */,
+				265680DC20D1735F009D8355 /* MapData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
 				26AF1ECD20CC123D00E00736 /* ParkingData.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
+				265680DD20D1735F009D8355 /* MapData.swift in Sources */,
 				2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */,
 				26C8CD8B2076862300365562 /* ColorManager.swift in Sources */,
 				26C9051320CB1F6F0077D8AB /* SNCFSchedule.swift in Sources */,
