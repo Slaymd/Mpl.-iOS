@@ -117,6 +117,8 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         mapView.setCenter(CLLocationCoordinate2D(latitude: 43.610769, longitude: 3.876716), zoomLevel: 12.5, animated: false)
         mapView.showsUserLocation = true
         mapView.delegate = self
+        mapView.minimumZoomLevel = 10
+        mapView.maximumZoomLevel = 18
         self.mapBoxView = mapView
         self.view.addSubview(mapView)
         
@@ -166,8 +168,8 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         //layers
         style.addLayer(self.getSimpleBusLayer(source: simplebus_source))
         style.addLayer(self.getMainBusLayer(source: mainbus_source))
-        style.addLayer(self.getSimpleTramLayer(source: simpletram_source))
-        style.addLayer(self.getMainTramLayer(source: maintram_source))
+        self.setSimpleTramLayer(mapStyle: style, source: simpletram_source)
+        self.setMainTramLayer(mapStyle: style, source: maintram_source)
     }
     
     //MARK: - LAYERS INITIALIZATION
@@ -194,28 +196,60 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         return mainbus
     }
     
-    func getSimpleTramLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+    func setSimpleTramLayer(mapStyle: MGLStyle, source: MGLShapeSource) {
         let simpletram = MGLCircleStyleLayer(identifier: "simpletram", source: source)
+        let simpletram_names = MGLSymbolStyleLayer(identifier: "simpletram-names", source: source)
         
-        simpletram.minimumZoomLevel = 11
+        //Zoom level
+        simpletram.minimumZoomLevel = 11.5
+        simpletram_names.minimumZoomLevel = 12.5
         
+        //Circles
         simpletram.circleColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
         simpletram.circleStrokeColor = MGLStyleValue(rawValue: .white)
         simpletram.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 2.5 as NSNumber), 22: MGLStyleValue(rawValue: 5 as NSNumber)], options: nil)
         simpletram.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 6 as NSNumber), 22: MGLStyleValue(rawValue: 12.0 as NSNumber)], options: nil)
-        return simpletram
+        
+        //Text
+        simpletram_names.text = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "name", options: nil)
+        simpletram_names.textColor = MGLStyleValue(interpolationMode: .exponential, cameraStops: [12.5: MGLStyleValue(rawValue: .clear), 13: MGLStyleValue(rawValue: .darkGray)], options: nil)
+        simpletram_names.textHaloColor = MGLStyleValue(interpolationMode: .exponential, cameraStops: [12.5: MGLStyleValue(rawValue: .clear), 13: MGLStyleValue(rawValue: .white)], options: nil)
+        simpletram_names.textFontSize = MGLStyleValue(interpolationMode: .exponential, cameraStops: [12: MGLStyleValue(rawValue: 9 as NSNumber), 16: MGLStyleValue(rawValue: 15 as NSNumber)], options: nil)
+        simpletram_names.textTranslation = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: NSValue(cgVector: CGVector(dx: 10, dy: 0))), 22: MGLStyleValue(rawValue: NSValue(cgVector: CGVector(dx: 20, dy: 0)))], options: nil)
+        simpletram_names.textHaloWidth = MGLStyleValue(rawValue: 2)
+        simpletram_names.textJustification = MGLStyleValue(rawValue: NSValue(mglTextJustification: .left))
+        simpletram_names.textAnchor = MGLStyleValue(rawValue: NSValue(mglTextAnchor: .left))
+        simpletram_names.textColorTransition = MGLTransition(duration: 2.0, delay: 0.0)
+        mapStyle.addLayer(simpletram)
+        mapStyle.addLayer(simpletram_names)
     }
     
-    func getMainTramLayer(source: MGLShapeSource) -> MGLCircleStyleLayer {
+    func setMainTramLayer(mapStyle: MGLStyle, source: MGLShapeSource) {
         let maintram = MGLCircleStyleLayer(identifier: "maintram", source: source)
+        let maintram_names = MGLSymbolStyleLayer(identifier: "maintram-names", source: source)
         
-        maintram.minimumZoomLevel = 11
+        //Zoom level
+        maintram.minimumZoomLevel = 11.5
+        maintram_names.minimumZoomLevel = 11.5
         
+        //Circles
         maintram.circleColor = MGLStyleValue(rawValue: .white)
         maintram.circleStrokeColor = MGLStyleValue(rawValue: .black)
         maintram.circleStrokeWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 3.5 as NSNumber), 22: MGLStyleValue(rawValue: 7 as NSNumber)], options: nil)
         maintram.circleRadius = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: 5 as NSNumber), 22: MGLStyleValue(rawValue: 10 as NSNumber)], options: nil)
-        return maintram
+        mapStyle.addLayer(maintram)
+        
+        //Text
+        maintram_names.text = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "name", options: nil)
+        maintram_names.textColor = MGLStyleValue(interpolationMode: .exponential, cameraStops: [11.5: MGLStyleValue(rawValue: .clear), 12: MGLStyleValue(rawValue: .black)], options: nil)
+        maintram_names.textHaloColor = MGLStyleValue(interpolationMode: .exponential, cameraStops: [11.5: MGLStyleValue(rawValue: .clear), 12: MGLStyleValue(rawValue: .white)], options: nil)
+        maintram_names.textFontSize = MGLStyleValue(interpolationMode: .exponential, cameraStops: [11: MGLStyleValue(rawValue: 11 as NSNumber), 16: MGLStyleValue(rawValue: 17 as NSNumber)], options: nil)
+        maintram_names.textTranslation = MGLStyleValue(interpolationMode: .exponential, cameraStops: [13: MGLStyleValue(rawValue: NSValue(cgVector: CGVector(dx: 10, dy: 0))), 22: MGLStyleValue(rawValue: NSValue(cgVector: CGVector(dx: 20, dy: 0)))], options: nil)
+        maintram_names.textHaloWidth = MGLStyleValue(rawValue: 2)
+        maintram_names.textJustification = MGLStyleValue(rawValue: NSValue(mglTextJustification: .left))
+        maintram_names.textAnchor = MGLStyleValue(rawValue: NSValue(mglTextAnchor: .left))
+        maintram_names.textColorTransition = MGLTransition(duration: 2.0, delay: 0.0)
+        mapStyle.addLayer(maintram_names)
     }
     
     //MARK: - ANNOTATION VIEWS
