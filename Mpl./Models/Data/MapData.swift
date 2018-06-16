@@ -66,6 +66,26 @@ class MapData {
         return stationLocs
     }
     
+    static public func getAllLines() -> [(line: Line, feature: MGLPolylineFeature)] {
+        var result: [(line: Line, feature: MGLPolylineFeature)] = []
+        let polylines = TransportData.getLinesPolylines()
+        
+        for line_polyline in polylines {
+            var count = 0
+            for coordinates in line_polyline.polylines {
+                let tmp = (line: line_polyline.line, feature: MGLPolylineFeature(coordinates: coordinates, count: UInt(coordinates.count)))
+                tmp.feature.title = line_polyline.line.shortName + " (\(count))"
+                tmp.feature.attributes = [
+                    "lineTamId": line_polyline.line.tamId,
+                    "lineColor": line_polyline.line.bgColor
+                ]
+                result.append(tmp)
+                count += 1
+            }
+        }
+        return result
+    }
+    
     static public func getAllStations() -> [[MGLPointFeature]] {
         var simplebus: [MGLPointFeature] = []
         var mainbus: [MGLPointFeature] = []

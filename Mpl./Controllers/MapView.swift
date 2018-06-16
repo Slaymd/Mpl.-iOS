@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import os.log
 
 class StationPointAnnotation: MGLPointAnnotation {
     var station: StopZone
@@ -111,8 +112,7 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         header.frame = CGRect(x: header.frame.minX, y: header.frame.minY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height*0.22)
         
         //Map
-        let url = URL(string: "mapbox://styles/slaymd/cjdj47fr31ex32sqp8dy4h9m7")
-        let mapView = MGLMapView(frame: view.bounds, styleURL: url/*MGLStyle.lightStyleURL()*/)
+        let mapView = MGLMapView(frame: view.bounds, styleURL: MGLStyle.lightStyleURL())
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setCenter(CLLocationCoordinate2D(latitude: 43.610769, longitude: 3.876716), zoomLevel: 12.5, animated: false)
         mapView.showsUserLocation = true
@@ -146,7 +146,61 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     //MARK: - SETUP DISPLAY
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        os_log("Displaying lines on map...", type: .info)
+        self.displayLines(mapView: mapView, layersData: MapData.getAllLines())
+        os_log("Displaying stations on map...", type: .info)
         self.displayStations(mapView: mapView, features: MapData.getAllStations())
+    }
+    
+    //MARK: - LINES LAYERS
+    
+    func displayLines(mapView: MGLMapView, layersData: [(line: Line, feature: MGLPolylineFeature)]) {
+        guard let style = mapView.style else { return }
+        //Sorting features
+        var tramlines_features: [MGLPolylineFeature] = []
+        var buslines_features: [MGLPolylineFeature] = []
+        
+        for layerData in layersData {
+            if layerData.line.type == .TRAMWAY {
+                tramlines_features.append(layerData.feature)
+            } else {
+                buslines_features.append(layerData.feature)
+            }
+        }
+        
+        //Sources
+        let tramlines_source = MGLShapeSource(identifier: "tam-tram-lines", features: tramlines_features, options: nil)
+        let buslines_source = MGLShapeSource(identifier: "tam-bus-lines", features: buslines_features, options: nil)
+        style.addSource(tramlines_source)
+        style.addSource(buslines_source)
+        
+        //Layers
+        self.setTramLinesLayer(mapStyle: style, source: tramlines_source)
+        self.setBusLinesLayer(mapStyle: style, source: buslines_source)
+    }
+    
+    //MARK: - LINES LAYERS INITIALIZERS
+    
+    func setBusLinesLayer(mapStyle: MGLStyle, source: MGLShapeSource) {
+        let buslines = MGLLineStyleLayer(identifier: "buslines", source: source)
+        
+        buslines.minimumZoomLevel = 12.6
+        buslines.lineJoin = MGLStyleValue(rawValue: NSValue(mglLineJoin: .round))
+        buslines.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
+        buslines.lineColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
+        buslines.lineWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [12: MGLStyleValue(rawValue: 2 as NSNumber), 18: MGLStyleValue(rawValue: 4 as NSNumber)], options: nil)
+        mapStyle.addLayer(buslines)
+    }
+    
+    func setTramLinesLayer(mapStyle: MGLStyle, source: MGLShapeSource) {
+        let tramlines = MGLLineStyleLayer(identifier: "tramlines", source: source)
+        
+        tramlines.minimumZoomLevel = 8
+        tramlines.lineJoin = MGLStyleValue(rawValue: NSValue(mglLineJoin: .round))
+        tramlines.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
+        tramlines.lineColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
+        tramlines.lineWidth = MGLStyleValue(interpolationMode: .exponential, cameraStops: [12: MGLStyleValue(rawValue: 4 as NSNumber), 18: MGLStyleValue(rawValue: 8 as NSNumber)], options: nil)
+        mapStyle.addLayer(tramlines)
     }
     
     //MARK: - DISPLAY STATION FEATURES

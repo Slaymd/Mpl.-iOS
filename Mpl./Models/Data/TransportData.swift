@@ -45,6 +45,7 @@ class TransportData {
     
     static var stopDirections: [(stopId: Int, directionId: Int)] = []
     static var stopLines: [(stopZoneId: Int, lines: [Line])] = []
+    static var lines_polylines: [(line: Line, polylines: [[CLLocationCoordinate2D]])] = []
     
     private static var lineStops: [(line: Line, dirs: [(direction: Int, stopsId: [Int])])] = []
     
@@ -129,6 +130,55 @@ class TransportData {
             }
         }
         return result
+    }
+    
+    private static func getPolyline(from polylineStr: String) -> [CLLocationCoordinate2D] {
+        var polyline: [CLLocationCoordinate2D] = []
+        
+        for point in polylineStr.split(separator: " ") {
+            let coords = String(point).split(separator: ",")
+            let lat = Double(coords[1])!
+            let lon = Double(coords[0])!
+            polyline.append(CLLocationCoordinate2D(latitude: lat, longitude: lon))
+        }
+        return polyline
+    }
+    
+    static func getLinesPolylines() -> [(line: Line, polylines: [[CLLocationCoordinate2D]])] {
+        if self.lines_polylines.count != 0 { return self.lines_polylines }
+        var result: [(line: Line, polylines: [[CLLocationCoordinate2D]])] = []
+        var dirNames: [(line: Int, dirName: String)] = []
+        let lineId = Expression<Int64>("line")
+        let dirName = Expression<String>("name")
+        let dirType = Expression<String?>("direction_str")
+        let polylineString = Expression<String>("polyline")
+        let polylineTable = Table("LINE_TRACE")
+        
+        if (self.referenceDatabase == nil) { return result }
+        for dbline in try! self.referenceDatabase!.prepare(polylineTable) {
+            var tmp_res = result.filter({$0.line.id == Int(dbline[lineId])})
+            
+            if dbline[dirType] != nil && dbline[dirType]! == "A" { continue }
+            if (tmp_res.count == 0) {
+                //New line
+                guard let line = self.getLineById(Int(dbline[lineId])) else { continue }
+                var tmp: (line: Line, polylines: [[CLLocationCoordinate2D]]) = (line: line, polylines: [])
+                
+                tmp.polylines.append(self.getPolyline(from: dbline[polylineString]))
+                dirNames.append((line: Int(dbline[lineId]), dirName: dbline[dirName]))
+                result.append(tmp)
+            } else {
+                //Existing line
+                guard let index = result.index(where: {$0.line == tmp_res[0].line}) else { continue }
+                if dirNames.filter({$0.line == Int(dbline[lineId]) && $0.dirName.count == dbline[dirName].count}).count > 0 { continue }
+                var tmp: (line: Line, polylines: [[CLLocationCoordinate2D]]) = (line: tmp_res[0].line, polylines: tmp_res[0].polylines)
+                tmp.polylines.append(self.getPolyline(from: dbline[polylineString]))
+                result.remove(at: index)
+                result.insert(tmp, at: index)
+                dirNames.append((line: Int(dbline[lineId]), dirName: dbline[dirName]))
+            }
+        }
+        return result.sorted(by: {$0.line.displayId > $1.line.displayId})
     }
     
     private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
