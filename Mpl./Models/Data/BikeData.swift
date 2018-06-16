@@ -72,12 +72,12 @@ class BikeData {
                     let fr = data.element?.attribute(by: "fr")?.text
                     let cb = data.element?.attribute(by: "cb")?.text
 
-                    if name == nil || id == nil || lat == nil || lon == nil || av == nil || fr == nil || cb == nil { continue }
+                    if name == nil || id == nil || lat == nil || lon == nil || av == nil || fr == nil { continue }
                     var filtered = self.bikeStations.filter({$0.id == Int(id!)})
                     
                     if filtered.count == 0 {
                         name = name!.replacingOccurrences(of: "\(id!) ", with: "")
-                        self.bikeStations.append(BikeStation(id: Int(id!)!, name: name!, bikes: Int(av!)!, free: Int(fr!)!, lat: Double(lat!)!, lon: Double(lon!)!, cb: Int(cb!)!))
+                        self.bikeStations.append(BikeStation(id: Int(id!)!, name: name!, bikes: Int(av!)!, free: Int(fr!)!, lat: Double(lat!)!, lon: Double(lon!)!, cb: cb != nil ? Int(cb!)! : 0))
                     } else {
                         filtered[0].spotFree = Int(fr!)!
                         filtered[0].spotWithBike = Int(av!)!

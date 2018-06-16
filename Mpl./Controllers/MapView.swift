@@ -145,10 +145,18 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     //MARK: - SETUP DISPLAY
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        os_log("Displaying lines on map...", type: .info)
-        self.displayLines(mapView: mapView, layersData: MapData.getAllLines())
-        os_log("Displaying stations on map...", type: .info)
-        self.displayStations(mapView: mapView, features: MapData.getAllStations())
+        DispatchQueue.global(qos: .background).async {
+            let lineLayersData = MapData.getAllLines()
+            DispatchQueue.main.async {
+                self.displayLines(mapView: mapView, layersData: lineLayersData)
+            }
+        }
+        DispatchQueue.global(qos: .background).async {
+            let stationLayersData = MapData.getAllStations()
+            DispatchQueue.main.async {
+                self.displayStations(mapView: mapView, features: stationLayersData)
+            }
+        }
     }
     
     //MARK: - LINES LAYERS
