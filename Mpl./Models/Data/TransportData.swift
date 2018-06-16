@@ -181,18 +181,6 @@ class TransportData {
         return result.sorted(by: {$0.line.displayId > $1.line.displayId})
     }
     
-    private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
-        let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
-                                                        ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
-                                                        ("Corum", [2], 43.614452, 3.882029)]
-        
-        for fix in fixes {
-            if stop.name == fix.0 && fix.1.contains(line.tamId) {
-                stop.coords = CLLocation(latitude: fix.2, longitude: fix.3)
-            }
-        }
-    }
-    
     static func getStopZoneLocationsByLine(stopZone: StopZone) -> [(lines: [Line], location: CLLocationCoordinate2D)] {
         var stopZoneLocs: [(lines: [Line], location: CLLocationCoordinate2D)] = []
         
@@ -201,9 +189,9 @@ class TransportData {
             if (lines.count == 0) { continue }
             var stopZoneLoc = stopZoneLocs.filter({$0.lines == lines})
             
-            if lines.count > 0 {
+            /*if lines.count > 0 {
                 self.fixLocation(ofStop: stop, onLine: lines[0])
-            }
+            }*/
             if stopZoneLoc.count == 1 {
                 stopZoneLoc[0].location = stopZoneLoc[0].location.middleLocationWith(location: stop.coords.coordinate)
             } else {

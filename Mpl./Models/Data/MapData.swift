@@ -33,6 +33,18 @@ extension CLLocation {
 
 class MapData {
     
+    private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
+        let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
+                                                        ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
+                                                        ("Corum", [2], 43.614452, 3.882029)]
+        
+        for fix in fixes {
+            if stop.name == fix.0 && fix.1.contains(line.tamId) {
+                stop.coords = CLLocation(latitude: fix.2, longitude: fix.3)
+            }
+        }
+    }
+    
     static public func getAllStationsLocations() -> [(station: StopZone, location: CLLocation, lines: [Line])] {
         var stationLocs: [(station: StopZone, location: CLLocation, lines: [Line])] = []
         
@@ -50,8 +62,11 @@ class MapData {
                 for dir in stop.directions {
                     if !stopLines.contains(dir.line) {
                         stopLines.append(dir.line)
+                        //Fixing stop location
+                        self.fixLocation(ofStop: stop, onLine: dir.line)
                     }
                 }
+                //Adding location
                 filtered = tmp.filter({$0.lines == stopLines})
                 if filtered.count == 1 {
                     //Already have a localization, so taking the center location with the new

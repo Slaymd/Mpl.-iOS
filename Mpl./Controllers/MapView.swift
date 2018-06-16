@@ -122,12 +122,11 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
         self.mapBoxView = mapView
         self.view.addSubview(mapView)
         
-        //Stations
-        //let linesToDisp = TransportData.lines.filter({$0.type == .TRAMWAY})
-        //self.initStationAnnotations(mapView: mapView, lines: linesToDisp)
-        
-        //Services
-        //self.initServiceAnnotations(mapView: mapView)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
+        for recognizer in mapView.gestureRecognizers! where recognizer is UITapGestureRecognizer {
+            singleTap.require(toFail: recognizer)
+        }
+        mapView.addGestureRecognizer(singleTap)
         
         //Creating header gradient
         header.backgroundColor = gradientBotColor
@@ -407,6 +406,52 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
             self.present(stationPopUp, animated: false, completion: nil)
         }
         mapView.deselectAnnotation(annotation, animated: false)
+    }
+
+    @objc func handleMapTap(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            // Limit feature selection to just the following layer identifiers.
+            let layerIdentifiers: Set = ["maintram", "simpletram", "mainbus", "simplebus"]
+            let feature: MGLPointFeature
+            let stopZone: StopZone?
+            
+            // Try matching the exact point first.
+            let point = sender.location(in: sender.view!)
+            for feat in self.mapBoxView!.visibleFeatures(at: point, styleLayerIdentifiers: layerIdentifiers)
+                where feat is MGLPointFeature {
+                    feature = feat as! MGLPointFeature
+                    stopZone = TransportData.getStopZoneById(stopZoneId: feature.attribute(forKey: "stopZoneId") as! Int)
+                    if stopZone == nil { return }
+                    let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stopZone!, mainView: self)
+                    stationPopUp.modalPresentationStyle = .overCurrentContext
+                    self.present(stationPopUp, animated: false, completion: nil)
+                    return
+            }
+            
+            let touchCoordinate = self.mapBoxView!.convert(point, toCoordinateFrom: sender.view!)
+            let touchLocation = CLLocation(latitude: touchCoordinate.latitude, longitude: touchCoordinate.longitude)
+            
+            // Otherwise, get all features within a rect the size of a touch (44x44).
+            let touchRect = CGRect(origin: point, size: .zero).insetBy(dx: -22.0, dy: -22.0)
+            let possibleFeatures = self.mapBoxView!.visibleFeatures(in: touchRect, styleLayerIdentifiers: Set(layerIdentifiers)).filter { $0 is MGLPointFeature }
+            
+            // Select the closest feature to the touch center.
+            let closestFeatures = possibleFeatures.sorted(by: {
+                return CLLocation(latitude: $0.coordinate.latitude, longitude: $0.coordinate.longitude).distance(from: touchLocation) < CLLocation(latitude: $1.coordinate.latitude, longitude: $1.coordinate.longitude).distance(from: touchLocation)
+            })
+            if let feat = closestFeatures.first {
+                feature = feat as! MGLPointFeature
+                stopZone = TransportData.getStopZoneById(stopZoneId: feature.attribute(forKey: "stopZoneId") as! Int)
+                if stopZone == nil { return }
+                let stationPopUp: StationPopUpView = StationPopUpView.init(nibName: "StationPopUpView", bundle: nil, station: stopZone!, mainView: self)
+                stationPopUp.modalPresentationStyle = .overCurrentContext
+                self.present(stationPopUp, animated: false, completion: nil)
+                return
+            }
+            
+            // If no features were found, deselect the selected annotation, if any.
+            self.mapBoxView!.deselectAnnotation(self.mapBoxView!.selectedAnnotations.first, animated: true)
+        }
     }
 
 }
