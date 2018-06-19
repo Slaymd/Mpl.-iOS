@@ -74,9 +74,8 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.present(stationPopUp, animated: false, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
-            let banner = NotificationBanner(title: "S'y rendre", subtitle: "Bientôt disponible.", style: .info)
-            banner.haptic = .light
-            banner.show()
+            let itinerariesView: ItinerariesOverviewViewController = ItinerariesOverviewViewController(nibName: "ItinerariesOverviewView", bundle: nil, departure: nil, arrival: MPLLocation(station: station))
+            self.navigationController?.pushViewController(itinerariesView, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)

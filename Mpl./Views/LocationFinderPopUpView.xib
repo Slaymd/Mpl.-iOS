@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LocationFinderPopUpViewController" customModule="Mpl_" customModuleProvider="target">
+            <connections>
+                <outlet property="blurBackground" destination="hX8-JE-Rxb" id="Rzb-pR-JjM"/>
+                <outlet property="bottomResultScrollViewConstraint" destination="uSD-9w-PqV" id="6J7-GB-XFN"/>
+                <outlet property="headerView" destination="L3c-3U-VAO" id="0kX-ha-BJc"/>
+                <outlet property="resultScrollView" destination="pyC-NR-bAs" id="cDs-2I-rDx"/>
+                <outlet property="searchTextField" destination="sBB-pn-0vu" id="xGR-bP-AIU"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hX8-JE-Rxb">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="-1" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="puR-uF-Nzd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3c-3U-VAO">
+                                <rect key="frame" x="19" y="54" width="337" height="82"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chercher un lieu" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sBB-pn-0vu">
+                                        <rect key="frame" x="8" y="24" width="321" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="8ji-u0-sWe"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="26"/>
+                                        <textInputTraits key="textInputTraits" textContentType="location"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="sBB-pn-0vu" firstAttribute="centerY" secondItem="L3c-3U-VAO" secondAttribute="centerY" id="09P-F7-bZE"/>
+                                    <constraint firstItem="sBB-pn-0vu" firstAttribute="centerX" secondItem="L3c-3U-VAO" secondAttribute="centerX" id="D5S-Oh-U3g"/>
+                                    <constraint firstItem="sBB-pn-0vu" firstAttribute="width" secondItem="L3c-3U-VAO" secondAttribute="width" multiplier="0.95" id="bj1-4F-qJg"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyC-NR-bAs">
+                                <rect key="frame" x="19" y="166" width="338" height="646"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="pyC-NR-bAs" firstAttribute="top" secondItem="L3c-3U-VAO" secondAttribute="bottom" constant="30" id="4do-O4-zwv"/>
+                            <constraint firstItem="L3c-3U-VAO" firstAttribute="height" secondItem="puR-uF-Nzd" secondAttribute="height" multiplier="0.1" id="VtE-GN-R6m"/>
+                            <constraint firstItem="L3c-3U-VAO" firstAttribute="centerX" secondItem="puR-uF-Nzd" secondAttribute="centerX" id="hzA-id-GaE"/>
+                            <constraint firstItem="pyC-NR-bAs" firstAttribute="leading" secondItem="L3c-3U-VAO" secondAttribute="leading" id="tml-9A-MxS"/>
+                            <constraint firstAttribute="bottom" secondItem="pyC-NR-bAs" secondAttribute="bottom" id="uSD-9w-PqV"/>
+                            <constraint firstItem="pyC-NR-bAs" firstAttribute="centerX" secondItem="puR-uF-Nzd" secondAttribute="centerX" id="zav-jW-nq0"/>
+                        </constraints>
+                    </view>
+                    <blurEffect style="dark"/>
+                </visualEffectView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="L3c-3U-VAO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="R0E-x6-FBR"/>
+                <constraint firstAttribute="trailing" secondItem="hX8-JE-Rxb" secondAttribute="trailing" id="aUD-B1-DUN"/>
+                <constraint firstItem="hX8-JE-Rxb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ahp-1K-rUa"/>
+                <constraint firstItem="hX8-JE-Rxb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dSF-FV-PS6"/>
+                <constraint firstItem="hX8-JE-Rxb" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="o6L-Gs-KgL"/>
+                <constraint firstItem="L3c-3U-VAO" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.9" id="pob-aN-02R"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="32.5" y="53"/>
+        </view>
+    </objects>
+</document>

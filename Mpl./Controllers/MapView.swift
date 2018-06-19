@@ -48,6 +48,8 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     @IBOutlet weak var mapBack: UIView!
     var mapBoxView: MGLMapView?
     
+    var loaded = false
+    
     let gradient = CAGradientLayer()
     
     func initServiceAnnotations(mapView: MGLMapView) {
@@ -145,6 +147,9 @@ class MapView: UIViewController, CLLocationManagerDelegate, MGLMapViewDelegate {
     //MARK: - SETUP DISPLAY
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        if loaded { return }
+        os_log("loading map style...", type: .info)
+        loaded = true
         DispatchQueue.global(qos: .background).async {
             let lineLayersData = MapData.getAllLines()
             DispatchQueue.main.async {

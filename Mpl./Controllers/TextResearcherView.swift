@@ -29,7 +29,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         newSearchField.delegate = self
         stationScroll.delegate = self
         newSearchField.returnKeyType = .done
-        //Observer when keyboard is opened to getting its size.
+        //Observer when keyboard is opened to get its size.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),

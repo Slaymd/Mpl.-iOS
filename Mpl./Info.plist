@@ -28,7 +28,7 @@
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1Ijoic2xheW1kIiwiYSI6ImNqY3RnNWh5ajB0Znoyd281eXVnZjNoMnkifQ.EyiViT10PCeeMb3t2Ov-6A</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Activez la localisation afin d'améliorer l'ordre d'affichage des résultats</string>
+	<string>Activez la localisation afin d&apos;améliorer l&apos;ordre d&apos;affichage des résultats</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ubuntu-B.ttf</string>
@@ -54,6 +54,8 @@
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
+        <array key="Ubuntu-R.ttf">
+            <string>Ubuntu</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItinerariesOverviewViewController" customModule="Mpl_" customModuleProvider="target">
+            <connections>
+                <outlet property="arrivalButton" destination="beS-kh-KkD" id="vAo-pZ-dni"/>
+                <outlet property="arrivalPanel" destination="WFk-oC-kkp" id="ucT-Ci-led"/>
+                <outlet property="departureButton" destination="Bag-no-3Qu" id="xS8-qQ-1Ua"/>
+                <outlet property="departurePanel" destination="gRb-jv-eX7" id="BAy-4x-Xu4"/>
+                <outlet property="headerTitle" destination="Ai6-bq-98r" id="y99-V7-CrU"/>
+                <outlet property="headerTitleShadow" destination="jdC-Vj-93x" id="1pp-61-CRl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DK4-NP-p6d" userLabel="header">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="178.66666666666666"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxH-kc-5lJ" userLabel="header-title">
+                            <rect key="frame" x="8" y="98" width="359" height="80.666666666666686"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ITINÉRAIRE" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jdC-Vj-93x" userLabel="title-text-shadow">
+                                    <rect key="frame" x="10" y="8" width="343" height="67.666666666666671"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
+                                    <color key="textColor" red="0.7396348487907255" green="0.2754935902885659" blue="0.49957836475735984" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ITINÉRAIRE" lineBreakMode="tailTruncation" baselineAdjustment="none" minimumFontSize="17" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ai6-bq-98r" userLabel="title-text-light">
+                                    <rect key="frame" x="8" y="5" width="343" height="67.666666666666671"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="38"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Ai6-bq-98r" firstAttribute="leading" secondItem="zxH-kc-5lJ" secondAttribute="leading" constant="8" id="1h7-3T-CuY"/>
+                                <constraint firstAttribute="trailing" secondItem="Ai6-bq-98r" secondAttribute="trailing" constant="8" id="Adk-0c-RND"/>
+                                <constraint firstItem="jdC-Vj-93x" firstAttribute="leading" secondItem="zxH-kc-5lJ" secondAttribute="leading" constant="10" id="D5y-bn-0P0"/>
+                                <constraint firstItem="Ai6-bq-98r" firstAttribute="top" secondItem="zxH-kc-5lJ" secondAttribute="top" constant="5" id="EHU-cu-pkA"/>
+                                <constraint firstItem="jdC-Vj-93x" firstAttribute="height" secondItem="Ai6-bq-98r" secondAttribute="height" id="ZtG-uG-b98"/>
+                                <constraint firstItem="jdC-Vj-93x" firstAttribute="width" secondItem="Ai6-bq-98r" secondAttribute="width" id="la4-cI-HeH"/>
+                                <constraint firstAttribute="bottom" secondItem="jdC-Vj-93x" secondAttribute="bottom" constant="5" id="maM-jx-Bfz"/>
+                                <constraint firstAttribute="bottom" secondItem="Ai6-bq-98r" secondAttribute="bottom" constant="8" id="ype-Vl-hd3"/>
+                            </constraints>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AG8-th-1eA" userLabel="back-button">
+                            <rect key="frame" x="8" y="52" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="28" id="doS-IB-ItP">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                                <constraint firstAttribute="width" constant="28" id="fa3-ru-Rnh">
+                                    <variation key="heightClass=regular-widthClass=compact" constant="32"/>
+                                </constraint>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                            <state key="normal" image="left-arrow-white">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="clickingBackButton:" destination="-1" eventType="touchUpInside" id="8bc-Sd-z0D"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.92156862750000001" green="0.23921568630000001" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="zxH-kc-5lJ" firstAttribute="leading" secondItem="DK4-NP-p6d" secondAttribute="leading" constant="8" id="57p-0s-iig"/>
+                        <constraint firstItem="AG8-th-1eA" firstAttribute="leading" secondItem="zxH-kc-5lJ" secondAttribute="leading" id="aiu-kq-zD8"/>
+                        <constraint firstItem="zxH-kc-5lJ" firstAttribute="height" secondItem="DK4-NP-p6d" secondAttribute="height" multiplier="0.45" id="sGn-s8-5a4"/>
+                        <constraint firstAttribute="trailing" secondItem="zxH-kc-5lJ" secondAttribute="trailing" constant="8" id="ukD-q2-N5P"/>
+                        <constraint firstAttribute="bottom" secondItem="zxH-kc-5lJ" secondAttribute="bottom" id="yea-MM-oEU"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P1S-AR-hAr" userLabel="sub-head">
+                    <rect key="frame" x="0.0" y="178.66666666666666" width="375" height="119.99999999999997"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRb-jv-eX7">
+                            <rect key="frame" x="19" y="14.999999999999858" width="336" height="40.000000000000014"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="itineraries_departure" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-0Z-pcp">
+                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bag-no-3Qu">
+                                    <rect key="frame" x="8" y="5" width="320" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                    <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Ma position">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="clickingDepartureConstructor:" destination="-1" eventType="touchUpInside" id="3Gg-Jz-4qh"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.98029029187817263" green="0.98029029187817263" blue="0.98029029187817263" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WFk-oC-kkp">
+                            <rect key="frame" x="19" y="62.999999999999972" width="336" height="39.999999999999979"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="itineraries_arrival" translatesAutoresizingMaskIntoConstraints="NO" id="o6Z-nr-MUX">
+                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beS-kh-KkD">
+                                    <rect key="frame" x="8" y="5" width="320" height="29"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="Ubuntu" family="Ubuntu" pointSize="20"/>
+                                    <inset key="contentEdgeInsets" minX="40" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Pablo Picasso">
+                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="clickingArrivalConstructor:" destination="-1" eventType="touchUpInside" id="ah8-YU-fEj"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.93256265862944165" green="0.93256265862944165" blue="0.93256265862944165" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="Psa-nF-ZAB"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="top" secondItem="DK4-NP-p6d" secondAttribute="top" id="4Me-D9-F3r"/>
+                <constraint firstItem="DK4-NP-p6d" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.22" id="Alk-lZ-sB6"/>
+                <constraint firstItem="DK4-NP-p6d" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="FAt-aR-fSR"/>
+                <constraint firstItem="P1S-AR-hAr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Oeo-ai-UmL"/>
+                <constraint firstItem="P1S-AR-hAr" firstAttribute="top" secondItem="DK4-NP-p6d" secondAttribute="bottom" id="SLn-7K-7fQ"/>
+                <constraint firstItem="AG8-th-1eA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="8" id="amD-hj-o6y"/>
+                <constraint firstItem="DK4-NP-p6d" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="isi-yr-OQq"/>
+                <constraint firstItem="P1S-AR-hAr" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="zgk-kS-kMV"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="33.5" y="117"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="itineraries_arrival" width="128" height="128"/>
+        <image name="itineraries_departure" width="128" height="128"/>
+        <image name="left-arrow-white" width="256" height="256"/>
+    </resources>
+</document>
