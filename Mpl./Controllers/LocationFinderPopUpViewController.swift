@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import NotificationBannerSwift
 
 enum MPLLocationType {
     case station
@@ -36,7 +37,7 @@ class MPLLocation {
     
 }
 
-class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
+class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate, CLLocationManagerDelegate {
     
     //MARK: - VARIABLES
     
@@ -46,6 +47,8 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var resultScrollView: UIScrollView!
+    @IBOutlet weak var myPositionCard: UIView!
+    @IBOutlet weak var myPositionLabel: UILabel!
     
     //Constraints
     
@@ -59,6 +62,8 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
     var resultLocation: MPLLocation?
     var mainView: UIViewController
     var id: Int
+    let locationManager = CLLocationManager()
+    var userLocation: CLLocation? = nil
     
     //MARK: - INITS
     
@@ -83,9 +88,11 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         self.view.alpha = 0
         self.searchTextField.delegate = self
         
-        //Tap recogniser
+        //Tap recognisers
         let tap = UITapGestureRecognizer(target: self, action: #selector(blurClick(sender:)))
         self.blurBackground.addGestureRecognizer(tap)
+        let positionTap = UITapGestureRecognizer(target: self, action: #selector(handleMyPositionTap(sender:)))
+        self.myPositionCard.addGestureRecognizer(positionTap)
         
         //UI improvements
         
@@ -94,9 +101,9 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         self.headerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.headerView.layer.shadowRadius = 10
         self.headerView.layer.shadowOpacity = 0.5
+        self.myPositionCard.layer.cornerRadius = 15
+        self.myPositionLabel.text = NSLocalizedString("My Position", comment: "")
         
-        //Keyboard load
-        self.searchTextField.becomeFirstResponder()
         //Observer when keyboard is opened to get its size.
         NotificationCenter.default.addObserver(
             self,
@@ -104,6 +111,21 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
             name: NSNotification.Name.UIKeyboardWillShow,
             object: nil
         )
+        
+        //User location
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    //MARK: - LOCATION MANAGER
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first { userLocation = location }
     }
     
     //MARK: - EDITING TEXTFIELD
@@ -117,12 +139,21 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         if (str == nil) { str = string } else { str!.append(string) }
         str = str!.toASCII().lowercased()
         if (str!.count > 2) {
+            //Hide main controls
+            for view in self.resultScrollView.subviews {
+                if view.tag < 0 {
+                    view.isHidden = true
+                }
+            }
             //Display
             self.lastFilteredStations = getStationListFiltered(byName: str!.replacingOccurrences(of: "-", with: " "))
             updateStationList(with: self.lastFilteredStations)
         } else {
             //Clear
-            for view in self.resultScrollView.subviews { view.removeFromSuperview() }
+            for view in self.resultScrollView.subviews {
+                if view.tag >= 0 {
+                    view.removeFromSuperview()
+                } else { view.isHidden = false } }
         }
         return true
     }
@@ -150,7 +181,9 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         var tap: UITapGestureRecognizer
         
         //Clear displayed stations
-        for view in self.resultScrollView.subviews { view.removeFromSuperview() }
+        for view in self.resultScrollView.subviews {
+            if view.tag >= 0 { view.removeFromSuperview() }
+        }
         self.stationCards.removeAll()
         //Display new station list
         for i in 0..<stations.count {
@@ -179,6 +212,21 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc func handleMyPositionTap(sender: UITapGestureRecognizer) {
+        let clickLoc = sender.location(in: self.resultScrollView)
+
+        if clickLoc.x < myPositionCard.frame.minX || clickLoc.x > myPositionCard.frame.maxX { return }
+        if clickLoc.y < myPositionCard.frame.minY || clickLoc.y > myPositionCard.frame.maxY { return }
+        if self.userLocation != nil {
+            self.resultLocation = MPLLocation(location: self.userLocation!, name: NSLocalizedString("My Position", comment: ""))
+        } else {
+            let banner = NotificationBanner(title: NSLocalizedString("My Position", comment: ""), subtitle: NSLocalizedString("Turn on localization to use \"My Position\" feature", comment: ""), style: .warning)
+            banner.haptic = .medium
+            banner.show()
+        }
+        self.disappearAnimation()
+    }
+    
     //MARK: - GETTING KEYBOARD HEIGHT
     
     @objc func keyboardWillShow(_ notification: Notification) {
@@ -203,10 +251,14 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         self.view.alpha = 0.0
         
         self.headerView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        UIView.animate(withDuration: 0.3, animations: {
+        self.resultScrollView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        UIView.animate(withDuration: 0.2, animations: {
             self.blurBackground.effect = self.effect
             self.view.alpha = 1.0
             self.headerView.transform = CGAffineTransform.identity
+            self.resultScrollView.transform = CGAffineTransform.identity
+            //Keyboard load
+            self.searchTextField.becomeFirstResponder()
         })
     }
     
@@ -224,7 +276,7 @@ class LocationFinderPopUpViewController: UIViewController, UITextFieldDelegate {
         haptic.selectionChanged()
         self.view.endEditing(true)
         self.mainView.viewWillAppear(false)
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.view.alpha = 0
             self.blurBackground.effect = nil
             self.headerView.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)

@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Ubuntu-B.ttf">
+            <string>Ubuntu-Bold</string>
+        </array>
         <array key="Ubuntu-R.ttf">
             <string>Ubuntu</string>
         </array>
@@ -20,6 +23,8 @@
                 <outlet property="blurBackground" destination="hX8-JE-Rxb" id="Rzb-pR-JjM"/>
                 <outlet property="bottomResultScrollViewConstraint" destination="uSD-9w-PqV" id="6J7-GB-XFN"/>
                 <outlet property="headerView" destination="L3c-3U-VAO" id="0kX-ha-BJc"/>
+                <outlet property="myPositionCard" destination="nVW-pb-jvH" id="tPU-u2-Fs3"/>
+                <outlet property="myPositionLabel" destination="6It-vl-HaY" id="a0k-dR-vEt"/>
                 <outlet property="resultScrollView" destination="pyC-NR-bAs" id="cDs-2I-rDx"/>
                 <outlet property="searchTextField" destination="sBB-pn-0vu" id="xGR-bP-AIU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -37,10 +42,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3c-3U-VAO">
-                                <rect key="frame" x="19" y="54" width="337" height="82"/>
+                                <rect key="frame" x="19.333333333333343" y="54.000000000000007" width="337.33333333333326" height="81.666666666666686"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Chercher un lieu" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sBB-pn-0vu">
-                                        <rect key="frame" x="8" y="24" width="321" height="35"/>
+                                        <rect key="frame" x="7.6666666666666572" y="24" width="321" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="8ji-u0-sWe"/>
                                         </constraints>
@@ -57,8 +62,37 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyC-NR-bAs">
-                                <rect key="frame" x="19" y="166" width="338" height="646"/>
+                                <rect key="frame" x="19.333333333333343" y="165.66666666666669" width="336.33333333333326" height="646.33333333333326"/>
+                                <subviews>
+                                    <view tag="-1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVW-pb-jvH">
+                                        <rect key="frame" x="0.0" y="10" width="336.33333333333331" height="50"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="navigation" translatesAutoresizingMaskIntoConstraints="NO" id="Luc-uN-Bo2">
+                                                <rect key="frame" x="17" y="13" width="25" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ma Position" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6It-vl-HaY">
+                                                <rect key="frame" x="61" y="13" width="267" height="25"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="Ubuntu-Bold" family="Ubuntu" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="fnh-AT-DhB"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nVW-pb-jvH" secondAttribute="trailing" id="2Bd-hz-DAX"/>
+                                    <constraint firstItem="nVW-pb-jvH" firstAttribute="leading" secondItem="pyC-NR-bAs" secondAttribute="leading" id="5yN-kh-8vg"/>
+                                    <constraint firstItem="nVW-pb-jvH" firstAttribute="top" secondItem="pyC-NR-bAs" secondAttribute="top" constant="10" id="6cp-b0-3LH"/>
+                                    <constraint firstItem="nVW-pb-jvH" firstAttribute="width" secondItem="pyC-NR-bAs" secondAttribute="width" id="PDb-gp-r2q"/>
+                                    <constraint firstAttribute="bottom" secondItem="nVW-pb-jvH" secondAttribute="bottom" constant="586" id="Z11-zI-Khb"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <constraints>
@@ -86,4 +120,7 @@
             <point key="canvasLocation" x="32.5" y="53"/>
         </view>
     </objects>
+    <resources>
+        <image name="navigation" width="85" height="85"/>
+    </resources>
 </document>

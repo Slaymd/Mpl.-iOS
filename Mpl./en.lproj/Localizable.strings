@@ -35,3 +35,7 @@
 //Notifications
 "Localization" = "Localization";
 "Turn on localization to get station list sorted by distance !" = "Turn on localization to get station list sorted by distance !";
+
+//Itineraries
+"My Position" = "My Position";
+"Turn on localization to use \"My Position\" feature" = "Turn on localization to use \"My Position\" feature";
