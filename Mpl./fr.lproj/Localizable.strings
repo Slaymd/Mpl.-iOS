@@ -37,5 +37,14 @@
 "Turn on localization to get station list sorted by distance !" = "Activez la localisation pour avoir la liste des stations classée par distance !";
 
 //Itineraries
+"Itinerary" = "Itinéraire";
 "My Position" = "Ma Position";
 "Turn on localization to use \"My Position\" feature" = "Activez la localisation pour utiliser cette fonctionnalité";
+"Type your departure" = "Entrez votre départ";
+"Type your arrival" = "Entrez votre destination";
+"No itineraries found" = "Aucun itinéraire trouvé";
+"Please try another locations or try again later" = "Veuillez essayer avec de nouveaux endroits ou réessayez plus tard";
+"departure" = "départ";
+"arrival" = "arrivée";
+"%Hh%M" = "%Hh%M";
+"now" = "maintenant";

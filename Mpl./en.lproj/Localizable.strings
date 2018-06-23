@@ -37,5 +37,14 @@
 "Turn on localization to get station list sorted by distance !" = "Turn on localization to get station list sorted by distance !";
 
 //Itineraries
+"Itinerary" = "Itinerary";
 "My Position" = "My Position";
 "Turn on localization to use \"My Position\" feature" = "Turn on localization to use \"My Position\" feature";
+"Type your departure" = "Type your departure";
+"Type your arrival" = "Type your arrival";
+"No itineraries found" = "No itineraries found";
+"Please try another locations or try again later" = "Please try another locations or try again later";
+"departure" = "departure";
+"arrival" = "arrival";
+"%Hh%M" = "%Hh%M";
+"now" = "now";

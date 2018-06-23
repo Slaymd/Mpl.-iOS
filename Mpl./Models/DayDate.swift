@@ -57,6 +57,26 @@ class DayDate : CustomStringConvertible {
         self.seconds = seconds
     }
     
+    init(tamTime: String) {
+        if tamTime.count < 8 {
+            self.hours = 0
+            self.mins = 0
+            self.seconds = 0
+        }
+        let endMins = tamTime.index(tamTime.endIndex, offsetBy: -3)
+        let startMins = tamTime.index(tamTime.endIndex, offsetBy: -5)
+        let startHours = tamTime.index(tamTime.endIndex, offsetBy: -8)
+        let endHours = tamTime.index(tamTime.endIndex, offsetBy: -6)
+        let mins = String(tamTime[startMins..<endMins])
+        let hours = String(tamTime[startHours..<endHours])
+        let min = Int(mins)
+        let hour = Int(hours)
+        
+        self.hours = hour == nil ? 0 : hour!
+        self.mins = min == nil ? 0 : min!
+        self.seconds = 0
+    }
+    
     func getMinsFromNow() -> Int {
         //Now
         let date = Date()

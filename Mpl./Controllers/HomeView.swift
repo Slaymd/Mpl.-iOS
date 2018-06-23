@@ -74,7 +74,7 @@ class HomeView: UIViewController, UICollectionViewDelegate, UICollectionViewData
             self.present(stationPopUp, animated: false, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "S'y rendre", style: .default, handler: { _ in
-            let itinerariesView: ItinerariesOverviewViewController = ItinerariesOverviewViewController(nibName: "ItinerariesOverviewView", bundle: nil, departure: nil, arrival: MPLLocation(station: station))
+            let itinerariesView: ItinerariesOverviewViewController = ItinerariesOverviewViewController(nibName: "ItinerariesOverviewView", bundle: nil, departure: self.mainController?.userLocation == nil ? nil : MPLLocation(location: self.mainController!.userLocation!, name: NSLocalizedString("My Position", comment: "")), arrival: MPLLocation(station: station))
             self.navigationController?.pushViewController(itinerariesView, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: nil))

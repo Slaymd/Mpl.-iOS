@@ -405,6 +405,13 @@ class TransportData {
         return _stop[0]
     }
     
+    static func getStop(byTamId id: Int) -> Stop? {
+        let _stop = self.stops.filter({$0.tamId == id})
+        
+        if _stop.count != 1 { return nil }
+        return _stop[0]
+    }
+    
     static func getLineById(_ id: Int) -> Line? {
         let _line = self.lines.filter({$0.id == id})
         
