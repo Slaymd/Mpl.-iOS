@@ -66,6 +66,13 @@ class UITripCard: UIView {
                 sep.font = sep.font.withSize(12)
                 sep.textAlignment = .center
                 self.addSubview(sep)
+                if x + 40 >= self.timePanel!.frame.minX {
+                    sep.frame.size = CGSize(width: 22, height: 28)
+                    sep.frame.origin = CGPoint(x: x-15, y: y)
+                    sep.text = "•••"
+                    sep.font = sep.font.withSize(10)
+                    break
+                }
             }
             if segments.mode == .TRAMWAY || segments.mode == .BUS {
                 let line = UILineLogo(line: segments.line!, rect: CGRect(x: x, y: y, width: 35, height: 28))

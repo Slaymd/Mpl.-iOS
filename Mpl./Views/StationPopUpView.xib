@@ -99,25 +99,40 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2nH-D6-tig" userLabel="Actions">
                                         <rect key="frame" x="0.0" y="370" width="335" height="50"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTU-Xo-Dnu">
-                                                <rect key="frame" x="148.66666666666666" y="6" width="38" height="38"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiE-YT-aRp" userLabel="Buttons Layer">
+                                                <rect key="frame" x="102" y="6" width="130" height="38"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="38" id="7mz-gM-bUt"/>
-                                                    <constraint firstAttribute="width" constant="38" id="r8I-wk-eTd"/>
+                                                    <constraint firstAttribute="width" constant="130" id="51V-jZ-lZJ"/>
                                                 </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTU-Xo-Dnu">
+                                                <rect key="frame" x="119" y="6" width="38" height="38"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <inset key="imageEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                                                 <state key="normal" title="Button" image="star"/>
                                                 <state key="selected" image="star_filled"/>
                                                 <connections>
-                                                    <action selector="clickFavoriteButton:" destination="-1" eventType="touchUpInside" id="Kyv-ee-bcL"/>
+                                                    <action selector="clickingFavoriteButton:" destination="-1" eventType="touchUpInside" id="fmh-z4-6gG"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WG4-bO-lLK" userLabel="Direction Button">
+                                                <rect key="frame" x="177" y="6" width="38" height="38"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <inset key="imageEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
+                                                <state key="normal" title="Button" image="itineraries_get_directions_icon"/>
+                                                <state key="selected" image="star_filled"/>
+                                                <connections>
+                                                    <action selector="clickingDirectionsButton:" destination="-1" eventType="touchUpInside" id="Rf9-Sg-2kB"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.45031571059999997" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="pTU-Xo-Dnu" firstAttribute="centerY" secondItem="2nH-D6-tig" secondAttribute="centerY" id="1n0-Mk-jx3"/>
+                                            <constraint firstItem="hiE-YT-aRp" firstAttribute="centerY" secondItem="2nH-D6-tig" secondAttribute="centerY" id="7uF-lm-iia"/>
+                                            <constraint firstItem="hiE-YT-aRp" firstAttribute="top" secondItem="2nH-D6-tig" secondAttribute="top" constant="6" id="BqO-HS-GNP"/>
                                             <constraint firstAttribute="height" constant="50" id="Fhp-X0-SZM"/>
-                                            <constraint firstItem="pTU-Xo-Dnu" firstAttribute="centerX" secondItem="2nH-D6-tig" secondAttribute="centerX" id="rDy-TN-oLY"/>
+                                            <constraint firstItem="hiE-YT-aRp" firstAttribute="centerX" secondItem="2nH-D6-tig" secondAttribute="centerX" id="llS-cB-GnW"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -170,7 +185,8 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="star" width="85" height="85"/>
-        <image name="star_filled" width="85" height="85"/>
+        <image name="itineraries_get_directions_icon" width="128" height="128"/>
+        <image name="star" width="128" height="128"/>
+        <image name="star_filled" width="128" height="128"/>
     </resources>
 </document>

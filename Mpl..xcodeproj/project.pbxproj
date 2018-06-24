@@ -84,6 +84,7 @@
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
 		26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9A2042E2B300FA03B8 /* Stop.swift */; };
 		26D77A9D2043155800FA03B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9C2043155800FA03B8 /* Direction.swift */; };
+		26D7900720DFBD220052FB53 /* UILineIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D7900620DFBD220052FB53 /* UILineIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,7 @@
 		26D77A982042E11700FA03B8 /* StopZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopZone.swift; sourceTree = "<group>"; };
 		26D77A9A2042E2B300FA03B8 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		26D77A9C2043155800FA03B8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		26D7900620DFBD220052FB53 /* UILineIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILineIcon.swift; sourceTree = "<group>"; };
 		4FE7A9BF84A8CE3C367EA59F /* Pods-Mpl..debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..debug.xcconfig"; sourceTree = "<group>"; };
 		E2DABBD32BD99C766227731A /* Pods-Mpl..release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..release.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -308,6 +310,7 @@
 				2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */,
 				26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */,
 				26AF1EE020CC390F00E00736 /* UIService.swift */,
+				26D7900620DFBD220052FB53 /* UILineIcon.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */,
 				260023721FF70D6E00FA0D81 /* UserData.swift in Sources */,
 				26A85C1020630B97009298CB /* Disruption.swift in Sources */,
+				26D7900720DFBD220052FB53 /* UILineIcon.swift in Sources */,
 				26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */,
 				26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */,
 				26A579211FF393400087ADD9 /* UIAdvanced.swift in Sources */,

@@ -92,16 +92,6 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
         if (arrivalLocation != nil && departureLocation != nil) {
             ItinerariesData.get(from: departureLocation!, to: arrivalLocation!) { (result) in
                 self.displayTrips(trips: result)
-                /*for trip in result {
-                    print("depart:", trip.departureTime, "• arrival:", trip.arrivalTime)
-                    for segment in trip.segments {
-                        if segment.mode == .WALK && segment.duration! > 3 {
-                            print("§ marcher jusqu'à", segment.arrivalName!, "pendant", segment.duration!, "minutes")
-                        } else if segment.mode == .TRAMWAY || segment.mode == .BUS {
-                            print("§", segment.departureStop!.name, "->", segment.arrivalStop!.name, "via ligne", segment.line!)
-                        }
-                    }
-                }*/
             }
         }
     }

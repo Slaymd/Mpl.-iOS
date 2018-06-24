@@ -412,9 +412,11 @@ class StationPopUpView: UIViewController {
     //MARK: - ACTIONS BAR
     
     @IBOutlet weak var favoriteButton: UIButton!
-    @IBAction func clickFavoriteButton(_ sender: Any) {
+    
+    @IBAction func clickingFavoriteButton(_ sender: UIButton) {
         let haptic: UISelectionFeedbackGenerator = UISelectionFeedbackGenerator()
-
+        
+        
         if !favoriteButton.isSelected {
             favoriteButton.isSelected = true
             haptic.prepare()
@@ -426,6 +428,13 @@ class StationPopUpView: UIViewController {
             haptic.selectionChanged()
             UserData.removeFavStation(station: station)
         }
+    }
+    
+    @IBAction func clickingDirectionsButton(_ sender: UIButton) {
+        let itinerariesView: ItinerariesOverviewViewController = ItinerariesOverviewViewController(nibName: "ItinerariesOverviewView", bundle: nil, departure: UserData.userLocation == nil ? nil : MPLLocation(location: UserData.userLocation!, name: NSLocalizedString("My Position", comment: "")), arrival: MPLLocation(station: station))
+       
+        self.mainView.navigationController?.pushViewController(itinerariesView, animated: true)
+        self.disappearAnimation()
     }
     
     //MARK: - BACKGROUND STATE

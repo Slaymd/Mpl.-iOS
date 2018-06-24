@@ -135,6 +135,7 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             userLocation = location
+            UserData.userLocation = location
             homeController?.update()
         }
     }

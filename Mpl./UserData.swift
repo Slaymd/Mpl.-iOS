@@ -14,6 +14,7 @@ class UserData {
     
     static var favStationsId: [Int] = [Int]()
     static var displayedName: String = "Sur Mpl. !"
+    static var userLocation: CLLocation?
     
     static func loadUserData() {
         let defaults = UserDefaults.standard
