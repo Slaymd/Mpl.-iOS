@@ -129,7 +129,7 @@ class TripSegment {
     }
 }
 
-class Trip {
+class Trip: Equatable {
     
     var departureTime: DayDate
     var arrivalTime: DayDate
@@ -146,6 +146,10 @@ class Trip {
         self.duration = Int(round((Double(duration) / 60.0)))
         self.tripCO2 = tripCO2
         self.carCO2 = carCO2
+    }
+    
+    static func == (lhs: Trip, rhs: Trip) -> Bool {
+        return lhs.departureTime == rhs.departureTime && lhs.arrivalTime == rhs.arrivalTime && lhs.tripCO2 == rhs.tripCO2 && lhs.distance == rhs.distance && lhs.segments.count == rhs.segments.count
     }
     
 }

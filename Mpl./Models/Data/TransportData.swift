@@ -144,6 +144,23 @@ class TransportData {
         return polyline
     }
     
+    public static func getPolyline(fromStopId: Int, toStopId: Int, onLineId: Int) -> [CLLocationCoordinate2D] {
+        let result: [CLLocationCoordinate2D] = []
+        if self.referenceDatabase == nil { return result }
+        let polyline_string = Expression<String>("polyline")
+        let line_id = Expression<Int64>("line")
+        let from_stop = Expression<Int64>("from_stop")
+        let to_stop = Expression<Int64>("to_stop")
+        let polylineTable = Table("LINE_SEGMENT").filter(from_stop == Int64(fromStopId) && to_stop == Int64(toStopId) && line_id == Int64(onLineId))
+        
+        for dbline in try! self.referenceDatabase!.prepare(polylineTable) {
+            let polyline = self.getPolyline(from: dbline[polyline_string])
+            
+            return polyline
+        }
+        return result
+    }
+    
     static func getLinesPolylines() -> [(line: Line, polylines: [[CLLocationCoordinate2D]])] {
         if self.lines_polylines.count != 0 { return self.lines_polylines }
         var result: [(line: Line, polylines: [[CLLocationCoordinate2D]])] = []

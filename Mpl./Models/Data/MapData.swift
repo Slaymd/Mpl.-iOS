@@ -33,6 +33,168 @@ extension CLLocation {
 
 class MapData {
     
+    //MARK: - LINES
+
+    static public func getAllLines() -> [(line: Line, feature: MGLPolylineFeature)] {
+        var result: [(line: Line, feature: MGLPolylineFeature)] = []
+        let polylines = TransportData.getLinesPolylines()
+        
+        for line_polyline in polylines {
+            var count = 0
+            for coordinates in line_polyline.polylines {
+                let tmp = (line: line_polyline.line, feature: MGLPolylineFeature(coordinates: coordinates, count: UInt(coordinates.count)))
+                tmp.feature.title = line_polyline.line.shortName + " (\(count))"
+                tmp.feature.attributes = [
+                    "lineTamId": line_polyline.line.tamId,
+                    "lineColor": line_polyline.line.bgColor
+                ]
+                result.append(tmp)
+                count += 1
+            }
+        }
+        return result
+    }
+    
+    //TRIPS
+    
+    static private func getPolyline(from locations: [CLLocation]) -> MGLPolylineFeature {
+        var coordinates: [CLLocationCoordinate2D] = []
+        let polyline: MGLPolylineFeature
+        
+        for loc in locations {
+            coordinates.append(loc.coordinate)
+        }
+        polyline = MGLPolylineFeature(coordinates: coordinates, count: UInt(coordinates.count))
+        return polyline
+    }
+    
+    static private func getPolyline(from tripSegment: TripSegment) -> MGLPolylineFeature? {
+        var coordinates: [CLLocationCoordinate2D] = []
+        var polyline: MGLPolylineFeature?
+        var index = 0
+        
+        for interloc in tripSegment.intermediateStops {
+            if tripSegment.mode == .BUS || tripSegment.mode == .TRAMWAY {
+                if index == 0 {
+                    guard let departureStop = tripSegment.departureStop else { continue }
+                    guard let firstStop = TransportData.getStop(byTamId: interloc.id) else { continue }
+                    //First stop : getting polyline from departure and it
+                    let raw_polyline = TransportData.getPolyline(fromStopId: departureStop.id, toStopId: firstStop.id, onLineId: tripSegment.line!.id)
+                    coordinates.append(contentsOf: raw_polyline)
+                    //If subpolyline wasn't found draw line between two stations
+                    if raw_polyline.count == 0 {
+                        coordinates.append(departureStop.coords.coordinate)
+                        coordinates.append(firstStop.coords.coordinate)
+                    }
+                } else {
+                    guard let lastStop = TransportData.getStop(byTamId: tripSegment.intermediateStops[index-1].id) else { continue }
+                    guard let inteStop = TransportData.getStop(byTamId: interloc.id) else { continue }
+                    //Middle
+                    let raw_polyline = TransportData.getPolyline(fromStopId: lastStop.id, toStopId: inteStop.id, onLineId: tripSegment.line!.id)
+                    coordinates.append(contentsOf: raw_polyline)
+                    //If subpolyline wasn't found draw line between two stations
+                    if raw_polyline.count == 0 {
+                        coordinates.append(lastStop.coords.coordinate)
+                        coordinates.append(inteStop.coords.coordinate)
+                    }
+                }
+                if index == tripSegment.intermediateStops.count-1 {
+                    guard let arrivalStop = tripSegment.arrivalStop else { continue }
+                    guard let lastStop = TransportData.getStop(byTamId: interloc.id) else { continue }
+                    //Last stop : getting polyline from last stop to arrival stop
+                    let raw_polyline = TransportData.getPolyline(fromStopId: lastStop.id, toStopId: arrivalStop.id, onLineId: tripSegment.line!.id)
+                    coordinates.append(contentsOf: raw_polyline)
+                    //If subpolyline wasn't found draw line between two stations
+                    if raw_polyline.count == 0 {
+                        coordinates.append(lastStop.coords.coordinate)
+                        coordinates.append(arrivalStop.coords.coordinate)
+                    }
+                }
+            } else {
+                if index == 0 {
+                    //First
+                    coordinates.append(tripSegment.departure!.coordinate)
+                }
+                coordinates.append(interloc.loc.coordinate)
+                if index == tripSegment.intermediateStops.count-1 {
+                    //Last
+                    coordinates.append(tripSegment.arrival!.coordinate)
+                }
+            }
+            index += 1
+        }
+        if coordinates.count > 0 {
+            polyline = MGLPolylineFeature(coordinates: coordinates, count: UInt(coordinates.count))
+        }
+        return polyline
+    }
+    
+    static private func getPolylines(from trip: Trip) -> [MGLPolylineFeature] {
+        var polylines: [MGLPolylineFeature] = []
+        
+        for segment in trip.segments {
+            guard let polyline = self.getPolyline(from: segment) else { continue }
+            let lineColor: UIColor
+            let lineWidth: Int
+            
+            //getting line color
+            if segment.mode == .BUS || segment.mode == .TRAMWAY {
+                guard let line = segment.line else { continue }
+                
+                lineColor = line.bgColor
+                lineWidth = segment.mode == .TRAMWAY ? 4 : 3
+            } else {
+                lineColor = .lightGray
+                lineWidth = 2
+            }
+            polyline.attributes = [
+                "lineColor": lineColor,
+                "lineWidth": lineWidth
+            ]
+            polylines.append(polyline)
+        }
+        return polylines
+    }
+    
+    static private func getIdentifier(of trip: Trip) -> String {
+        let identifier: String = "\(trip.departureTime.formatted)-\(trip.arrivalTime.formatted)-\(trip.distance)-\(trip.duration)"
+        
+        return identifier
+    }
+    
+    static public func addLayer(of trip: Trip, on mapView: MGLMapView) {
+        guard let style = mapView.style else { return }
+        let polylines: [MGLPolylineFeature]
+        let source: MGLShapeSource
+        let triplayer: MGLLineStyleLayer
+        
+        //Creating polylines from trip segments
+        polylines = self.getPolylines(from: trip)
+        
+        //Creating data source
+        source = MGLShapeSource(identifier: "tripsource-" + self.getIdentifier(of: trip), features: polylines, options: nil)
+        style.addSource(source)
+        
+        //Creating layer
+        triplayer = MGLLineStyleLayer(identifier: "triplayer-" + self.getIdentifier(of: trip), source: source)
+        
+        triplayer.minimumZoomLevel = 10
+        triplayer.lineJoin = MGLStyleValue(rawValue: NSValue(mglLineJoin: .round))
+        triplayer.lineCap = MGLStyleValue(rawValue: NSValue(mglLineCap: .round))
+        triplayer.lineColor = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineColor", options: nil)
+        triplayer.lineWidth = MGLStyleValue(interpolationMode: .identity, sourceStops: nil, attributeName: "lineWidth", options: nil)
+        
+        //Setting layer
+        style.addLayer(triplayer)
+        if (trip.segments.first != nil && trip.segments.last != nil) {
+            //let bounds = MGLCoordinateBounds(sw: trip.segments.first!.departure!.coordinate, ne: trip.segments.last!.arrival!.coordinate)
+            let camera = mapView.cameraThatFitsShape(source.shape!, direction: CLLocationDirection.init(), edgePadding: UIEdgeInsets(top: 10, left: 10, bottom: 125, right: 10))
+            mapView.setCamera(camera, animated: true)
+        }
+    }
+    
+    //MARK: - STATIONS
+    
     private static func fixLocation(ofStop stop: Stop, onLine line: Line) {
         let fixes: [(String, [Int], Double, Double)] = [("Millénaire", [1], 43.603330, 3.909953),("Mondial 98", [1], 43.602770, 3.903944),
                                                         ("Voltaire", [3], 43.603710, 3.889107),("Gare Saint-Roch", [3,4], 43.605209, 3.879704),
@@ -79,26 +241,6 @@ class MapData {
             stationLocs.append(contentsOf: tmp)
         }
         return stationLocs
-    }
-    
-    static public func getAllLines() -> [(line: Line, feature: MGLPolylineFeature)] {
-        var result: [(line: Line, feature: MGLPolylineFeature)] = []
-        let polylines = TransportData.getLinesPolylines()
-        
-        for line_polyline in polylines {
-            var count = 0
-            for coordinates in line_polyline.polylines {
-                let tmp = (line: line_polyline.line, feature: MGLPolylineFeature(coordinates: coordinates, count: UInt(coordinates.count)))
-                tmp.feature.title = line_polyline.line.shortName + " (\(count))"
-                tmp.feature.attributes = [
-                    "lineTamId": line_polyline.line.tamId,
-                    "lineColor": line_polyline.line.bgColor
-                ]
-                result.append(tmp)
-                count += 1
-            }
-        }
-        return result
     }
     
     static public func getAllStations() -> [[MGLPointFeature]] {

@@ -10,7 +10,7 @@ import UIKit
 import Mapbox
 import NotificationBannerSwift
 
-class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDelegate, MGLMapViewDelegate {
+class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDelegate, MGLMapViewDelegate, UIScrollViewDelegate {
     
     //MARK: - VARIABLES
     
@@ -34,6 +34,9 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
     var arrivalLocation: MPLLocation?
     
     var mapView: MGLMapView?
+    var mapDisplayedTrip: Trip?
+    
+    var displayedTripCards: [UITripCard] = []
     
     convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?, departure: MPLLocation?, arrival: MPLLocation?) {
         self.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -69,6 +72,9 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
         mapView!.maximumZoomLevel = 18
         self.mapViewPanel.addSubview(mapView!)
         self.mapViewPanel.addSubview(self.itinerariesScrollView)
+        
+        //Scroll view delegate
+        self.itinerariesScrollView.delegate = self
     }
     
     //MARK: - UPDATE ITINERARIES BUTTON TEXT
@@ -106,6 +112,13 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
             banner.show()
             return
         }
+        //Clear trips
+        for view in self.itinerariesScrollView.subviews {
+            view.removeFromSuperview()
+        }
+        self.displayedTripCards.removeAll()
+        self.clearTripsLayers()
+        
         //display new
         var x = 15
         for trip in trips {
@@ -114,7 +127,62 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
             self.itinerariesScrollView.addSubview(UITrip)
             x += Int(UITrip.frame.width) + 15
             self.itinerariesScrollView.contentSize = CGSize(width: x, height: Int(self.itinerariesScrollView.frame.height))
+            self.displayedTripCards.append(UITrip)
         }
+        self.updateDisplayedItinerary()
+    }
+    
+    //MARK: - TRIPS ON MAP
+    
+    func clearTripsLayers() {
+        guard let mapStyle = self.mapView?.style else { return }
+        for layer in mapStyle.layers {
+            if layer.identifier.starts(with: "trip") {
+                mapStyle.removeLayer(layer)
+            }
+        }
+        for source in mapStyle.sources {
+            if source.identifier.starts(with: "trip") {
+                mapStyle.removeSource(source)
+            }
+        }
+        self.mapDisplayedTrip = nil
+    }
+    
+    func displayTripOnMap(_ trip: Trip) {
+        self.mapDisplayedTrip = trip
+        if self.mapView != nil {
+            MapData.addLayer(of: trip, on: self.mapView!)
+        }
+    }
+    
+    //MARK: - SCROLLING ITINERARIES PROPOSITIONS
+    
+    
+    private func updateDisplayedItinerary() {
+        let offset = self.itinerariesScrollView.contentOffset
+        
+        for card in self.displayedTripCards {
+            if offset.x + self.itinerariesScrollView.frame.width/2.5 < card.frame.maxX {
+                if self.mapDisplayedTrip == nil || card.trip != self.mapDisplayedTrip! {
+                    self.clearTripsLayers()
+                    self.displayTripOnMap(card.trip)
+                    for othercard in self.displayedTripCards {
+                        if othercard.trip != card.trip {
+                            othercard.alpha = 0.8
+                        } else {
+                            othercard.alpha = 1.0
+                        }
+                    }
+                    break
+                }
+                break
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.updateDisplayedItinerary()
     }
     
     //MARK: - CLICKING ITINERARIES CONSTRUCTOR

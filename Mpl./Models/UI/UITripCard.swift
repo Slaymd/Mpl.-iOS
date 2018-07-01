@@ -75,8 +75,9 @@ class UITripCard: UIView {
                 }
             }
             if segments.mode == .TRAMWAY || segments.mode == .BUS {
-                let line = UILineLogo(line: segments.line!, rect: CGRect(x: x, y: y, width: 35, height: 28))
-                self.addSubview(line.panel)
+                let lineIcon = UILineIcon(frame: CGRect(x: x, y: y, width: 35, height: 28), line: segments.line!)
+                
+                self.addSubview(lineIcon)
                 x += 35 + 15.0
             } else if segments.mode == .WALK {
                 let walkImg = UIImageView(frame: CGRect(x: x, y: y, width: 25, height: 28))
