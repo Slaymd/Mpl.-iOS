@@ -162,7 +162,7 @@ class MapData {
         return identifier
     }
     
-    static public func addLayer(of trip: Trip, on mapView: MGLMapView) {
+    static public func addLayer(of trip: Trip, on mapView: MGLMapView, cameraEdgePadding: UIEdgeInsets?) {
         guard let style = mapView.style else { return }
         let polylines: [MGLPolylineFeature]
         let source: MGLShapeSource
@@ -188,7 +188,7 @@ class MapData {
         style.addLayer(triplayer)
         if (trip.segments.first != nil && trip.segments.last != nil) {
             //let bounds = MGLCoordinateBounds(sw: trip.segments.first!.departure!.coordinate, ne: trip.segments.last!.arrival!.coordinate)
-            let camera = mapView.cameraThatFitsShape(source.shape!, direction: CLLocationDirection.init(), edgePadding: UIEdgeInsets(top: 10, left: 10, bottom: 125, right: 10))
+            let camera = mapView.cameraThatFitsShape(source.shape!, direction: CLLocationDirection.init(), edgePadding: cameraEdgePadding == nil ? UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) : cameraEdgePadding!)
             mapView.setCamera(camera, animated: true)
         }
     }

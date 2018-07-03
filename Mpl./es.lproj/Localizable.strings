@@ -22,6 +22,7 @@
 "+1 hour" = "+1 hora";
 "Service ended" = "Servicio terminado";
 "..." = "...";
+"towards" = "hacia";
 
 //Search
 "Station name" = "Nombre de la estación";
@@ -36,3 +37,6 @@
 "Itinerary" = "Itinerario";
 "Localization" = "Localización";
 "Turn on localization to get station list sorted by distance !" = "¡Active la localización para obtener la lista de estaciones ordenada por distancia!";
+
+//Itineraries
+"Walk %Dm" = "Caminar %Dm";

@@ -123,7 +123,8 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
         var x = 15
         for trip in trips {
             let UITrip = UITripCard(frame: CGRect(x: x, y: 0, width: 275, height: Int(self.itinerariesScrollView.frame.height)), trip: trip)
-            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(itineraryTap(sender:)))
+            UITrip.addGestureRecognizer(tap)
             self.itinerariesScrollView.addSubview(UITrip)
             x += Int(UITrip.frame.width) + 15
             self.itinerariesScrollView.contentSize = CGSize(width: x, height: Int(self.itinerariesScrollView.frame.height))
@@ -152,7 +153,7 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
     func displayTripOnMap(_ trip: Trip) {
         self.mapDisplayedTrip = trip
         if self.mapView != nil {
-            MapData.addLayer(of: trip, on: self.mapView!)
+            MapData.addLayer(of: trip, on: self.mapView!, cameraEdgePadding: UIEdgeInsets(top: 10, left: 10, bottom: 125, right: 10))
         }
     }
     
@@ -183,6 +184,21 @@ class ItinerariesOverviewViewController: UIViewController, UIGestureRecognizerDe
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateDisplayedItinerary()
+    }
+    
+    //MARK: - CLICKING ITINERARY PROPOSITION
+    
+    @objc func itineraryTap(sender: UITapGestureRecognizer) {
+        let clickLoc = sender.location(in: self.itinerariesScrollView)
+        
+        for tripCard in self.displayedTripCards {
+            if clickLoc.x < tripCard.frame.minX || clickLoc.x > tripCard.frame.maxX { continue }
+            if clickLoc.y < tripCard.frame.minY || clickLoc.y > tripCard.frame.maxY { continue }
+            
+            let itineraryDetailView = ItineraryDetailViewController(nibName: "ItineraryDetailView", bundle: nil, trip: tripCard.trip, departure: self.departureLocation, destination: self.arrivalLocation)
+            self.navigationController?.pushViewController(itineraryDetailView, animated: true)
+            break
+        }
     }
     
     //MARK: - CLICKING ITINERARIES CONSTRUCTOR

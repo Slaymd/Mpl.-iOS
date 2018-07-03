@@ -38,6 +38,7 @@
 		2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1DB20754D05009F6E93 /* ScheduleData.swift */; };
 		26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 26897A8920C3214A00B62D1A /* referential_android.sqlite */; };
 		268BC6951FF85B7200B9AC68 /* AdvancedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268BC6941FF85B7200B9AC68 /* AdvancedString.swift */; };
+		268DDF6F20EAA58F00389C23 /* UIItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268DDF6E20EAA58F00389C23 /* UIItinerary.swift */; };
 		268F77FC201786D100F3366F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FA201786D100F3366F /* HomeView.swift */; };
 		268F77FF2017876600F3366F /* MainScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FE2017876600F3366F /* MainScrollView.swift */; };
 		268F780220178AD400F3366F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F780020178AD400F3366F /* MapView.swift */; };
@@ -47,13 +48,6 @@
 		26A2BD6720D6C8F400F4178E /* ItinerariesOverviewView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A2BD6520D6C8F400F4178E /* ItinerariesOverviewView.xib */; };
 		26A2BD6A20D6E7C000F4178E /* LocationFinderPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A2BD6820D6E7C000F4178E /* LocationFinderPopUpViewController.swift */; };
 		26A2BD6B20D6E7C000F4178E /* LocationFinderPopUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A2BD6920D6E7C000F4178E /* LocationFinderPopUpView.xib */; };
-		26A2BD6D20D6F0CD00F4178E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD6C20D6F0CD00F4178E /* Alamofire.framework */; };
-		26A2BD6F20D6F0CD00F4178E /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD6E20D6F0CD00F4178E /* MarqueeLabel.framework */; };
-		26A2BD7120D6F0CD00F4178E /* NotificationBannerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD7020D6F0CD00F4178E /* NotificationBannerSwift.framework */; };
-		26A2BD7320D6F0CD00F4178E /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD7220D6F0CD00F4178E /* SnapKit.framework */; };
-		26A2BD7520D6F0CD00F4178E /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD7420D6F0CD00F4178E /* SQLite.framework */; };
-		26A2BD7720D6F0CD00F4178E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD7620D6F0CD00F4178E /* SwiftyJSON.framework */; };
-		26A2BD7920D6F0CD00F4178E /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26A2BD7820D6F0CD00F4178E /* SWXMLHash.framework */; };
 		26A2BD7A20D6F0CD00F4178E /* Pods_Mpl_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26AF1ED620CC326800E00736 /* Pods_Mpl_.framework */; };
 		26A579071FF2EC500087ADD9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A579061FF2EC500087ADD9 /* AppDelegate.swift */; };
 		26A5790C1FF2EC500087ADD9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26A5790A1FF2EC500087ADD9 /* Main.storyboard */; };
@@ -85,6 +79,8 @@
 		26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9A2042E2B300FA03B8 /* Stop.swift */; };
 		26D77A9D2043155800FA03B8 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9C2043155800FA03B8 /* Direction.swift */; };
 		26D7900720DFBD220052FB53 /* UILineIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D7900620DFBD220052FB53 /* UILineIcon.swift */; };
+		26F621E720E92EB7007C4CC0 /* ItineraryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F621E520E92EB7007C4CC0 /* ItineraryDetailViewController.swift */; };
+		26F621E820E92EB7007C4CC0 /* ItineraryDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26F621E620E92EB7007C4CC0 /* ItineraryDetailView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +150,7 @@
 		2682E1DB20754D05009F6E93 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		26897A8920C3214A00B62D1A /* referential_android.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = referential_android.sqlite; sourceTree = "<group>"; };
 		268BC6941FF85B7200B9AC68 /* AdvancedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedString.swift; sourceTree = "<group>"; };
+		268DDF6E20EAA58F00389C23 /* UIItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIItinerary.swift; sourceTree = "<group>"; };
 		268F77FA201786D100F3366F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		268F77FE2017876600F3366F /* MainScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScrollView.swift; sourceTree = "<group>"; };
 		268F780020178AD400F3366F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
@@ -163,13 +160,6 @@
 		26A2BD6520D6C8F400F4178E /* ItinerariesOverviewView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItinerariesOverviewView.xib; sourceTree = "<group>"; };
 		26A2BD6820D6E7C000F4178E /* LocationFinderPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinderPopUpViewController.swift; sourceTree = "<group>"; };
 		26A2BD6920D6E7C000F4178E /* LocationFinderPopUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationFinderPopUpView.xib; sourceTree = "<group>"; };
-		26A2BD6C20D6F0CD00F4178E /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD6E20D6F0CD00F4178E /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD7020D6F0CD00F4178E /* NotificationBannerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NotificationBannerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD7220D6F0CD00F4178E /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD7420D6F0CD00F4178E /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD7620D6F0CD00F4178E /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26A2BD7820D6F0CD00F4178E /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A579031FF2EC500087ADD9 /* Mpl..app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mpl..app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A579061FF2EC500087ADD9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26A5790B1FF2EC500087ADD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -188,14 +178,7 @@
 		26AA2A2A205720B50066F7FB /* ResearcherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResearcherViewController.xib; sourceTree = "<group>"; };
 		26AF1ECC20CC123D00E00736 /* ParkingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingData.swift; sourceTree = "<group>"; };
 		26AF1ECE20CC266800E00736 /* ServicesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesData.swift; sourceTree = "<group>"; };
-		26AF1ED020CC326800E00736 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1ED220CC326800E00736 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1ED420CC326800E00736 /* NotificationBannerSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NotificationBannerSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AF1ED620CC326800E00736 /* Pods_Mpl_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Mpl_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1ED820CC326800E00736 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1EDA20CC326800E00736 /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1EDC20CC326800E00736 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26AF1EDE20CC326800E00736 /* SWXMLHash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SWXMLHash.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AF1EE020CC390F00E00736 /* UIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIService.swift; sourceTree = "<group>"; };
 		26AF1EE220CC789C00E00736 /* BikeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeData.swift; sourceTree = "<group>"; };
 		26B1472120DD09AB00BCAFD7 /* ItinerariesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItinerariesData.swift; sourceTree = "<group>"; };
@@ -210,6 +193,8 @@
 		26D77A9A2042E2B300FA03B8 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		26D77A9C2043155800FA03B8 /* Direction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		26D7900620DFBD220052FB53 /* UILineIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILineIcon.swift; sourceTree = "<group>"; };
+		26F621E520E92EB7007C4CC0 /* ItineraryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryDetailViewController.swift; sourceTree = "<group>"; };
+		26F621E620E92EB7007C4CC0 /* ItineraryDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItineraryDetailView.xib; sourceTree = "<group>"; };
 		4FE7A9BF84A8CE3C367EA59F /* Pods-Mpl..debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..debug.xcconfig"; sourceTree = "<group>"; };
 		E2DABBD32BD99C766227731A /* Pods-Mpl..release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mpl..release.xcconfig"; path = "Pods/Target Support Files/Pods-Mpl./Pods-Mpl..release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,14 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26A2BD6D20D6F0CD00F4178E /* Alamofire.framework in Frameworks */,
-				26A2BD6F20D6F0CD00F4178E /* MarqueeLabel.framework in Frameworks */,
-				26A2BD7120D6F0CD00F4178E /* NotificationBannerSwift.framework in Frameworks */,
 				26A2BD7A20D6F0CD00F4178E /* Pods_Mpl_.framework in Frameworks */,
-				26A2BD7320D6F0CD00F4178E /* SnapKit.framework in Frameworks */,
-				26A2BD7520D6F0CD00F4178E /* SQLite.framework in Frameworks */,
-				26A2BD7720D6F0CD00F4178E /* SwiftyJSON.framework in Frameworks */,
-				26A2BD7920D6F0CD00F4178E /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +233,7 @@
 				2672E0E120C6A1BC0086830B /* FinderViewController.swift */,
 				26A2BD6420D6C8F400F4178E /* ItinerariesOverviewViewController.swift */,
 				26A2BD6820D6E7C000F4178E /* LocationFinderPopUpViewController.swift */,
+				26F621E520E92EB7007C4CC0 /* ItineraryDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -275,6 +254,7 @@
 				2672E0DF20C69B220086830B /* FinderView.xib */,
 				26A2BD6520D6C8F400F4178E /* ItinerariesOverviewView.xib */,
 				26A2BD6920D6E7C000F4178E /* LocationFinderPopUpView.xib */,
+				26F621E620E92EB7007C4CC0 /* ItineraryDetailView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +291,7 @@
 				26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */,
 				26AF1EE020CC390F00E00736 /* UIService.swift */,
 				26D7900620DFBD220052FB53 /* UILineIcon.swift */,
+				268DDF6E20EAA58F00389C23 /* UIItinerary.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -385,21 +366,7 @@
 		26A579191FF2ED7E0087ADD9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				26A2BD6C20D6F0CD00F4178E /* Alamofire.framework */,
-				26A2BD6E20D6F0CD00F4178E /* MarqueeLabel.framework */,
-				26A2BD7020D6F0CD00F4178E /* NotificationBannerSwift.framework */,
-				26A2BD7220D6F0CD00F4178E /* SnapKit.framework */,
-				26A2BD7420D6F0CD00F4178E /* SQLite.framework */,
-				26A2BD7620D6F0CD00F4178E /* SwiftyJSON.framework */,
-				26A2BD7820D6F0CD00F4178E /* SWXMLHash.framework */,
-				26AF1ED020CC326800E00736 /* Alamofire.framework */,
-				26AF1ED220CC326800E00736 /* MarqueeLabel.framework */,
-				26AF1ED420CC326800E00736 /* NotificationBannerSwift.framework */,
 				26AF1ED620CC326800E00736 /* Pods_Mpl_.framework */,
-				26AF1ED820CC326800E00736 /* SnapKit.framework */,
-				26AF1EDA20CC326800E00736 /* SQLite.framework */,
-				26AF1EDC20CC326800E00736 /* SwiftyJSON.framework */,
-				26AF1EDE20CC326800E00736 /* SWXMLHash.framework */,
 				2680F77A201747E100194331 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -559,6 +526,7 @@
 				26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */,
 				268F780320178AD400F3366F /* MapView.xib in Resources */,
 				2611CB7B20666A1200F2F8A2 /* Localizable.strings in Resources */,
+				26F621E820E92EB7007C4CC0 /* ItineraryDetailView.xib in Resources */,
 				26AA2A2C205720B50066F7FB /* ResearcherViewController.xib in Resources */,
 				2617F23B20A77365001ACE7B /* TextResearcherView.xib in Resources */,
 				26A5790C1FF2EC500087ADD9 /* Main.storyboard in Resources */,
@@ -641,11 +609,13 @@
 				268F77FF2017876600F3366F /* MainScrollView.swift in Sources */,
 				2617F23A20A77365001ACE7B /* TextResearcherView.swift in Sources */,
 				2601C77720CA87C200A44F1A /* StationData.swift in Sources */,
+				26F621E720E92EB7007C4CC0 /* ItineraryDetailViewController.swift in Sources */,
 				264E04C4201E194A006885A5 /* UserView.swift in Sources */,
 				26AF1EE320CC789C00E00736 /* BikeData.swift in Sources */,
 				2696BC2A205C731B00210F15 /* UILightStationCard.swift in Sources */,
 				26AF1ECD20CC123D00E00736 /* ParkingData.swift in Sources */,
 				26A2BD6A20D6E7C000F4178E /* LocationFinderPopUpViewController.swift in Sources */,
+				268DDF6F20EAA58F00389C23 /* UIItinerary.swift in Sources */,
 				26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */,
 				265680DD20D1735F009D8355 /* MapData.swift in Sources */,
 				2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */,

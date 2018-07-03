@@ -16,7 +16,7 @@ enum UILineIconType {
 class UILineIcon: UIView {
 
     var line: Line?
-    
+        
     init(frame: CGRect, lineIdentifier: String, backgroundColor: UIColor, fontColor: UIColor, type: LineType, icon: UIImage?) {
         super.init(frame: frame)
         if type == .TRAMWAY {
@@ -43,6 +43,10 @@ class UILineIcon: UIView {
             self.addSubview(lineLabel)
             
         }
+    }
+    
+    convenience init(_ line: Line, at: CGPoint) {
+        self.init(frame: CGRect(x: at.x, y: at.y, width: 40, height: 28), line: line, type: .DARK)
     }
     
     convenience init(frame: CGRect, line: Line) {
