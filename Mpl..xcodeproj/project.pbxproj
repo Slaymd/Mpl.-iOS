@@ -74,6 +74,8 @@
 		26C8CD8B2076862300365562 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C8CD8A2076862300365562 /* ColorManager.swift */; };
 		26C9051320CB1F6F0077D8AB /* SNCFSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C9051220CB1F6F0077D8AB /* SNCFSchedule.swift */; };
 		26C9051520CB43E40077D8AB /* UISNCFSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */; };
+		26D116C220ED4704006E9C1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26D116C120ED4703006E9C1C /* GoogleService-Info.plist */; };
+		26D116C320ED4704006E9C1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 26D116C120ED4703006E9C1C /* GoogleService-Info.plist */; };
 		26D1B86C206816AA00B2D16F /* UIMonoDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */; };
 		26D77A992042E11700FA03B8 /* StopZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A982042E11700FA03B8 /* StopZone.swift */; };
 		26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77A9A2042E2B300FA03B8 /* Stop.swift */; };
@@ -188,6 +190,7 @@
 		26C8CD8A2076862300365562 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		26C9051220CB1F6F0077D8AB /* SNCFSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNCFSchedule.swift; sourceTree = "<group>"; };
 		26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISNCFSchedule.swift; sourceTree = "<group>"; };
+		26D116C120ED4703006E9C1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMonoDirectionSchedule.swift; sourceTree = "<group>"; };
 		26D77A982042E11700FA03B8 /* StopZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopZone.swift; sourceTree = "<group>"; };
 		26D77A9A2042E2B300FA03B8 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 				263722D12030D0AB00CDCC4B /* Models */,
 				26A579061FF2EC500087ADD9 /* AppDelegate.swift */,
 				26A579121FF2EC500087ADD9 /* Info.plist */,
+				26D116C120ED4703006E9C1C /* GoogleService-Info.plist */,
 				26B4D96820BDF901004EC19A /* Assets.xcassets */,
 				26A579201FF393400087ADD9 /* UIAdvanced.swift */,
 				268BC6941FF85B7200B9AC68 /* AdvancedString.swift */,
@@ -430,6 +434,7 @@
 				26A579011FF2EC500087ADD9 /* Resources */,
 				A038AE65CDB2B4EE99C9B690 /* [CP] Embed Pods Frameworks */,
 				2680F789201747E100194331 /* Embed App Extensions */,
+				26D116C420ED4DB8006E9C1C /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -502,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2680F781201747E100194331 /* MainInterface.storyboard in Resources */,
+				26D116C320ED4704006E9C1C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +534,7 @@
 				2611CB7B20666A1200F2F8A2 /* Localizable.strings in Resources */,
 				26F621E820E92EB7007C4CC0 /* ItineraryDetailView.xib in Resources */,
 				26AA2A2C205720B50066F7FB /* ResearcherViewController.xib in Resources */,
+				26D116C220ED4704006E9C1C /* GoogleService-Info.plist in Resources */,
 				2617F23B20A77365001ACE7B /* TextResearcherView.xib in Resources */,
 				26A5790C1FF2EC500087ADD9 /* Main.storyboard in Resources */,
 			);
@@ -554,6 +561,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		26D116C420ED4DB8006E9C1C /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"";
+		};
 		A038AE65CDB2B4EE99C9B690 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,26 +583,34 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Mpl./Pods-Mpl.-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLite.swift/SQLite.framework",
 				"${BUILT_PRODUCTS_DIR}/SWXMLHash/SWXMLHash.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLite.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWXMLHash.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -861,7 +890,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4FE7A9BF84A8CE3C367EA59F /* Pods-Mpl..debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -881,7 +910,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E2DABBD32BD99C766227731A /* Pods-Mpl..release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

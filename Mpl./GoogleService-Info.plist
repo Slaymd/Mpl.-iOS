@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>659987317469-sh12etgd1h5j4p0cgaq782ofc8lgn34d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.659987317469-sh12etgd1h5j4p0cgaq782ofc8lgn34d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCwNWxzaVUldtKh4Gec1JwXLxhEmc4d1-I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>659987317469</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>eu.epitechproject.mpl</string>
+	<key>PROJECT_ID</key>
+	<string>mpl-app-193213</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mpl-app-193213.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:659987317469:ios:bf4f5135431da701</string>
+	<key>DATABASE_URL</key>
+	<string>https://mpl-app-193213.firebaseio.com</string>
+</dict>
+</plist>

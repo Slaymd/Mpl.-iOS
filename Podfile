@@ -14,6 +14,10 @@ target 'Mpl.' do
   pod 'Alamofire', '~> 4.6'
   pod 'SWXMLHash', '~> 4.0.0'
   pod 'SwiftyJSON'
+  pod 'Firebase/Core'
+  pod 'Firebase/Performance'
+  pod 'Fabric', '~> 1.7.7'
+  pod 'Crashlytics', '~> 3.10.2'
 
 end
 

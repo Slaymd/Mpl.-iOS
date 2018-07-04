@@ -36,6 +36,9 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
             name: NSNotification.Name.UIKeyboardWillShow,
             object: nil
         )
+        
+        //Keyboard load
+        self.newSearchField.becomeFirstResponder()
     }
     
     //MARK: - HEADER VIEW HEIGHT WHILE SCROLLING STATION LIST

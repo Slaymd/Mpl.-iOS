@@ -73,6 +73,33 @@ class MapData {
         var polyline: MGLPolylineFeature?
         var index = 0
         
+        //No intermediate stops
+        if tripSegment.intermediateStops.count == 0 {
+            
+            if tripSegment.mode == .BUS || tripSegment.mode == .TRAMWAY {
+                
+                guard let departureStop = tripSegment.departureStop else { return nil }
+                guard let arrivalStop = tripSegment.arrivalStop else { return nil }
+                
+                //getting polyline from departure stop to arrival stop
+                let raw_polyline = TransportData.getPolyline(fromStopId: departureStop.id, toStopId: arrivalStop.id, onLineId: tripSegment.line!.id)
+                coordinates.append(contentsOf: raw_polyline)
+                //If subpolyline wasn't found draw line between two stations
+                if raw_polyline.count == 0 {
+                    coordinates.append(departureStop.coords.coordinate)
+                    coordinates.append(arrivalStop.coords.coordinate)
+                }
+            } else if tripSegment.mode == .WALK {
+                
+                guard let departureLoc = tripSegment.departure else { return nil }
+                guard let arrivalLoc = tripSegment.arrival else { return nil }
+                
+                coordinates.append(departureLoc.coordinate)
+                coordinates.append(arrivalLoc.coordinate)
+            }
+            
+        }
+        
         for interloc in tripSegment.intermediateStops {
             if tripSegment.mode == .BUS || tripSegment.mode == .TRAMWAY {
                 if index == 0 {
