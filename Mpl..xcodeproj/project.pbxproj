@@ -15,12 +15,12 @@
 		2617F23A20A77365001ACE7B /* TextResearcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2617F23820A77365001ACE7B /* TextResearcherView.swift */; };
 		2617F23B20A77365001ACE7B /* TextResearcherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2617F23920A77365001ACE7B /* TextResearcherView.xib */; };
 		2618DB232055972A00EC8E4B /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2618DB222055972A00EC8E4B /* Schedule.swift */; };
-		26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 26200517201A2F3400D684E8 /* mapLightStyle.json */; };
 		2632915C200371D2007C5156 /* Timetable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632915B200371D2007C5156 /* Timetable.swift */; };
 		2632915E20037EDF007C5156 /* DayDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632915D20037EDF007C5156 /* DayDate.swift */; };
 		263964EF205A8527007938FB /* UILineCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263964EE205A8527007938FB /* UILineCard.swift */; };
 		26442B7420654FAB00A3CC36 /* StationPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26442B7220654FAB00A3CC36 /* StationPopUpView.swift */; };
 		26442B7520654FAB00A3CC36 /* StationPopUpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26442B7320654FAB00A3CC36 /* StationPopUpView.xib */; };
+		264D088720F0128100185378 /* referential_android-5.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 264D088620F0128100185378 /* referential_android-5.sqlite */; };
 		264E04C4201E194A006885A5 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264E04C2201E194A006885A5 /* UserView.swift */; };
 		264E04C5201E194A006885A5 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 264E04C3201E194A006885A5 /* UserView.xib */; };
 		265680DD20D1735F009D8355 /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265680DC20D1735F009D8355 /* MapData.swift */; };
@@ -36,7 +36,6 @@
 		2680F785201747E100194331 /* nextArrivals.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2680F779201747E100194331 /* nextArrivals.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2682E1DA20753F1E009F6E93 /* UIMultiDirectionSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */; };
 		2682E1DC20754D05009F6E93 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2682E1DB20754D05009F6E93 /* ScheduleData.swift */; };
-		26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 26897A8920C3214A00B62D1A /* referential_android.sqlite */; };
 		268BC6951FF85B7200B9AC68 /* AdvancedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268BC6941FF85B7200B9AC68 /* AdvancedString.swift */; };
 		268DDF6F20EAA58F00389C23 /* UIItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268DDF6E20EAA58F00389C23 /* UIItinerary.swift */; };
 		268F77FC201786D100F3366F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268F77FA201786D100F3366F /* HomeView.swift */; };
@@ -58,7 +57,6 @@
 		26A579291FF3CF520087ADD9 /* Ubuntu-R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26A579271FF3CECF0087ADD9 /* Ubuntu-R.ttf */; };
 		26A5792D1FF3D36E0087ADD9 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5792C1FF3D36E0087ADD9 /* Line.swift */; };
 		26A5792F1FF3E3500087ADD9 /* UIStationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A5792E1FF3E3500087ADD9 /* UIStationCard.swift */; };
-		26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A579301FF3EED80087ADD9 /* UILineLogo.swift */; };
 		26A85C0E206307C2009298CB /* DisruptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A85C0D206307C2009298CB /* DisruptionData.swift */; };
 		26A85C1020630B97009298CB /* Disruption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A85C0F20630B97009298CB /* Disruption.swift */; };
 		26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA2A29205720B50066F7FB /* ResearcherViewController.swift */; };
@@ -127,12 +125,12 @@
 		261CA3B720BFEB7A002B7DCB /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		261CA3B820BFEB7A002B7DCB /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = fr; path = fr.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		261CA3B920BFEB7A002B7DCB /* es */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = es; path = es.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		26200517201A2F3400D684E8 /* mapLightStyle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mapLightStyle.json; sourceTree = "<group>"; };
 		2632915B200371D2007C5156 /* Timetable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timetable.swift; sourceTree = "<group>"; };
 		2632915D20037EDF007C5156 /* DayDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayDate.swift; sourceTree = "<group>"; };
 		263964EE205A8527007938FB /* UILineCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILineCard.swift; sourceTree = "<group>"; };
 		26442B7220654FAB00A3CC36 /* StationPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationPopUpView.swift; sourceTree = "<group>"; };
 		26442B7320654FAB00A3CC36 /* StationPopUpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StationPopUpView.xib; sourceTree = "<group>"; };
+		264D088620F0128100185378 /* referential_android-5.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = "referential_android-5.sqlite"; sourceTree = "<group>"; };
 		264E04C2201E194A006885A5 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		264E04C3201E194A006885A5 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
 		265680DC20D1735F009D8355 /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 		2680F782201747E100194331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIMultiDirectionSchedule.swift; sourceTree = "<group>"; };
 		2682E1DB20754D05009F6E93 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
-		26897A8920C3214A00B62D1A /* referential_android.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = referential_android.sqlite; sourceTree = "<group>"; };
 		268BC6941FF85B7200B9AC68 /* AdvancedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedString.swift; sourceTree = "<group>"; };
 		268DDF6E20EAA58F00389C23 /* UIItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIItinerary.swift; sourceTree = "<group>"; };
 		268F77FA201786D100F3366F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -173,7 +170,6 @@
 		26A579271FF3CECF0087ADD9 /* Ubuntu-R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-R.ttf"; sourceTree = "<group>"; };
 		26A5792C1FF3D36E0087ADD9 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		26A5792E1FF3E3500087ADD9 /* UIStationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStationCard.swift; sourceTree = "<group>"; };
-		26A579301FF3EED80087ADD9 /* UILineLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILineLogo.swift; sourceTree = "<group>"; };
 		26A85C0D206307C2009298CB /* DisruptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisruptionData.swift; sourceTree = "<group>"; };
 		26A85C0F20630B97009298CB /* Disruption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disruption.swift; sourceTree = "<group>"; };
 		26AA2A29205720B50066F7FB /* ResearcherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearcherViewController.swift; sourceTree = "<group>"; };
@@ -288,7 +284,6 @@
 				2665FC44205E9B930089DF95 /* UIStationMapCard.swift */,
 				2696BC29205C731B00210F15 /* UILightStationCard.swift */,
 				263964EE205A8527007938FB /* UILineCard.swift */,
-				26A579301FF3EED80087ADD9 /* UILineLogo.swift */,
 				26D1B86B206816AA00B2D16F /* UIMonoDirectionSchedule.swift */,
 				2682E1D920753F1E009F6E93 /* UIMultiDirectionSchedule.swift */,
 				26C9051420CB43E40077D8AB /* UISNCFSchedule.swift */,
@@ -389,8 +384,7 @@
 		26E2A36F200F5CE400BF656A /* data */ = {
 			isa = PBXGroup;
 			children = (
-				26897A8920C3214A00B62D1A /* referential_android.sqlite */,
-				26200517201A2F3400D684E8 /* mapLightStyle.json */,
+				264D088620F0128100185378 /* referential_android-5.sqlite */,
 			);
 			path = data;
 			sourceTree = "<group>";
@@ -523,13 +517,12 @@
 				26A579111FF2EC500087ADD9 /* LaunchScreen.storyboard in Resources */,
 				26B4D96920BDF901004EC19A /* Assets.xcassets in Resources */,
 				26A579281FF3CF4E0087ADD9 /* Ubuntu-M.ttf in Resources */,
+				264D088720F0128100185378 /* referential_android-5.sqlite in Resources */,
 				264E04C5201E194A006885A5 /* UserView.xib in Resources */,
 				26A579241FF3CE980087ADD9 /* Ubuntu-B.ttf in Resources */,
 				26A2BD6B20D6E7C000F4178E /* LocationFinderPopUpView.xib in Resources */,
 				2672E0E020C69B220086830B /* FinderView.xib in Resources */,
 				26A2BD6720D6C8F400F4178E /* ItinerariesOverviewView.xib in Resources */,
-				26897A8A20C3214A00B62D1A /* referential_android.sqlite in Resources */,
-				26200518201A2F3400D684E8 /* mapLightStyle.json in Resources */,
 				268F780320178AD400F3366F /* MapView.xib in Resources */,
 				2611CB7B20666A1200F2F8A2 /* Localizable.strings in Resources */,
 				26F621E820E92EB7007C4CC0 /* ItineraryDetailView.xib in Resources */,
@@ -662,7 +655,6 @@
 				26A85C1020630B97009298CB /* Disruption.swift in Sources */,
 				26D7900720DFBD220052FB53 /* UILineIcon.swift in Sources */,
 				26AA2A2B205720B50066F7FB /* ResearcherViewController.swift in Sources */,
-				26A579311FF3EED80087ADD9 /* UILineLogo.swift in Sources */,
 				26A579211FF393400087ADD9 /* UIAdvanced.swift in Sources */,
 				26D77A9B2042E2B300FA03B8 /* Stop.swift in Sources */,
 				26BC3B8C2049830000831BF0 /* HomeStationCollectionViewCell.swift in Sources */,

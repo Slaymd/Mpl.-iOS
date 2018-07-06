@@ -43,7 +43,7 @@ class StationPopUpView: UIViewController {
     var disturbancesPanel: UIView?
     var directionsPanel: UIView?
     
-    var schedulesUI: [(schedules: (line: Line, dest: Stop, times: [Int]), panel: UIView, lineLogo: UILineLogo, destLabel: MarqueeLabel, timesUI: [UIMonoDirectionSchedule])] = []
+    var schedulesUI: [(schedules: (line: Line, dest: Stop, times: [Int]), panel: UIView, lineLogo: UILineIcon, destLabel: MarqueeLabel, timesUI: [UIMonoDirectionSchedule])] = []
     var disturbances: [(disruption: Disruption, lines: [Line])] = []
     
     var refresher: Timer!
@@ -293,8 +293,8 @@ class StationPopUpView: UIViewController {
             self.disturbancesPanel!.addSubview(icon)
             for i2 in 0..<disturbance.lines.count {
                 let line = disturbance.lines[i2]
-                let lineLogo = UILineLogo(lineShortName: line.shortName, bgColor: UIColor.white.withAlphaComponent(0.8), fontColor: UIColor(hex: "f39c12"), type: line.type, at: CGPoint(x: 3+48*(i2+1), y: 304+(28+4+25)*i))
-                self.disturbancesPanel?.addSubview(lineLogo.panel)
+                let lineLogo = UILineIcon(line, at: CGPoint(x: 3+48*(i2+1), y: 304+(28+4+25)*i))
+                self.disturbancesPanel?.addSubview(lineLogo)
             }
             
             //Disruption title
@@ -365,7 +365,7 @@ class StationPopUpView: UIViewController {
     //MARK: - SCHEDULES DESIGNER
     
     private func addNewDirection(schedule: (line: Line, dest: Stop, times: [Int])) {
-        var scheduleUI: (schedules: (line: Line, dest: Stop, times: [Int]), panel: UIView, lineLogo: UILineLogo, destLabel: MarqueeLabel, timesUI: [UIMonoDirectionSchedule])
+        var scheduleUI: (schedules: (line: Line, dest: Stop, times: [Int]), panel: UIView, lineLogo: UILineIcon, destLabel: MarqueeLabel, timesUI: [UIMonoDirectionSchedule])
         scheduleUI.schedules = schedule
         
         //Panel
@@ -375,8 +375,8 @@ class StationPopUpView: UIViewController {
         scheduleUI.panel = panel
         
         //Line logo
-        let lineLogo = UILineLogo(lineShortName: schedule.line.shortName, bgColor: schedule.line.bgColor, fontColor: schedule.line.ftColor, type: schedule.line.type, at: CGPoint(x: 15, y: 0))
-        panel.addSubview(lineLogo.panel)
+        let lineLogo = UILineIcon(schedule.line, at: CGPoint(x: 15, y: 0))
+        panel.addSubview(lineLogo)
         scheduleUI.lineLogo = lineLogo
         
         //Direction text

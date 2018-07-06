@@ -75,8 +75,8 @@ class UIStationMapCard: UIView {
             }
             let x = Int(UIScreen.main.bounds.width)-15-(40+5)*dispId
             let y = (Int(frame.height)-20)/2-4
-            let lineLogo = UILineLogo(lineShortName: line.shortName, bgColor: line.bgColor, fontColor: line.ftColor, type: line.type, at: CGPoint(x: x, y: y))
-            self.addSubview(lineLogo.panel)
+            let lineLogo = UILineIcon(line, at: CGPoint(x: x, y: y))
+            self.addSubview(lineLogo)
             dispId += 1
         }
         

@@ -49,6 +49,10 @@ class UILineIcon: UIView {
         self.init(frame: CGRect(x: at.x, y: at.y, width: 40, height: 28), line: line, type: .DARK)
     }
     
+    convenience init(_ line: Line, at: CGPoint, type: UILineIconType) {
+        self.init(frame: CGRect(x: at.x, y: at.y, width: 40, height: 28), line: line, type: type)
+    }
+    
     convenience init(frame: CGRect, line: Line) {
         self.init(frame: frame, line: line, type: .DARK)
     }
@@ -60,6 +64,8 @@ class UILineIcon: UIView {
             icon = type == .DARK ? #imageLiteral(resourceName: "lanavette-light") : #imageLiteral(resourceName: "lanavette-dark")
         } else if line.tamId == 15 {
             icon = type == .DARK ? #imageLiteral(resourceName: "laronde-light") : #imageLiteral(resourceName: "laronde-dark")
+        } else if line.tamId == 50 {
+            icon = type == .DARK ? #imageLiteral(resourceName: "navettegare-light") : #imageLiteral(resourceName: "navettegare-dark")
         }
         //init
         self.init(frame: frame, lineIdentifier: line.shortName, backgroundColor: type == .LIGHT ? UIColor.white : line.bgColor, fontColor: type == .LIGHT ? line.bgColor : line.ftColor, type: line.type, icon: icon)

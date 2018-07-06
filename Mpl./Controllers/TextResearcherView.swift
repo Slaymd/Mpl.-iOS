@@ -115,7 +115,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         //Filter each stations with good name
         filteredStations = TransportData.stopZones.filter({$0.name.toASCII().lowercased().replacingOccurrences(of: "-", with: " ").contains(name)})
         //Sort by number of lines
-        filteredStations.sort(by: {($0.getLines().count > 0 && $1.getLines().count > 0) && $0.getLines()[0].tamId < $1.getLines()[0].tamId})
+        filteredStations.sort(by: {($0.getLines().count > 0 && $1.getLines().count > 0) && $0.getLines()[0].displayId < $1.getLines()[0].displayId})
         filteredStations.sort(by: {$0.getLines().count > $1.getLines().count})
         filteredStations.sort(by: {$0.lines.filter({$0.type == .TRAMWAY}).count > $1.lines.filter({$0.type == .TRAMWAY}).count})
         updateStationList(with: filteredStations)

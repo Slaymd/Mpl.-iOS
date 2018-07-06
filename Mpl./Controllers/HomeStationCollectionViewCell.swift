@@ -33,7 +33,7 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
     var homeView: HomeView? = nil
     
     var plusLabel: UILabel!
-    var linesLogos = [UILineLogo]()
+    var linesLogos = [UILineIcon]()
     
     var station: StopZone? = nil
     
@@ -167,8 +167,10 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
         self.stationName.text = station.name.uppercased()
         //Station lines logos
         for logo in self.linesLogos {
-            logo.label.removeFromSuperview()
-            logo.panel.removeFromSuperview()
+            for view in logo.subviews {
+                view.removeFromSuperview()
+            }
+            logo.removeFromSuperview()
         }
         dispAvailableLines(station)
     }
@@ -182,9 +184,9 @@ class HomeStationCollectionViewCell: UICollectionViewCell {
                 self.plusLabel.text = "+\(lines.count-2)"
                 break
             }
-            let lineLogo = UILineLogo(lineShortName: lines[i].shortName, bgColor: lines[i].bgColor, fontColor: lines[i].ftColor, type: lines[i].type, at: CGPoint(x: 0, y: 28*i))
+            let lineLogo = UILineIcon(lines[i], at: CGPoint(x: 0, y: 28*i))
             self.linesLogos.append(lineLogo)
-            self.card.addSubview(lineLogo.panel)
+            self.card.addSubview(lineLogo)
             if linesLogos.count == 1 {
                 self.card.roundCorners([.bottomRight, .topRight, .bottomLeft], radius: 15)
                 self.card.layer.cornerRadius = 15

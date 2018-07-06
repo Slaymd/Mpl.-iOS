@@ -15,7 +15,7 @@ class UILightStationCard: UIView {
     var station: StopZone
     var distance: Double
     
-    var logos: [UILineLogo] = []
+    var logos: [UILineIcon] = []
     var label: MarqueeLabel?
     
     var distanceIcon: UIImageView?
@@ -45,9 +45,9 @@ class UILightStationCard: UIView {
         for i in 0..<lines.count {
             if (x-50 < Int(self.frame.width)/2) { break }
             x -= 50
-            let logo = UILineLogo(lineShortName: lines[i].shortName, bgColor: lines[i].bgColor, fontColor: lines[i].ftColor, type: lines[i].type, at: CGPoint(x: x, y: (Int(self.frame.height)-28)/2))
+            let logo = UILineIcon(lines[i], at: CGPoint(x: x, y: (Int(self.frame.height)-28)/2))
             self.logos.append(logo)
-            self.addSubview(logo.panel)
+            self.addSubview(logo)
         }
         
         //Station name

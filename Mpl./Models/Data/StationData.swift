@@ -23,7 +23,8 @@ class StationData {
     
     static private let specialStations: [(stopZoneId: Int, dataTypes: [(type: StationDataType, info: Any?)])] = [
         (stopZoneId: 308, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")]),
-        (stopZoneId: 651, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")])]
+        (stopZoneId: 651, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87773002")]),
+        (stopZoneId: 667, dataTypes: [(type: .PUBLIC_TRANSPORT, info: nil), (type: .SNCF, info: "stop_area:OCE:SA:87688887")])]
     
     static private var sncfSchedules: [(stopArea: String, requestTime: Double, schedules: [SNCFSchedule])] = []
     

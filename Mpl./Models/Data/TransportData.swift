@@ -50,8 +50,13 @@ class TransportData {
     private static var lineStops: [(line: Line, dirs: [(direction: Int, stopsId: [Int])])] = []
     
     static func initDatabase() {
-        let databasePath = Bundle.main.path(forResource: "referential_android", ofType: "sqlite")!
-        let refdb = try? Connection(databasePath)
+        let databasePath = Bundle.main.path(forResource: "referential_android-5", ofType: "sqlite")
+        
+        if databasePath == nil {
+            os_log("Error while loading referential database", type: .error)
+            return
+        }
+        let refdb = try? Connection(databasePath!)
         
         if refdb == nil { return }
         self.referenceDatabase = refdb

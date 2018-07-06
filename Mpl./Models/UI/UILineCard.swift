@@ -12,7 +12,7 @@ import MarqueeLabel
 class UILineCard: UIView {
     
     var line: Line?
-    var logo: UILineLogo?
+    var logo: UILineIcon?
     var destinationsLabels: [UILabel] = []
     var animState: Int = 0
     
@@ -31,9 +31,9 @@ class UILineCard: UIView {
         self.backgroundColor = line.bgColor
         
         //Line Logo
-        let logo = UILineLogo(lineShortName: line.shortName, bgColor: .white, fontColor: line.bgColor, type: line.type, at: CGPoint(x: 10, y: 10))
+        let logo = UILineIcon(line, at: CGPoint(x: 10, y: 10), type: .LIGHT)
         self.logo = logo
-        self.addSubview(logo.panel)
+        self.addSubview(logo)
         
         //Destination
         let sortedDests = line.directions.sorted(by: {$0.count < $1.count})
@@ -69,7 +69,7 @@ class UILineCard: UIView {
         
         if self.logo == nil { return }
         self.normalHeight = self.frame.height
-        height = self.logo!.panel.frame.minY * 2 + self.logo!.panel.frame.height
+        height = self.logo!.frame.minY * 2 + self.logo!.frame.height
         for destLabel in self.destinationsLabels {
             destLabel.isHidden = true
         }
