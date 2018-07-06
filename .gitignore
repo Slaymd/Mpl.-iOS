@@ -1,0 +1,5 @@
+firestore.indexes.json
+firebase.json
+firestore.rules
+functions/
+.firebaserc
