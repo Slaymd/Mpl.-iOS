@@ -80,17 +80,17 @@ class MainScrollView: UIViewController, UIScrollViewDelegate, CLLocationManagerD
         //mapView.viewDidLoad()
         self.mapController = mapView
         
-        self.addChildViewController(homeView)
+        self.addChild(homeView)
         self.scrollView.addSubview(homeView.view)
-        homeView.didMove(toParentViewController: self)
+        homeView.didMove(toParent: self)
         
-        self.addChildViewController(userView)
+        self.addChild(userView)
         self.scrollView.addSubview(userView.view)
-        userView.didMove(toParentViewController: self)
+        userView.didMove(toParent: self)
         
-        self.addChildViewController(mapView)
+        self.addChild(mapView)
         self.scrollView.addSubview(mapView.view)
-        mapView.didMove(toParentViewController: self)
+        mapView.didMove(toParent: self)
         
         var homeViewFrame = homeView.view.frame
         homeViewFrame.origin.x = homeView.view.frame.width

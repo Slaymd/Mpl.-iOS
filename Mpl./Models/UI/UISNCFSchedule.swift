@@ -41,7 +41,7 @@ class UISNCFSchedule: UIView {
             self.baseDepartureLabel!.font = UIFont(name: "Ubuntu-Medium", size: 12)
             self.baseDepartureLabel!.textColor = UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1.0)
             let attributedString = NSMutableAttributedString(string: schedule.baseDeparture.formatted)
-            attributedString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
+            attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
             self.baseDepartureLabel!.attributedText = attributedString
             self.baseDepartureLabel!.textAlignment = .center
             delayedView!.addSubview(baseDepartureLabel!)

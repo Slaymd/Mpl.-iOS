@@ -33,7 +33,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow),
-            name: NSNotification.Name.UIKeyboardWillShow,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         
@@ -70,7 +70,7 @@ class TextResearcherView: UIViewController, UITextFieldDelegate, UIScrollViewDel
     //MARK: - GETTING KEYBOARD HEIGHT
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             keyboardHeight = keyboardRectangle.height
             self.updateStationList(with: self.lastFilteredStations)
